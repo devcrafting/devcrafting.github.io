@@ -15,13 +15,16 @@ module Document =
         Prefix: string option
     }
 
-    type Metadata = {
-        UniqueKey: string
-        Url: string
-        Title: string
-        Date: DateTime
-        Body: MarkdownParagraphs
-    }
+    type Metadata<'T> = 
+        {
+            UniqueKey: string
+            Url: string
+            Title: string
+            Date: DateTime
+            Body: 'T
+        }
+        member x.With(body) =
+            { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body }
 
     (* Following code comes from https://github.com/tpetricek/tomasp.net/blob/master/tools/document.fs *)
     type DisposableFile(file, deletes) =
@@ -123,7 +126,10 @@ module Document =
                 else
                     Literate.ParseMarkdownFile(file)
             let article = parseMetadata withOptions file (readMetadata document.Paragraphs)
-            article
-        //| ".html" | ".cshtml" ->
+
+            use tmpBody = DisposableFile.CreateTemp(".html")
+            Literate.ProcessDocument(document.With(article.Body), tmpBody.FileName) 
+
+            article.With(File.ReadAllText(tmpBody.FileName))
         | _ -> failwith "Not supported file!"
 
