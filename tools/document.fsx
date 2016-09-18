@@ -11,11 +11,13 @@ module Document =
     type GenerationOptions = {
         OutputDir: string
         SourceDir: string
+        Root: string
         Prefix: string option
     }
 
     type Metadata = {
         UniqueKey: string
+        Url: string
         Title: string
         Date: DateTime
         Body: MarkdownParagraphs
@@ -104,6 +106,10 @@ module Document =
             UniqueKey = defaultArg (tryFind "uniquekey" props) ""
             Title = formatSpans title
             Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
+            Url = cfg.Root + (Path.ChangeExtension(file.Substring(cfg.SourceDir.Length), "")
+                                .TrimEnd('.')
+                                .Replace("/index", "")
+                                .Replace('\\', '/'))
             Body = body
         }
 
