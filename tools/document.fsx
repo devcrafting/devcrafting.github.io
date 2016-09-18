@@ -22,9 +22,11 @@ module Document =
             Title: string
             Date: DateTime
             Body: 'T
+            Tags: string list
         }
         member x.With(body) =
-            { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body }
+            { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body
+              Tags = x.Tags }
 
     (* Following code comes from https://github.com/tpetricek/tomasp.net/blob/master/tools/document.fs *)
     type DisposableFile(file, deletes) =
@@ -114,6 +116,8 @@ module Document =
                                 .Replace("/index", "")
                                 .Replace('\\', '/'))
             Body = body
+            Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
+                    |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
         }
 
     let transform file withOptions =

@@ -10,4 +10,5 @@ let result = Document.Document.transform
     Url = "http://www.devcrafting.com/fr"
     Title = "Accueil"
     Date = new System.DateTime(2016, 4, 15, 4, 0, 0)
-    Body = "" }
+    Body = ""
+    Tags = [ "foo"; "bar" ] }
