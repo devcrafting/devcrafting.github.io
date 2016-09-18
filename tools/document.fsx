@@ -123,7 +123,7 @@ module Document =
             Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
             Url = cfg.Root + (Path.ChangeExtension(normalizedRelativeFileName, "")
                                 .TrimEnd('.')
-                                .Replace("/index", ""))
+                                .Replace("/index", "")) + "/"
             Body = body
             Type = extractFromFileName 2
             Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
