@@ -6,8 +6,8 @@
     * Date
     * Abstract (=> separator in file) VS extracted first words used in listing => standalone abstract 
     * URL from file name
-    * Lang given by first level dir in sources => make it a function ?
-    * Type of article: blog post, page...
+    * Lang given by first level dir in sources => make it an injectable function ?
+    * Type of article: blog post, page... => from second level dir in sources
     * Tags to classify articles
     * UniqueKey
 * Common layout : 1 for blog post and 1 for single pages

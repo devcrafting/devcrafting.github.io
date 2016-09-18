@@ -18,15 +18,17 @@ module Document =
     type Metadata<'T> = 
         {
             UniqueKey: string
+            Language: string option
             Url: string
             Title: string
             Date: DateTime
             Body: 'T
+            Type: string option
             Tags: string list
         }
         member x.With(body) =
             { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body
-              Tags = x.Tags }
+              Tags = x.Tags; Language = x.Language; Type = x.Type }
 
     (* Following code comes from https://github.com/tpetricek/tomasp.net/blob/master/tools/document.fs *)
     type DisposableFile(file, deletes) =
@@ -107,15 +109,23 @@ module Document =
 
     (* Adapted to support multi lang *)
     let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, body) =
+        let normalizedRelativeFileName = file.Substring(cfg.SourceDir.Length).Replace('\\', '/')
+        let extractFromFileName level =
+            let splittedFileName = normalizedRelativeFileName.Split([| '/' |], StringSplitOptions.RemoveEmptyEntries)
+            if splittedFileName.Length < level + 1 then
+                None
+            else
+                splittedFileName |> Seq.skip (level - 1) |> Seq.head |> Some
         { 
             UniqueKey = defaultArg (tryFind "uniquekey" props) ""
+            Language = extractFromFileName 1
             Title = formatSpans title
             Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
-            Url = cfg.Root + (Path.ChangeExtension(file.Substring(cfg.SourceDir.Length), "")
+            Url = cfg.Root + (Path.ChangeExtension(normalizedRelativeFileName, "")
                                 .TrimEnd('.')
-                                .Replace("/index", "")
-                                .Replace('\\', '/'))
+                                .Replace("/index", ""))
             Body = body
+            Type = extractFromFileName 2
             Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                     |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
         }
