@@ -1,3 +1,12 @@
-TODO 
-Liens vers l'accueil anglais et français (pour les moteurs de recherche)
-+ JS pour redirect en fonction de la langue
+<html>
+    <body>
+        <script type="text/javascript">
+        var userLang = navigator.language || navigator.userLanguage;
+        if (userLang.substring(0,2) == 'fr'){
+            window.location.href = '/fr/';
+        } else {
+            window.location.href = '/en/';
+        }
+        </script>
+    </body>
+</html>

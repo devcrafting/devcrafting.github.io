@@ -28,12 +28,11 @@ let rec listFiles root = seq {
       yield! listFiles d }
 
 let processFile cfg (file:String) =
-    printfn "Processing file: %s" (file.Replace(cfg.SourceDir, ""))
     let article = transform file cfg
+    printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) article.Layout
     let outFile = article.Url.Replace(cfg.Root, cfg.OutputDir) </> "index.html"
     ensureDirectory (Path.GetDirectoryName outFile)
-    let layout = defaultArg article.Type "default"
-    DotLiquid.transform outFile (layout + ".html") article
+    DotLiquid.transform outFile (article.Layout + ".html") article
 
 let generateSite cfg =
     listFiles cfg.SourceDir |> List.ofSeq

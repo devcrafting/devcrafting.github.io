@@ -95,6 +95,8 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
             None
         else
             splittedFileName |> Seq.skip (level - 1) |> Seq.head |> Some
+    let articleType = extractFromFileName 2
+
     { 
         UniqueKey = defaultArg (tryFind "uniquekey" props) ""
         Language = extractFromFileName 1
@@ -104,7 +106,8 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
                             .TrimEnd('.')
                             .Replace("/index", "")) + "/"
         Body = body
-        Type = extractFromFileName 2
+        Type = articleType
+        Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
         Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
     }
@@ -124,6 +127,11 @@ let transform file withOptions =
         Literate.ProcessDocument(document.With(article.Body), tmpBody.FileName) 
 
         article.With(File.ReadAllText(tmpBody.FileName))
-    | ".html" -> parseMetadata withOptions file (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), new Dictionary<string, string>(), File.ReadAllText(file))
+    | ".html" -> 
+        parseMetadata 
+            withOptions file 
+            (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), 
+            dict[ "layout", "raw" ], 
+            File.ReadAllText(file))
     | _ -> failwith "Not supported file!"
 
