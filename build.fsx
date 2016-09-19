@@ -81,6 +81,19 @@ let startServer () =
 // FAKE
 Target "run" (fun () ->
     generateSite cfg
+    let all = __SOURCE_DIRECTORY__ |> Path.GetFullPath
+    use watcher = 
+        !! (all </> "**/*.*") -- (all </> ".git") -- (all </> ".git/**/*.*") 
+        |> WatchChanges (fun e ->
+            printfn "Changed files"
+            e |> Seq.iter (fun f -> printfn " - %s" f.Name)
+            try
+                generateSite cfg 
+                //refreshEvent.Trigger ()
+                trace "Site updated successfully..."
+            with e ->
+                traceError "Updating site failed!"
+                traceException e )
     startServer ()
     Diagnostics.Process.Start(sprintf "http://localhost:%d" port) |> ignore
     trace "Waiting for changes, press Enter to stop...."

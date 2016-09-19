@@ -124,5 +124,6 @@ let transform file withOptions =
         Literate.ProcessDocument(document.With(article.Body), tmpBody.FileName) 
 
         article.With(File.ReadAllText(tmpBody.FileName))
+    | ".html" -> parseMetadata withOptions file (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), new Dictionary<string, string>(), File.ReadAllText(file))
     | _ -> failwith "Not supported file!"
 
