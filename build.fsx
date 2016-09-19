@@ -1,5 +1,6 @@
 #r "packages/FAKE/tools/FakeLib.dll"
 #r "packages/DotLiquid/lib/NET45/DotLiquid.dll"
+#r "packages/Suave/lib/net40/Suave.dll"
 
 #load "packages/FSharp.Formatting/FSharp.Formatting.fsx"
 #load "tools/domain.fs"
@@ -40,4 +41,50 @@ let generateSite cfg =
 
 DotLiquid.initialize cfg 
 
-generateSite cfg
+// Suave Web server for debugging
+open Suave
+open Suave.Filters
+open Suave.Operators
+
+let port = 11111
+
+let handleDir dir = 
+  let html = File.ReadAllText(cfg.OutputDir </> dir </> "index.html")
+  html.Replace(cfg.Root, sprintf "http://localhost:%d" port)
+      //.Replace("</body", wsRefresh + "</body")
+      //.Replace("</head", "<link href='/custom/bootstrap.css' rel='stylesheet'></head")
+  |> Successful.OK
+
+let app = 
+    choose [
+        (*path "/websocket" >=> handShake (fun ws ctx -> async {
+            let msg = System.Text.Encoding.UTF8.GetBytes "refreshed"
+            while true do
+                do! refreshEvent.Publish |> Control.Async.AwaitEvent
+                do! ws.send Text msg true |> Async.Ignore
+            return Choice1Of2 () })*) 
+        path "/" >=> request (fun _ -> handleDir "")
+        pathScan "/%s/" handleDir
+        Files.browseHome ]
+
+let serverConfig =
+  { Web.defaultConfig with
+      homeFolder = Some cfg.OutputDir
+      logger = Logging.Loggers.saneDefaultsFor Logging.LogLevel.Warn
+      bindings = [ HttpBinding.mkSimple HTTP "127.0.0.1" port ] }
+
+let startServer () =
+  let _, start = Web.startWebServerAsync serverConfig app
+  let cts = new System.Threading.CancellationTokenSource()
+  Async.Start(start, cts.Token)
+
+// FAKE
+Target "run" (fun () ->
+    generateSite cfg
+    startServer ()
+    Diagnostics.Process.Start(sprintf "http://localhost:%d" port) |> ignore
+    trace "Waiting for changes, press Enter to stop...."
+    Console.ReadLine () |> ignore 
+)
+
+RunTargetOrDefault "run"

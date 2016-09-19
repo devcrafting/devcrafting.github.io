@@ -16,3 +16,4 @@
     * Switch from one lang to another if several article with same UniqueKey exist 
     * Tags pages by language
 * Deploy to gh-pages branch automatically
+* RSS flux

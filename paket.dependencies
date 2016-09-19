@@ -4,3 +4,4 @@ nuget FSharp.Core
 nuget FSharp.Formatting 3.0.0-beta01
 nuget DotLiquid
 nuget FAKE
+nuget Suave
