@@ -45,24 +45,37 @@ DotLiquid.initialize cfg
 open Suave
 open Suave.Filters
 open Suave.Operators
+open Suave.WebSocket
 
 let port = 11111
+let refreshEvent = new Event<unit>()
+
+let wsRefresh = """
+  <script language="javascript" type="text/javascript">
+    function init() {
+      try {
+        websocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/websocket");
+        websocket.onmessage = function(evt) { location.reload(); };
+      } catch (e) { /* silently ignore lack of websockets */ }
+    }
+    window.addEventListener("load", init, false);
+  </script>"""
 
 let handleDir dir = 
   let html = File.ReadAllText(cfg.OutputDir </> dir </> "index.html")
   html.Replace(cfg.Root, sprintf "http://localhost:%d" port)
-      //.Replace("</body", wsRefresh + "</body")
+      .Replace("</body", wsRefresh + "</body")
       //.Replace("</head", "<link href='/custom/bootstrap.css' rel='stylesheet'></head")
   |> Successful.OK
 
 let app = 
     choose [
-        (*path "/websocket" >=> handShake (fun ws ctx -> async {
+        path "/websocket" >=> handShake (fun ws ctx -> async {
             let msg = System.Text.Encoding.UTF8.GetBytes "refreshed"
             while true do
                 do! refreshEvent.Publish |> Control.Async.AwaitEvent
                 do! ws.send Text msg true |> Async.Ignore
-            return Choice1Of2 () })*) 
+            return Choice1Of2 () })
         path "/" >=> request (fun _ -> handleDir "")
         pathScan "/%s/" handleDir
         Files.browseHome ]
@@ -89,7 +102,7 @@ Target "run" (fun () ->
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)
             try
                 generateSite cfg 
-                //refreshEvent.Trigger ()
+                refreshEvent.Trigger ()
                 trace "Site updated successfully..."
             with e ->
                 traceError "Updating site failed!"
