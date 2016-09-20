@@ -110,7 +110,7 @@ Target "run" (fun () ->
     generateSite cfg
     let all = __SOURCE_DIRECTORY__ |> Path.GetFullPath
     use watcher = 
-        !! (all </> "source/*.*") ++ (all </> "layouts")
+        !! (all </> "source/**/*.*") ++ (all </> "layouts/*.*")
         |> WatchChanges (fun e ->
             printfn "Changed files"
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)
