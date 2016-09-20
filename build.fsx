@@ -27,16 +27,23 @@ let rec listFiles root = seq {
     for d in Directory.GetDirectories(root) do
       yield! listFiles d }
 
-let processFile cfg (file:String) =
-    let article = transform file cfg
-    printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) article.Layout
-    let outFile = article.Url.Replace(cfg.Root, cfg.OutputDir) </> "index.html"
+type ArticleViewModel = {
+    Article: Article<string>
+}
+
+let processFile cfg (file:String) articleViewModel =
+    printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
+    let outFile = articleViewModel.Article.Url.Replace(cfg.Root, cfg.OutputDir) </> "index.html"
     ensureDirectory (Path.GetDirectoryName outFile)
-    DotLiquid.transform outFile (article.Layout + ".html") article
+    DotLiquid.transform outFile (articleViewModel.Article.Layout + ".html") articleViewModel
 
 let generateSite cfg =
-    listFiles cfg.SourceDir |> List.ofSeq
-    |> Seq.iter (processFile cfg)
+    let articles =
+        listFiles cfg.SourceDir |> List.ofSeq
+        |> Seq.map (fun file -> file, transform cfg file)
+    // TODO : build a site view model
+    articles
+    |> Seq.iter (fun (file, article) -> processFile cfg file { Article = article } )
 
 DotLiquid.initialize cfg 
 

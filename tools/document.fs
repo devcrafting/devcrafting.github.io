@@ -112,7 +112,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
     }
 
-let transform file withOptions =
+let transform withOptions file =
     match Path.GetExtension(file).ToLower() with
     | (".fsx" | ".md") as extension ->
         use html = DisposableFile.CreateTemp(".html")

@@ -10,7 +10,7 @@ type GenerationOptions = {
     Prefix: string option
 }
 
-type Metadata<'T> = 
+type Article<'T> = 
     {
         UniqueKey: string
         Language: string option
