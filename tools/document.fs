@@ -126,12 +126,12 @@ let transform withOptions file =
         use tmpBody = DisposableFile.CreateTemp(".html")
         Literate.ProcessDocument(document.With(article.Body), tmpBody.FileName) 
 
-        article.With(File.ReadAllText(tmpBody.FileName))
+        Article (file, article.With(File.ReadAllText(tmpBody.FileName)))
     | ".html" -> 
-        parseMetadata 
-            withOptions file 
-            (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), 
-            dict[ "layout", "raw" ], 
-            File.ReadAllText(file))
-    | _ -> failwith "Not supported file!"
+        Article (file, parseMetadata 
+                        withOptions file 
+                        (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), 
+                        dict[ "layout", "raw" ], 
+                        File.ReadAllText(file)))
+    | _ -> Content file
 

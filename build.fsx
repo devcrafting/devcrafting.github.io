@@ -37,13 +37,21 @@ let processFile cfg (file:String) articleViewModel =
     ensureDirectory (Path.GetDirectoryName outFile)
     DotLiquid.transform outFile (articleViewModel.Article.Layout + ".html") articleViewModel
 
+let copyFile cfg (file:String) =
+    printfn "Copying content file: %s" (file.Replace(cfg.SourceDir, ""))
+    let outFile = file.Replace(cfg.SourceDir, cfg.OutputDir)
+    ensureDirectory (Path.GetDirectoryName outFile)
+    File.Copy(file, outFile, true)
+
 let generateSite cfg =
-    let articles =
+    let files =
         listFiles cfg.SourceDir |> List.ofSeq
-        |> Seq.map (fun file -> file, transform cfg file)
+        |> Seq.map (fun file -> transform cfg file)
     // TODO : build a site view model
-    articles
-    |> Seq.iter (fun (file, article) -> processFile cfg file { Article = article } )
+    files
+    |> Seq.iter (function 
+        | Article (file, article) -> processFile cfg file { Article = article }
+        | Content file -> copyFile cfg file)
 
 DotLiquid.initialize cfg 
 
@@ -102,7 +110,7 @@ Target "run" (fun () ->
     generateSite cfg
     let all = __SOURCE_DIRECTORY__ |> Path.GetFullPath
     use watcher = 
-        !! (all </> "**/*.*") -- (all </> ".git") -- (all </> ".git/**/*.*") 
+        !! (all </> "source/*.*") ++ (all </> "layouts")
         |> WatchChanges (fun e ->
             printfn "Changed files"
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)

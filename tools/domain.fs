@@ -25,3 +25,7 @@ type Article<'T> =
     member x.With(body) =
         { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body
           Tags = x.Tags; Language = x.Language; Type = x.Type; Layout = x.Layout }
+
+type File =
+| Content of string
+| Article of string * Article<string>
