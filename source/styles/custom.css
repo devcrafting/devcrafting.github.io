@@ -3,3 +3,67 @@ body {
     color: rgb(220, 220, 220);
     font-family: "Lucida Sans";
 }
+.navbar-devcrafting .navbar-nav > li > a:hover {
+    background-color: transparent;
+    color: rgb(220, 220, 220);
+}
+
+.navbar-devcrafting .navbar-nav > li > a {
+    color: rgb(240, 150, 9);
+    font-size: 24px;
+}
+
+.navbar-devcrafting .navbar-nav > .active > a,
+.navbar-devcrafting .navbar-nav > .active > a:focus,
+.navbar-devcrafting .navbar-nav > .active > a:hover {
+    color: rgb(220, 220, 220);
+    background: rgb(30, 30, 30);
+}
+
+.navbar-devcrafting .navbar-toggle {
+    border-color:  #333;
+}
+
+.navbar-devcrafting .navbar-toggle .icon-bar {
+    background-color: rgb(220, 220, 220);
+}
+
+.navbar-devcrafting .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+    background-color: #333;
+}
+
+
+
+@media (min-width: 768px) {
+    .nav .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav .dropdown .caret {
+        display: none;
+    }
+}
+
+.dropdown-menu > li > a {
+    color: rgb(240, 150, 9);
+    font-size: 32px;
+}
+
+@media (min-width: 768px) {
+    .navbar-devcrafting .navbar-nav > li > a {
+        padding-bottom: 40px;
+        padding-top: 40px;
+        font-size: 48px;
+    }
+}
+
+.navbar-brand, .navbar-brand > img {
+    height: 100px;
+    padding: 0;
+}
+
+.navbar-nav {
+    font-family: "Freestyle Script";
+}
