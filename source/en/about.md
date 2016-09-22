@@ -1,5 +1,4 @@
-About DevCrafting
-=================
+About
+=====
 
 - uniquekey: about
-- shortTitle: About

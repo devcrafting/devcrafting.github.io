@@ -4,12 +4,12 @@ open Navbar
 
 let menu submenu menuItem =
     [
-        (*subMenu "services" [
+        subMenu "services" [
             menuItem "architecture-and-conception"
-            menuItem "software-craftsmanship"
+            menuItem "software-craftsmanship-practices"
             menuItem "agile-approaches"
         ]
         menuItem "blog"
-        menuItem "contact"*)
+        menuItem "contact"
         menuItem "about"
     ]
