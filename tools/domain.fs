@@ -13,7 +13,7 @@ type GenerationOptions = {
 type Article<'T> = 
     {
         UniqueKey: string
-        Language: string option
+        Language: string
         Url: string
         Title: string
         ShortTitle: string

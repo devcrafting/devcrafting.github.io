@@ -23,7 +23,7 @@ let menuItem key = fun articles ->
 let generateMenu menuDefinition language articles =
     let articlesByKey = 
         articles
-        |> Seq.filter (fun a -> match a.Language with Some l -> l = language | None -> false) 
+        |> Seq.filter (fun a -> a.Language = language) 
         |> Seq.groupBy (fun a -> a.UniqueKey)
         |> dict
     menuDefinition subMenu menuItem

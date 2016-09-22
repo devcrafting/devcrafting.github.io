@@ -53,7 +53,7 @@ let generateSite cfg =
         listFiles cfg.SourceDir |> List.ofSeq
         |> Seq.map (fun file -> transform cfg file)
     let articles = files |> Seq.choose (function | Article (_, article) -> Some article | _ -> None)
-    let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.choose id |> Seq.distinct
+    let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.distinct
     let menuByLanguage = 
         languagesUsed
         |> Seq.map (fun l -> l, generateMenu menu l articles |> List.ofSeq)
@@ -64,7 +64,7 @@ let generateSite cfg =
         | Article (file, article) -> 
             processFile cfg file 
                 { Article = article
-                  Navbar = menuByLanguage.[defaultArg article.Language "fr"] }
+                  Navbar = menuByLanguage.[article.Language] }
         | Content file -> copyFile cfg file)
 
 DotLiquid.initialize cfg 

@@ -99,7 +99,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
     let titleString = formatSpans title
     { 
         UniqueKey = defaultArg (tryFind "uniquekey" props) ""
-        Language = extractFromFileName 1
+        Language = defaultArg (extractFromFileName 1) "fr"
         Title = titleString
         ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
