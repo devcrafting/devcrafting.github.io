@@ -28,8 +28,9 @@ let private localFileSystem root =
 /// other records, register the type with DotLiquid so that its fields are accessible
 let private tryRegisterTypeTree ty =
     let registered = Dictionary<_, _>()
-    let rec loop ty =
-        if not (registered.ContainsKey ty) then
+    let rec loop (ty:Type) =
+        if not (registered.ContainsKey ty.FullName) then
+            registered.[ty.FullName] <- true
             if FSharpType.IsRecord ty then
                 let fields = FSharpType.GetRecordFields ty
                 Template.RegisterSafeType(ty, [| for f in fields -> f.Name |])
@@ -43,7 +44,6 @@ let private tryRegisterTypeTree ty =
                     loop (ty.GetGenericArguments().[0])            
             elif ty.IsArray then          
                 loop (ty.GetElementType())
-            registered.[ty] <- true
     loop ty
 
 type private Renderer<'T> = string -> 'T-> string

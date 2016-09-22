@@ -16,6 +16,7 @@ type Article<'T> =
         Language: string option
         Url: string
         Title: string
+        ShortTitle: string
         Date: DateTime
         Body: 'T
         Type: string option
@@ -23,8 +24,9 @@ type Article<'T> =
         Tags: string list
     }
     member x.With(body) =
-        { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; Date = x.Date; Body = body
-          Tags = x.Tags; Language = x.Language; Type = x.Type; Layout = x.Layout }
+        { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; ShortTitle = x.ShortTitle
+          Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language; Type = x.Type
+          Layout = x.Layout }
 
 type File =
 | Content of string

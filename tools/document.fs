@@ -96,11 +96,12 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
         else
             splittedFileName |> Seq.skip (level - 1) |> Seq.head |> Some
     let articleType = extractFromFileName 2
-
+    let titleString = formatSpans title
     { 
         UniqueKey = defaultArg (tryFind "uniquekey" props) ""
         Language = extractFromFileName 1
-        Title = formatSpans title
+        Title = titleString
+        ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
         Url = cfg.Root + (Path.ChangeExtension(normalizedRelativeFileName, "")
                             .TrimEnd('.')

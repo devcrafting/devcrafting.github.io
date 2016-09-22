@@ -6,6 +6,7 @@
 #load "tools/domain.fs"
 #load "tools/document.fs"
 #load "tools/dotliquid.fs"
+#load "navbardef.fsx"
 
 open System
 open System.IO
@@ -13,6 +14,8 @@ open Fake
 
 open Document
 open Domain
+open Navbar
+open Navbardef
 
 let cfg = { 
     SourceDir = __SOURCE_DIRECTORY__ </> "source"
@@ -29,6 +32,8 @@ let rec listFiles root = seq {
 
 type ArticleViewModel = {
     Article: Article<string>
+    //ArticlesLanguages: Article<string> list
+    Navbar: NavbarItem list
 }
 
 let processFile cfg (file:String) articleViewModel =
@@ -47,10 +52,19 @@ let generateSite cfg =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
         |> Seq.map (fun file -> transform cfg file)
+    let articles = files |> Seq.choose (function | Article (_, article) -> Some article | _ -> None)
+    let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.choose id |> Seq.distinct
+    let menuByLanguage = 
+        languagesUsed
+        |> Seq.map (fun l -> l, generateMenu menu l articles |> List.ofSeq)
+        |> dict
     // TODO : build a site view model
     files
     |> Seq.iter (function 
-        | Article (file, article) -> processFile cfg file { Article = article }
+        | Article (file, article) -> 
+            processFile cfg file 
+                { Article = article
+                  Navbar = menuByLanguage.[defaultArg article.Language "fr"] }
         | Content file -> copyFile cfg file)
 
 DotLiquid.initialize cfg 
