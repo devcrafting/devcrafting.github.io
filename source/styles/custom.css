@@ -8,6 +8,19 @@ h2 {
     color: rgb(240, 150, 9);
 }
 
+.navbar-brand, .navbar-brand > img {
+    height: 100px;
+    padding: 0;
+}
+
+.navbar-devcrafting {
+    font-family: "Freestyle Script";
+}
+
+.navbar-devcrafting {
+    font-size: 24px;
+}
+
 .navbar-devcrafting .navbar-nav > li > a:hover {
     background-color: transparent;
     color: rgb(220, 220, 220);
@@ -15,6 +28,9 @@ h2 {
 
 .navbar-devcrafting .navbar-nav > li > a {
     color: rgb(240, 150, 9);
+}
+
+.navbar-devcrafting .navbar-nav.lang-switcher > li > a {
     font-size: 24px;
 }
 
@@ -23,6 +39,11 @@ h2 {
 .navbar-devcrafting .navbar-nav > .active > a:hover {
     color: rgb(220, 220, 220);
     background: rgb(30, 30, 30);
+}
+
+.navbar-devcrafting .navbar-nav.lang-switcher > .active > a {
+    text-decoration: underline;
+    font-weight: bolder;
 }
 
 .navbar-devcrafting .navbar-toggle {
@@ -37,9 +58,25 @@ h2 {
     background-color: #333;
 }
 
+.dropdown-menu > li > a {
+    color: rgb(240, 150, 9);
+    font-size: 32px;
+}
 
+.lang-mobile-only {
+    display: none;
+}
 
 @media (min-width: 768px) {
+    .navbar-devcrafting {
+        font-size: 48px;
+    }
+
+    .navbar-devcrafting .navbar-nav > li > a {
+        padding-bottom: 40px;
+        padding-top: 40px;
+    }
+
     .nav .dropdown:hover > .dropdown-menu {
         display: block;
     }
@@ -49,28 +86,20 @@ h2 {
     .nav .dropdown .caret {
         display: none;
     }
-}
 
-.dropdown-menu > li > a {
-    color: rgb(240, 150, 9);
-    font-size: 32px;
-}
-
-@media (min-width: 768px) {
-    .navbar-devcrafting .navbar-nav > li > a {
-        padding-bottom: 40px;
-        padding-top: 40px;
-        font-size: 48px;
+    .navbar-devcrafting .navbar-nav.lang-switcher > li {
+        display: inline-block;
     }
-}
+    
+    .navbar-devcrafting .navbar-nav.lang-switcher > li > a {
+        display: inline-block;
+        font-size: 18px;
+    }
 
-.navbar-brand, .navbar-brand > img {
-    height: 100px;
-    padding: 0;
-}
-
-.navbar-nav {
-    font-family: "Freestyle Script";
+    .lang-mobile-only {
+        float: left;
+        display: inline-block;
+    }
 }
 
 .social-links > a.fa {
