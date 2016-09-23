@@ -7,6 +7,7 @@ type GenerationOptions = {
     SourceDir: string
     LayoutsDir: string
     Root: string
+    OutputGitRemote: string
     Prefix: string option
 }
 

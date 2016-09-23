@@ -11,6 +11,7 @@
 open System
 open System.IO
 open Fake
+open Fake.Git
 
 open Document
 open Domain
@@ -21,6 +22,7 @@ let cfg = {
     SourceDir = __SOURCE_DIRECTORY__ </> "source"
     OutputDir = __SOURCE_DIRECTORY__ </> "output"
     LayoutsDir = __SOURCE_DIRECTORY__ </> "layouts"
+    OutputGitRemote = "https://github.com/devcrafting/devcrafting.com"
     Root = "http://www.devcrafting.com"
     Prefix = Some "" }
 
@@ -67,6 +69,14 @@ let generateSite cfg =
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language] }
         | Content file -> copyFile cfg file)
+
+let regenerateSite () = 
+  trace "Regenerating site from scratch"
+  for dir in Directory.GetDirectories(cfg.OutputDir) do
+    if not (dir.EndsWith(".git")) then 
+      CleanDir dir; Directory.Delete dir
+  for f in Directory.GetFiles(cfg.OutputDir) do File.Delete f
+  generateSite cfg
 
 DotLiquid.initialize cfg 
 
@@ -140,6 +150,20 @@ Target "run" (fun () ->
     Diagnostics.Process.Start(sprintf "http://localhost:%d" port) |> ignore
     trace "Waiting for changes, press Enter to stop...."
     Console.ReadLine () |> ignore 
+)
+
+Target "publish" (fun () ->
+    runGitCommand __SOURCE_DIRECTORY__ "add ." |> ignore
+    runGitCommand __SOURCE_DIRECTORY__ (sprintf "commit -a -m \"Updating site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
+    Git.Branches.push __SOURCE_DIRECTORY__
+
+    if System.IO.Directory.Exists(cfg.OutputDir) then
+        runGitCommand cfg.OutputDir (sprintf "clone -b gh-pages %s output" cfg.OutputGitRemote) |> ignore
+    
+    regenerateSite ()
+    runGitCommand cfg.OutputDir "add ." |> ignore
+    runGitCommand cfg.OutputDir (sprintf "commit -a -m \"Updating site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
+    Git.Branches.push cfg.OutputDir
 )
 
 RunTargetOrDefault "run"
