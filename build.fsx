@@ -32,7 +32,7 @@ let rec listFiles root = seq {
 
 type ArticleViewModel = {
     Article: Article<string>
-    //ArticlesLanguages: Article<string> list
+    ArticlesLanguages: Article<string> list
     Navbar: NavbarItem list
 }
 
@@ -58,12 +58,13 @@ let generateSite cfg =
         languagesUsed
         |> Seq.map (fun l -> l, generateMenu menu l articles |> List.ofSeq)
         |> dict
-    // TODO : build a site view model
+    let articlesByKey = articles |> Seq.groupBy (fun a -> a.UniqueKey) |> dict
     files
     |> Seq.iter (function 
         | Article (file, article) -> 
             processFile cfg file 
                 { Article = article
+                  ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language] }
         | Content file -> copyFile cfg file)
 
