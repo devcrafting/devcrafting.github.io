@@ -1,0 +1,12 @@
+<html>
+    <body>
+        <script type="text/javascript">
+        var userLang = navigator.language || navigator.userLanguage;
+        if (userLang.substring(0,2) == 'fr'){
+            window.location.href = '/fr/';
+        } else {
+            window.location.href = '/en/';
+        }
+        </script>
+    </body>
+</html>
