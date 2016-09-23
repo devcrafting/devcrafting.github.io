@@ -71,12 +71,13 @@ let generateSite cfg =
         | Content file -> copyFile cfg file)
 
 let regenerateSite () = 
-  trace "Regenerating site from scratch"
-  for dir in Directory.GetDirectories(cfg.OutputDir) do
-    if not (dir.EndsWith(".git")) then 
-      CleanDir dir; Directory.Delete dir
-  for f in Directory.GetFiles(cfg.OutputDir) do File.Delete f
-  generateSite cfg
+    trace "Regenerating site from scratch"
+    if System.IO.Directory.Exists(cfg.OutputDir) then
+        for dir in Directory.GetDirectories(cfg.OutputDir) do
+            if not (dir.EndsWith(".git")) then 
+                CleanDir dir; Directory.Delete dir
+        for f in Directory.GetFiles(cfg.OutputDir) do File.Delete f
+    generateSite cfg
 
 DotLiquid.initialize cfg 
 
@@ -153,17 +154,18 @@ Target "run" (fun () ->
 )
 
 Target "publish" (fun () ->
-    runGitCommand __SOURCE_DIRECTORY__ "add ." |> ignore
+    (*runGitCommand __SOURCE_DIRECTORY__ "add ." |> ignore
     runGitCommand __SOURCE_DIRECTORY__ (sprintf "commit -a -m \"Updating site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
     Git.Branches.push __SOURCE_DIRECTORY__
-
+*)
     if System.IO.Directory.Exists(cfg.OutputDir) then
+        trace "Cloning remote repository with "
         runGitCommand cfg.OutputDir (sprintf "clone -b gh-pages %s output" cfg.OutputGitRemote) |> ignore
     
     regenerateSite ()
     runGitCommand cfg.OutputDir "add ." |> ignore
-    runGitCommand cfg.OutputDir (sprintf "commit -a -m \"Updating site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
-    Git.Branches.push cfg.OutputDir
+    runGitCommand cfg.OutputDir (sprintf "commit -a -m \"Publish site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
+    //Git.Branches.push cfg.OutputDir
 )
 
 RunTargetOrDefault "run"

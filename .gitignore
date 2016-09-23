@@ -1,3 +1,4 @@
+.fake/
 .paket/
 !.paket/paket.bootstrapper.exe
 packages/
