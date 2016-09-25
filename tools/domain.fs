@@ -23,11 +23,12 @@ type Article<'T> =
         Type: string option
         Layout: string
         Tags: string list
+        Hidden: bool
     }
     member x.With(body) =
         { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; ShortTitle = x.ShortTitle
           Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language; Type = x.Type
-          Layout = x.Layout }
+          Layout = x.Layout; Hidden = x.Hidden }
 
 type File =
 | Content of string

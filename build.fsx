@@ -54,7 +54,10 @@ let generateSite cfg =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
         |> Seq.map (fun file -> transform cfg file)
-    let articles = files |> Seq.choose (function | Article (_, article) -> Some article | _ -> None)
+    let articles = 
+        files
+        |> Seq.choose (function | Article (_, article) -> Some article | _ -> None)
+        |> Seq.filter (fun a -> not a.Hidden)
     let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.distinct
     let menuByLanguage = 
         languagesUsed
