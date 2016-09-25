@@ -40,7 +40,7 @@ type ArticleViewModel = {
 
 let processFile cfg (file:String) articleViewModel =
     printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
-    let outFile = articleViewModel.Article.Url.Replace(cfg.Root, cfg.OutputDir) </> "index.html"
+    let outFile = cfg.OutputDir </> articleViewModel.Article.Url.Substring(1) </> "index.html"
     ensureDirectory (Path.GetDirectoryName outFile)
     DotLiquid.transform outFile (articleViewModel.Article.Layout + ".html") articleViewModel
 
@@ -162,7 +162,7 @@ Target "publish" (fun () ->
         trace "Cloning remote repository with "
         let cloneLocation = DirectoryInfo(cfg.OutputDir).Parent.FullName
         let cloneDirectory = DirectoryInfo(cfg.OutputDir).Name
-        runGitCommand cloneLocation (sprintf "clone -b gh-pages %s %s" cfg.OutputGitRemote cloneDirectory) |> ignore
+        runGitCommand cloneLocation (sprintf "clone -b master %s %s" cfg.OutputGitRemote cloneDirectory) |> ignore
     
     regenerateSite ()
     runGitCommand cfg.OutputDir "add ." |> ignore

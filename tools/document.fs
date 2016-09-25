@@ -103,9 +103,9 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
         Title = titleString
         ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
-        Url = cfg.Root + (Path.ChangeExtension(normalizedRelativeFileName, "")
-                            .TrimEnd('.')
-                            .Replace("/index", "")) + "/"
+        Url = (Path.ChangeExtension(normalizedRelativeFileName, "")
+                .TrimEnd('.')
+                .Replace("/index", "")) + "/"
         Body = body
         Type = articleType
         Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
