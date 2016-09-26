@@ -78,16 +78,35 @@ let private (|Properties|) = function
         props |> List.map readProperty |> dict, rest
     | rest -> dict [], rest
 
+let private (|Let|) p v = p, v
+
+let private (|Abstract|) = function
+  | HorizontalRule(_)::ListBlock(kind=MarkdownListKind.Unordered; items=props)::rest 
+  | HorizontalRule(_)::Let [] (props, rest) ->
+      let rec split acc = function
+        | HorizontalRule _ :: rest -> List.rev acc, rest
+        | p :: rest -> split (p::acc) rest
+        | _ -> failwith "Parsing abstract failed"
+      let standalone = props |> Seq.exists(function [Span(body=[Literal(text="standalone")])] -> true | _ -> false)
+      let abs, rest = split [] rest
+      Some(standalone, abs), rest
+  | rest -> None, rest
+
 let private readMetadata (paragraphs:MarkdownParagraphs) =
     match paragraphs with 
-    | Heading(size=1; body=title)::Properties(props, rest) -> title, props, rest
+    | Heading(size=1; body=title)::Properties(props, Abstract(abs, rest)) -> title, props, abs, rest
     | f -> failwithf "No metadata %A" f
 
 let private tryFind k (props:IDictionary<string, string>) = 
     if props.ContainsKey k then Some(props.[k]) else None
 
 (* Adapted to support multi lang *)
-let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, body) =
+let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, abstractOpt, body) =
+    let abs, body =
+        match abstractOpt with
+        | Some(true, abs) -> abs, body
+        | Some(false, abs) -> abs, (abs @ body)
+        | None -> [], body
     let normalizedRelativeFileName = file.Substring(cfg.SourceDir.Length).Replace('\\', '/')
     let extractFromFileName level =
         let splittedFileName = normalizedRelativeFileName.Split([| '/' |], StringSplitOptions.RemoveEmptyEntries)
@@ -102,6 +121,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
         Language = defaultArg (extractFromFileName 1) "fr"
         Title = titleString
         ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
+        Abstract = abs
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
         Url = (Path.ChangeExtension(normalizedRelativeFileName, "")
                 .TrimEnd('.')
@@ -127,13 +147,13 @@ let transform withOptions file =
 
         use tmpBody = DisposableFile.CreateTemp(".html")
         Literate.ProcessDocument(document.With(article.Body), tmpBody.FileName) 
+        use tmpAbstract = DisposableFile.CreateTemp(".html")
+        Literate.ProcessDocument(document.With(article.Abstract), tmpAbstract.FileName) 
 
-        Article (file, article.With(File.ReadAllText(tmpBody.FileName)))
+        Article (file, article.With(File.ReadAllText(tmpBody.FileName), File.ReadAllText(tmpAbstract.FileName)))
     | ".html" -> 
-        Article (file, parseMetadata 
-                        withOptions file 
-                        (MarkdownSpans.Cons (MarkdownSpan.Literal ("", None), []), 
-                        dict[ "layout", "raw" ], 
-                        File.ReadAllText(file)))
+        Article (file, { UniqueKey = "index"; Language = ""; Url = "/"; Title = ""; ShortTitle = ""
+                         Abstract = ""; Date = DateTime.MinValue; Body = File.ReadAllText(file);
+                         Type = None; Layout = "raw"; Tags = []; Hidden = false })
     | _ -> Content file
 

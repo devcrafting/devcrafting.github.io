@@ -125,6 +125,9 @@ module Filters =
     let mailEncode (url:string) =
         urlEncode(url).Replace("+", "%20")
 
+    let localizedDate (d:DateTime, format:string, lang:string) =
+        d.ToString(format, System.Globalization.CultureInfo.GetCultureInfo(lang))
+
     let dateAsIso (d:DateTime) = 
         d.ToString("o")
 

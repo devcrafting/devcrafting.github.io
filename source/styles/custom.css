@@ -2,10 +2,19 @@ body {
     background-color: rgb(30, 30, 30);
     color: rgb(220, 220, 220);
     font-family: "Lucida Sans";
+    font-size: 16px;
 }
 
 h2 {
     color: rgb(240, 150, 9);
+}
+
+a, a:visited {
+    color: #FAB81E;
+}
+
+a:hover, a:active, h3.devcrafting-post-title-listing a {
+    color: rgb(220, 220, 220);
 }
 
 .navbar-brand, .navbar-brand > img {

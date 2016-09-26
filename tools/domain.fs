@@ -18,6 +18,7 @@ type Article<'T> =
         Url: string
         Title: string
         ShortTitle: string
+        Abstract: 'T
         Date: DateTime
         Body: 'T
         Type: string option
@@ -25,10 +26,10 @@ type Article<'T> =
         Tags: string list
         Hidden: bool
     }
-    member x.With(body) =
+    member x.With(body, abs) =
         { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; ShortTitle = x.ShortTitle
-          Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language; Type = x.Type
-          Layout = x.Layout; Hidden = x.Hidden }
+          Abstract = abs; Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language
+          Type = x.Type; Layout = x.Layout; Hidden = x.Hidden }
 
 type File =
 | Content of string
