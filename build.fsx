@@ -152,14 +152,17 @@ let startServer () =
 // FAKE
 Target "run" (fun () ->
     generateSite cfg Set.empty
-    let all = __SOURCE_DIRECTORY__ |> Path.GetFullPath
     use watcher = 
-        !! (all </> "source/**/*.*") ++ (all </> "layouts/*.*")
+        !! (cfg.SourceDir </> "**/*.*") ++ (cfg.LayoutsDir </> "*.*")
         |> WatchChanges (fun e ->
             printfn "Changed files"
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)
             try
-                generateSite cfg (set [ for f in e -> f.FullPath ]) 
+                if e |> Seq.exists (fun f -> f.FullPath.StartsWith(cfg.LayoutsDir)) then
+                    printfn "Layout changed, regenerating all files..."
+                    generateSite cfg Set.empty
+                else
+                    generateSite cfg (set [ for f in e -> f.FullPath ])
                 refreshEvent.Trigger ()
                 trace "Site updated successfully..."
             with e ->
