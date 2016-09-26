@@ -67,6 +67,14 @@ h2 {
     display: none;
 }
 
+.fa-tags > a::after {
+    content: ','
+}
+
+.fa-tags > a:last-child::after {
+    content: ''
+}
+
 @media (min-width: 768px) {
     .navbar-devcrafting {
         font-size: 48px;
@@ -79,6 +87,10 @@ h2 {
 
     .nav .dropdown:hover > .dropdown-menu {
         display: block;
+    }
+
+    .devcrafting-mobile-text-right {
+        text-align: right;
     }
 }
 

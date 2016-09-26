@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+    {{ model.Article.Body }}
+    {% for post in model.BlogPosts %}
+        <article>
+            <h3><a href="{{ post.Url }}">{{ post.Title }}</a></h3>
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <span class="fa fa-tags"/>
+                    {% for tag in post.Tags %}
+                        <a href="">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+                    <!-- nb comments + link => Disqus -->
+                    <span class="fa fa-clock-o"/>
+                    {{ post.Date }}
+                </div>
+            </div>
+        </article>
+        <hr/>
+    {% endfor %}
+{% endblock %}

@@ -34,6 +34,7 @@ let rec listFiles root = seq {
 
 type ArticleViewModel = {
     Article: Article<string>
+    BlogPosts: Article<string> list
     ArticlesLanguages: Article<string> list
     Navbar: NavbarItem list
 }
@@ -64,11 +65,24 @@ let generateSite cfg =
         |> Seq.map (fun l -> l, generateMenu menu l articles |> List.ofSeq)
         |> dict
     let articlesByKey = articles |> Seq.groupBy (fun a -> a.UniqueKey) |> dict
+    let blogPosts = 
+        articles
+        |> Seq.filter (fun a -> a.Type = Some "blog" && a.Layout <> "bloglisting")
+        |> Seq.sortByDescending (fun a -> a.Date)
+        |> Seq.groupBy (fun a -> a.Language)
+        |> dict
+
     files
     |> Seq.iter (function 
-        | Article (file, article) -> 
+        | Article (file, article) ->
+            let blogPosts = 
+                if blogPosts.ContainsKey(article.Language) then
+                    blogPosts.[article.Language] |> List.ofSeq
+                else 
+                    [] 
             processFile cfg file 
                 { Article = article
+                  BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language] }
         | Content file -> copyFile cfg file)
