@@ -51,7 +51,7 @@ let copyFile cfg (file:String) =
     ensureDirectory (Path.GetDirectoryName outFile)
     File.Copy(file, outFile, true)
 
-let generateSite cfg =
+let generateSite cfg changes =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
         |> Seq.map (fun file -> transform cfg file)
@@ -74,7 +74,7 @@ let generateSite cfg =
 
     files
     |> Seq.iter (function 
-        | Article (file, article) ->
+        | Article (file, article) when changes = Set.empty || Set.contains file changes ->
             let blogPosts = 
                 if blogPosts.ContainsKey(article.Language) then
                     blogPosts.[article.Language] |> List.ofSeq
@@ -85,7 +85,8 @@ let generateSite cfg =
                   BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language] }
-        | Content file -> copyFile cfg file)
+        | Content file when changes = Set.empty || Set.contains file changes -> copyFile cfg file
+        | _ -> ())
 
 let regenerateSite () = 
     trace "Regenerating site from scratch"
@@ -94,7 +95,7 @@ let regenerateSite () =
             if not (dir.EndsWith(".git")) then 
                 CleanDir dir; Directory.Delete dir
         for f in Directory.GetFiles(cfg.OutputDir) do File.Delete f
-    generateSite cfg
+    generateSite cfg Set.empty
 
 DotLiquid.initialize cfg 
 
@@ -150,7 +151,7 @@ let startServer () =
 
 // FAKE
 Target "run" (fun () ->
-    generateSite cfg
+    generateSite cfg Set.empty
     let all = __SOURCE_DIRECTORY__ |> Path.GetFullPath
     use watcher = 
         !! (all </> "source/**/*.*") ++ (all </> "layouts/*.*")
@@ -158,7 +159,7 @@ Target "run" (fun () ->
             printfn "Changed files"
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)
             try
-                generateSite cfg 
+                generateSite cfg (set [ for f in e -> f.FullPath ]) 
                 refreshEvent.Trigger ()
                 trace "Site updated successfully..."
             with e ->
