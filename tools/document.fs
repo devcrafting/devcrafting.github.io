@@ -111,7 +111,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, b
         Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
         Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
-        Hidden = (tryFind "hidden" props = Some bool.TrueString)
+        Hidden = match tryFind "hidden" props with Some hidden -> bool.Parse(hidden) | None -> false
     }
 
 let transform withOptions file =
