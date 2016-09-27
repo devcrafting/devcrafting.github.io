@@ -17,5 +17,5 @@ let menu submenu menuItem =
 let translationByLanguage =
     dict [ ("dateFormat", 
             dict [ ("fr", "dddd d MMMM yyyy"); ("en", "dddd, MMMM d, yyyy") ])
-           ("test2",
-            dict [ ]) ]
+           ("continueReading",
+            dict [ ("fr", "Lire la suite..."); ("en", "continue reading...") ]) ]
