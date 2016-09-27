@@ -74,7 +74,8 @@ let generateSite cfg changes =
 
     files
     |> Seq.iter (function 
-        | Article (file, article) when changes = Set.empty || Set.contains file changes ->
+        | Article (file, article) 
+            when changes = Set.empty || Set.contains file changes || article.Layout = "bloglisting" ->
             let blogPosts = 
                 if blogPosts.ContainsKey(article.Language) then
                     blogPosts.[article.Language] |> List.ofSeq
@@ -85,7 +86,8 @@ let generateSite cfg changes =
                   BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language] }
-        | Content file when changes = Set.empty || Set.contains file changes -> copyFile cfg file
+        | Content file
+            when changes = Set.empty || Set.contains file changes -> copyFile cfg file
         | _ -> ())
 
 let regenerateSite () = 
@@ -123,7 +125,6 @@ let handleDir dir =
   let html = File.ReadAllText(cfg.OutputDir </> dir </> "index.html")
   html.Replace(cfg.Root, sprintf "http://localhost:%d" port)
       .Replace("</body", wsRefresh + "</body")
-      //.Replace("</head", "<link href='/custom/bootstrap.css' rel='stylesheet'></head")
   |> Successful.OK
 
 let app = 
