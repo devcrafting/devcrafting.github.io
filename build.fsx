@@ -6,7 +6,7 @@
 #load "tools/domain.fs"
 #load "tools/document.fs"
 #load "tools/dotliquid.fs"
-#load "navbardef.fsx"
+#load "config.fsx"
 
 open System
 open System.IO
@@ -16,7 +16,7 @@ open Fake.Git
 open Document
 open Domain
 open Navbar
-open Navbardef
+open Config
 
 let cfg = { 
     SourceDir = __SOURCE_DIRECTORY__ </> "source"
@@ -32,11 +32,15 @@ let rec listFiles root = seq {
     for d in Directory.GetDirectories(root) do
       yield! listFiles d }
 
+open System.Collections
+open System.Collections.Generic
+
 type ArticleViewModel = {
     Article: Article<string>
     BlogPosts: Article<string> list
     ArticlesLanguages: Article<string> list
     Navbar: NavbarItem list
+    Translations: IDictionary
 }
 
 let processFile cfg (file:String) articleViewModel =
@@ -50,6 +54,22 @@ let copyFile cfg (file:String) =
     let outFile = file.Replace(cfg.SourceDir, cfg.OutputDir)
     ensureDirectory (Path.GetDirectoryName outFile)
     File.Copy(file, outFile, true)
+
+let getTranslations languages = 
+    let translations = new Dictionary<string, Dictionary<string, obj>>()
+    languages
+    |> Seq.iter (fun lang -> 
+        let translationsForLang = new Dictionary<string, obj>()
+        translations.Add(lang, translationsForLang)
+        if not (String.IsNullOrWhiteSpace(lang)) then
+            translationByLanguage
+            |> Seq.iter (fun kvp ->
+                if kvp.Value.ContainsKey(lang) then
+                    translationsForLang.Add(kvp.Key, kvp.Value.[lang])
+                else
+                    traceImportant (sprintf "Translation missing for %s in %s" kvp.Key lang))
+    )
+    translations
 
 let generateSite cfg changes =
     let files =
@@ -71,6 +91,7 @@ let generateSite cfg changes =
         |> Seq.sortByDescending (fun a -> a.Date)
         |> Seq.groupBy (fun a -> a.Language)
         |> dict
+    let translations = getTranslations languagesUsed
 
     files
     |> Seq.iter (function 
@@ -85,7 +106,8 @@ let generateSite cfg changes =
                 { Article = article
                   BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
-                  Navbar = menuByLanguage.[article.Language] }
+                  Navbar = menuByLanguage.[article.Language]
+                  Translations = translations.[article.Language] }
         | Content file
             when changes = Set.empty || Set.contains file changes -> copyFile cfg file
         | _ -> ())
@@ -156,11 +178,11 @@ Target "run" (fun () ->
     use watcher = 
         !! (cfg.SourceDir </> "**/*.*") ++ (cfg.LayoutsDir </> "*.*")
         |> WatchChanges (fun e ->
-            printfn "Changed files"
+            trace "Changed files"
             e |> Seq.iter (fun f -> printfn " - %s" f.Name)
             try
                 if e |> Seq.exists (fun f -> f.FullPath.StartsWith(cfg.LayoutsDir)) then
-                    printfn "Layout changed, regenerating all files..."
+                    trace "Layout changed, regenerating all files..."
                     generateSite cfg Set.empty
                 else
                     generateSite cfg (set [ for f in e -> f.FullPath ])
@@ -190,6 +212,10 @@ Target "publish" (fun () ->
     runGitCommand cfg.OutputDir "add ." |> ignore
     runGitCommand cfg.OutputDir (sprintf "commit -a -m \"Publish site (%s)\"" (DateTime.Now.ToString("f"))) |> ignore
     Git.Branches.push cfg.OutputDir
+)
+
+Target "generate" (fun () ->
+    regenerateSite ()
 )
 
 RunTargetOrDefault "run"

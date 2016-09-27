@@ -13,3 +13,9 @@ let menu submenu menuItem =
         menuItem "contact"
         menuItem "about"
     ]
+
+let translationByLanguage =
+    dict [ ("dateFormat", 
+            dict [ ("fr", "dddd d MMMM yyyy"); ("en", "dddd, MMMM d, yyyy") ])
+           ("test2",
+            dict [ ]) ]

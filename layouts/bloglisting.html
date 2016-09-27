@@ -14,7 +14,7 @@
                 <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
                     <!-- nb comments + link => Disqus -->
                     <span class="fa fa-clock-o"/>
-                    {{ post.Date | localizedDate: "MMMM dd, yyyy", post.Language }}
+                    {{ post.Date | localizedDate: model.Translations.dateFormat, post.Language }}
                 </div>
             </div>
             <p class="lead">{{ post.Abstract }}</p>
