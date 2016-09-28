@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-    {{ model.Article.Body }}
+    {% block bodyHeader %}
+        {{ model.Article.Body }}
+    {% endblock %}
     {% for post in model.BlogPosts %}
         <article>
             <h3 class="devcrafting-post-title-listing"><a href="{{ post.Url }}">{{ post.Title }}</a></h3>
@@ -8,7 +10,7 @@
                 <div class="col-sm-6 col-md-6">
                     <span class="fa fa-tags"></span>
                     {% for tag in post.Tags %}
-                        <a href="" class="label label-default">{{ tag }}</a>
+                        <a href="/{{ post.Language }}/blog/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
                     {% endfor %}
                 </div>
                 <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">

@@ -6,14 +6,18 @@
     * Date
     * Abstract (=> separator in file) VS extracted first words used in listing => standalone abstract 
     * URL from file name
-    * Lang given by first level dir in sources => make it an injectable function ?
+    * Lang given by first level dir in sources
     * Type of article: blog post, page... => from second level dir in sources
     * Tags to classify articles
     * UniqueKey
-* Common layout : 1 for blog post and 1 for single pages
-* Listing pages : by tag, by date => through grouping functions on metadata
+* Configurable menu/navbar and localized strings through config.fsx file
+* Layouts localized : 1 for blog post, 1 for single pages
+* Listing pages localized : blog home + by tag, by date => through grouping functions on metadata
 * Manage several language for a same site :
-    * Switch from one lang to another if several article with same UniqueKey exist 
-    * Tags pages by language
-* Deploy to gh-pages branch automatically
+    * Switch from one lang to another if several articles with same UniqueKey exist
+* Deploy to gh-pages branch automatically (or master if [username].github.io repository)
+
+# Features TODO
+
 * RSS flux
+* SEO: no duplicate content, canonical url, nice URLs, XML sitemap

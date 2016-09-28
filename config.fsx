@@ -18,4 +18,6 @@ let translationByLanguage =
     dict [ ("dateFormat", 
             dict [ ("fr", "dddd d MMMM yyyy"); ("en", "dddd, MMMM d, yyyy") ])
            ("continueReading",
-            dict [ ("fr", "Lire la suite..."); ("en", "continue reading...") ]) ]
+            dict [ ("fr", "Lire la suite..."); ("en", "continue reading...") ])
+           ("postsTagged",
+            dict [ ("fr", "Articles avec le label"); ("en", "Posts tagged with") ]) ]
