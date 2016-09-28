@@ -21,3 +21,6 @@
 
 * RSS flux
 * SEO: no duplicate content, canonical url, nice URLs, XML sitemap
+* Comments integrated with Disqus (make it configurable)
+* Tag cloud canvas
+* Author ? Displayed on posts + page by authors
