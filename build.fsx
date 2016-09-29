@@ -94,7 +94,7 @@ let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (tr
             Navbar = navbar.[tag.Language]
             Translations = translations.[tag.Language] }
         printfn "Generate tag page for: %s" tagViewModel.Tag.Title
-        let outFile = cfg.OutputDir </> tagViewModel.Tag.Language </> "blog/tag" </> tagViewModel.Tag.Title </> "index.html"
+        let outFile = cfg.OutputDir </> tagViewModel.Tag.Language </> "tag" </> tagViewModel.Tag.Title </> "index.html"
         ensureDirectory (Path.GetDirectoryName outFile)
         DotLiquid.transform outFile (cfg.LayoutsDir </> "tag.html") tagViewModel
         tagViewModel

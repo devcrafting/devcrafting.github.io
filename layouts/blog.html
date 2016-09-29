@@ -1,5 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
+<article>
     <h1>{{ model.Article.Title }}</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <span class="fa fa-tags"></span>
+            {% for tag in model.Article.Tags %}
+                <a href="/{{ model.Article.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
+            {% endfor %}
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"/>
+            {{ model.Article.Date | localizedDate: model.Translations.dateFormat, model.Article.Language }}
+        </div>
+    </div>
     {{ model.Article.Body }}
+    <!-- TODO: comments => Disquss -->
+</article>
 {% endblock %}
