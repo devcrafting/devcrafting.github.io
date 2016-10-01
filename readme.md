@@ -12,14 +12,16 @@
     * UniqueKey
 * Configurable menu/navbar and localized strings through config.fsx file
 * Layouts localized : 1 for blog post, 1 for single pages
+    * Header with navbar
+    * Footer
 * Listing pages localized : blog home (limit nb of posts) + by tag, by date (archives) => through grouping functions on metadata
 * Manage several language for a same site :
     * Switch from one lang to another if several articles with same UniqueKey exist
 * Deploy to gh-pages branch automatically (or master if [username].github.io repository)
+* 404 page
 
 # Features TODO
 
-* Footer template
 * SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
     * XML sitemap
     * Microformats : itemtype, itemscope, itemprop (http://www.alsacreations.com/article/lire/1509-microdata-microformats-schema-semantique.html)
@@ -27,7 +29,6 @@
     * http://konradpodgorski.com/blog/2013/10/21/how-i-migrated-my-blog-from-wordpress-to-octopress/#redirect-301-on-github-pages
     * http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
     * Google Webmaster Tools guidelines
-* 404 page
 * Google Analytics + cookies warning
 * Comments integrated with Disqus (make it configurable)
 * Links to share articles on Twitter or Linked In

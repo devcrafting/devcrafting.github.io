@@ -118,7 +118,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
     let titleString = formatSpans title
     { 
         UniqueKey = defaultArg (tryFind "uniquekey" props) ""
-        Language = defaultArg (extractFromFileName 1) "fr"
+        Language = defaultArg (extractFromFileName 1) "en"
         Title = titleString
         ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
         Abstract = abs
