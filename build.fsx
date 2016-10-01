@@ -24,7 +24,9 @@ let cfg = {
     LayoutsDir = __SOURCE_DIRECTORY__ </> "layouts"
     OutputGitRemote = "https://github.com/devcrafting/devcrafting.com"
     Root = "http://www.devcrafting.com"
-    Prefix = Some "" }
+    Prefix = Some ""
+    FileToUrlConvertionPatterns = [ { FilePattern = "/404.md"; Convertion = HtmlFile } ], DirectoryWithIndexHtml
+}
 
 let rec listFiles root = seq {
   if not (File.Exists(root </> ".ignore")) then
@@ -45,7 +47,10 @@ type ArticleViewModel = {
 
 let processFile cfg (file:String) articleViewModel =
     printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
-    let outFile = cfg.OutputDir </> articleViewModel.Article.Url.Substring(1) </> "index.html"
+    let outFile = 
+        let outFileTmp = cfg.OutputDir </> articleViewModel.Article.Url.Substring(1)
+        if outFileTmp.EndsWith(".html") then outFileTmp 
+        else outFileTmp </> "index.html"
     ensureDirectory (Path.GetDirectoryName outFile)
     DotLiquid.transform outFile (articleViewModel.Article.Layout + ".html") articleViewModel
 

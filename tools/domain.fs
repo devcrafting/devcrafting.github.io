@@ -9,7 +9,13 @@ type GenerationOptions = {
     Root: string
     OutputGitRemote: string
     Prefix: string option
+    FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
 }
+and FileToUrlConvertionPattern = {
+    FilePattern: string
+    Convertion: Convertion
+}
+and Convertion = DirectoryWithIndexHtml | HtmlFile
 
 type Article<'T> = 
     {

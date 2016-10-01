@@ -115,6 +115,21 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
         else
             splittedFileName |> Seq.skip (level - 1) |> Seq.head |> Some
     let articleType = extractFromFileName 2
+    let fileToUrlConvertion = 
+        let convertionPatterns, defaultConvertion = cfg.FileToUrlConvertionPatterns
+        let firstMatch =
+            convertionPatterns
+            |> List.filter (fun p -> Regex.IsMatch(normalizedRelativeFileName, p.FilePattern))
+            |> List.map (fun p -> p.Convertion)
+            |> List.tryHead
+        defaultArg firstMatch defaultConvertion 
+    let url = 
+        match fileToUrlConvertion with
+        | DirectoryWithIndexHtml ->
+            (Path.ChangeExtension(normalizedRelativeFileName, "")
+                .TrimEnd('.')
+                .Replace("/index", "")) + "/"
+        | HtmlFile -> Path.ChangeExtension(normalizedRelativeFileName, "html")
     let titleString = formatSpans title
     { 
         UniqueKey = defaultArg (tryFind "uniquekey" props) ""
@@ -123,9 +138,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
         ShortTitle = defaultArg (tryFind "shortTitle" props) titleString
         Abstract = abs
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
-        Url = (Path.ChangeExtension(normalizedRelativeFileName, "")
-                .TrimEnd('.')
-                .Replace("/index", "")) + "/"
+        Url = url
         Body = body
         Type = articleType
         Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
