@@ -4,6 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+    <meta name="author" content="Clément Bouillier">
     <link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -15,66 +17,76 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-devcrafting">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/fr/"><img alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png"/></a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="dc-navbar-collapse">
-                <ul class="nav navbar-nav">
-                    
-                        
-                        <li class="dropdown">
-                            <a href="/fr/services/">Services</a>
-                            <ul class="dropdown-menu">
-                                
-                                <li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
-                                
-                                <li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
-                                
-                                <li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
-                                
-                            </ul>
-                        </li>
-                        
-                    
-                        
-                        <li><a href="/fr/blog/">Blog</a></li>
-                        
-                    
-                        
-                        <li><a href="/fr/contact/">Contact</a></li>
-                        
-                    
-                        
-                        <li><a href="/fr/a-propos/">A propos</a></li>
-                        
-                    
-                </ul>
-                
-                <div class="navbar-right">
-                    <span class="lang-mobile-only">Lang:</span>
-                    <ul class="nav navbar-nav lang-switcher">
-                        
-                        <li><a href="/en/services/agile-approaches/">EN</a></li>
-                        
-                        <li><a href="/fr/services/demarches-agiles/">FR</a></li>
-                        
-                    </ul>
+    <header>
+        <nav class="navbar navbar-devcrafting">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/fr/">
+                        <img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png"/>
+                        <img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png"/>
+                    </a>
                 </div>
-                
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="dc-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        
+                            
+                            <li class="dropdown">
+                                <a href="/fr/services/">Services</a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
+                                    
+                                    <li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
+                                    
+                                    <li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
+                                    
+                                </ul>
+                            </li>
+                            
+                        
+                            
+                            <li><a href="/fr/blog/">Blog</a></li>
+                            
+                        
+                            
+                            <li><a href="/fr/contact/">Contact</a></li>
+                            
+                        
+                            
+                            <li><a href="/fr/a-propos/">A propos</a></li>
+                            
+                        
+                    </ul>    
+                    <div class="navbar-right">               
+                        <p class="social-links">
+                            <a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+                            <a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+                            <a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+                        </p>
+                        
+                        <p class="lang-switcher">
+                            <span class="lang-mobile-only">Lang:</span>
+                            
+                            <a href="/en/services/agile-approaches/">EN</a>
+                            
+                            <a href="/fr/services/demarches-agiles/">FR</a>
+                            
+                        </p>
+                             
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-9">
@@ -85,17 +97,39 @@
 
             </div>
             <div class="col-sm-3">
-                <p class="text-center social-links">
-                    <a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
-                    <a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
-                    <a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
-                </p>
                 <p>
                     <a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
                 </p>
             </div>
         </div>
     </div>
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Contact &amp; about</h4>
+                    <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>
+                        and <a href="http://dotliquidmarkup.org/">DotLiquid</a>.
+                        It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>, created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+                        For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+                    </p>
+                    <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+                    <ul>
+                        <li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+                        <li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+                        <li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <h4>License</h4>
+                    <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+                    All source code samples are licensed under Apache 2.0.
+                    </p>
+                    <p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

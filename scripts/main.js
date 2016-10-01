@@ -6,4 +6,10 @@ $(function() {
             $(this).parent().addClass('active');
         }
     });
+    $('.lang-switcher a').each(function(){
+        if (url.href.indexOf(this.href) == 0)
+        {
+            $(this).addClass('active');
+        }
+    });
 });

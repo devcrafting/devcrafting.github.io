@@ -2,15 +2,28 @@ body {
     background-color: rgb(30, 30, 30);
     color: rgb(220, 220, 220);
     font-family: "Lucida Sans";
+    font-size: 16px;
 }
 
 h2 {
     color: rgb(240, 150, 9);
 }
 
+a, a:visited, .label {
+    color: #FAB81E;
+}
+
+a:hover, a:active, h3.devcrafting-post-title-listing a {
+    color: rgb(220, 220, 220);
+}
+
 .navbar-brand, .navbar-brand > img {
     height: 100px;
     padding: 0;
+}
+
+.navbar-brand > img.devcrafting-small-logo {
+    display: none;
 }
 
 .navbar-devcrafting {
@@ -30,18 +43,21 @@ h2 {
     color: rgb(240, 150, 9);
 }
 
-.navbar-devcrafting .navbar-nav.lang-switcher > li > a {
+.navbar-devcrafting .lang-switcher {
+    margin: 0px;
+    text-align: center;
     font-size: 24px;
 }
 
-.navbar-devcrafting .navbar-nav > .active > a,
-.navbar-devcrafting .navbar-nav > .active > a:focus,
-.navbar-devcrafting .navbar-nav > .active > a:hover {
+.navbar-devcrafting .active > a,
+.navbar-devcrafting .active > a:focus,
+.navbar-devcrafting .active > a:hover,
+.navbar-devcrafting .lang-switcher > a.active {
     color: rgb(220, 220, 220);
     background: rgb(30, 30, 30);
 }
 
-.navbar-devcrafting .navbar-nav.lang-switcher > .active > a {
+.navbar-devcrafting .lang-switcher > a.active {
     text-decoration: underline;
     font-weight: bolder;
 }
@@ -67,6 +83,20 @@ h2 {
     display: none;
 }
 
+.fa-tags > a::after {
+    content: ','
+}
+
+.fa-tags > a:last-child::after {
+    content: ''
+}
+
+.devcrafting-404-warning {
+    font-size: 48px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
 @media (min-width: 768px) {
     .navbar-devcrafting {
         font-size: 48px;
@@ -80,49 +110,92 @@ h2 {
     .nav .dropdown:hover > .dropdown-menu {
         display: block;
     }
+
+    .devcrafting-mobile-text-right {
+        text-align: right;
+    }
 }
 
-@media (max-width: 768px) {
-    .nav .dropdown .caret {
+@media (max-width: 840px) {
+    .navbar-brand > img.devcrafting-small-logo {
+        display: block;
+    }
+
+    .navbar-brand > img.devcrafting-big-logo {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-brand, .navbar-brand > img {
+        height: 50px;
+        margin: 5px;
+    }
+
+    .navbar-brand > img.devcrafting-small-logo {
         display: none;
     }
 
-    .navbar-devcrafting .navbar-nav.lang-switcher > li {
-        display: inline-block;
+    .navbar-brand > img.devcrafting-big-logo {
+        display: block;
+    }
+
+    .nav .dropdown .caret {
+        display: none;
     }
     
-    .navbar-devcrafting .navbar-nav.lang-switcher > li > a {
-        display: inline-block;
-        font-size: 18px;
+    .navbar-devcrafting .lang-switcher {
+        text-align: left;
     }
 
     .lang-mobile-only {
         float: left;
+        margin-right: 20px;
         display: inline-block;
     }
 }
 
-.social-links > a.fa {
+.social-links a.fa {
     cursor: pointer;
     text-decoration: none;
-    border-radius: 23px;
-    font-size: 30px;
+    border-radius: 17px;
+    font-size: 20px;
 }
 
-.fa-twitter, .fa-twitter:hover, .fa-twitter:visited, .fa-twitter:active {
+.social-links .fa-twitter, .social-links .fa-twitter:hover, .social-links .fa-twitter:visited, .social-links .fa-twitter:active {
     color: white;
     background-color: #1da1f2;
     padding: 7px 8px;
 }
 
-.fa-github, .fa-github:hover, .fa-github:visited, .fa-github:active {
+.social-links .fa-github, .social-links .fa-github:hover, .social-links .fa-github:visited, .social-links .fa-github:active {
     color: white;
     background-color: #4078c0;
     padding: 7px 9px;
 }
 
-.fa-linkedin, .fa-linkedin:hover, .fa-linkedin:visited, .fa-linkedin:active {
+.social-links .fa-linkedin, .social-links .fa-linkedin:hover, .social-links .fa-linkedin:visited, .social-links .fa-linkedin:active {
     color: white;
     background-color: rgb(0, 119, 181);
     padding: 7px 9px;
+}
+
+footer {
+    color: rgb(30, 30, 30);
+    background-color: rgb(220, 220, 220);
+    font-size: 70%;
+}
+
+footer ul {
+    padding: 15px;
+    margin: 0;
+}
+
+footer li {
+    list-style: none;
+}
+
+footer a, footer a:active, footer a:hover, footer a:visited {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
 }
