@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
-<article>
-    <h1>{{ model.Article.Title }}</h1>
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">{{ model.Article.Title }}</h1>
     <div class="row">
-        <div class="col-sm-6 col-md-6">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
             <span class="fa fa-tags"></span>
             {% for tag in model.Article.Tags %}
                 <a href="/{{ model.Article.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
@@ -12,10 +12,14 @@
         <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
             <!-- TODO: nb comments + link => Disqus -->
             <span class="fa fa-clock-o"/>
+            <time itemprop="datePublished" datetime="{{ model.Article.Date | Date: 'O' }}">
             {{ model.Article.Date | localizedDate: model.Translations.dateFormat, model.Article.Language }}
+            </time>
         </div>
     </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
     {{ model.Article.Body }}
+    </div>
     <!-- TODO: comments => Disquss -->
 </article>
 {% endblock %}

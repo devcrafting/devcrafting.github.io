@@ -91,6 +91,10 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     content: ''
 }
 
+.devcrafting-article-body {
+    margin-top: 20px;
+}
+
 .devcrafting-404-warning {
     font-size: 48px;
     margin-top: 30px;

@@ -5,9 +5,10 @@
     {% endblock %}
     {% for post in model.BlogPosts %}
         <article>
-            <h3 class="devcrafting-post-title-listing"><a href="{{ post.Url }}">{{ post.Title }}</a></h3>
+            <h3 class="devcrafting-post-title-listing" itemprop="headline">
+                <a href="{{ post.Url }}" itemprop="url">{{ post.Title }}</a></h3>
             <div class="row">
-                <div class="col-sm-6 col-md-6">
+                <div class="col-sm-6 col-md-6" itemprop="keywords">
                     <span class="fa fa-tags"></span>
                     {% for tag in post.Tags %}
                         <a href="/{{ post.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
@@ -16,12 +17,16 @@
                 <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
                     <!-- nb comments + link => Disqus -->
                     <span class="fa fa-clock-o"/>
+                    <time itemprop="datePublished" datetime="{{ post.Date | Date: 'O' }}">
                     {{ post.Date | localizedDate: model.Translations.dateFormat, post.Language }}
+                    </time>
                 </div>
             </div>
-            <p class="lead">{{ post.Abstract }}</p>
+            <p class="lead" itemprop="about">
+                {{ post.Abstract }}
+            </p>
             <p class="text-right">
-                <a href="{{ post.Url }}">
+                <a href="{{ post.Url }}" itemprop="url">
                     {{ model.Translations.continueReading }}
                 </a>
             </p>
