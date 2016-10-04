@@ -42,3 +42,4 @@
 
 * Put more code from build.fsx to tools dir
 * Tags and archives are mostly the same : a listing layout and a grouping function 
+* Avoid overflow on code blocks (really awful in mobile view)
