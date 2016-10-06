@@ -105,6 +105,21 @@ let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (tr
         tagViewModel
     )
 
+open System.Web
+
+let generateRedirectPages cfg article =
+    article.RedirectFrom
+    |> List.iter (fun r -> 
+        printfn "Generate redirect page %s for %s" r article.Url
+        let encodedPath = 
+            r.Split([| '/' |], StringSplitOptions.RemoveEmptyEntries) 
+            |> Seq.fold (fun fullPath path -> fullPath </> HttpUtility.UrlEncode(HttpUtility.UrlDecode(path))) String.Empty
+        let outFile = cfg.OutputDir </> encodedPath
+        printfn "%s" outFile
+        ensureDirectory(Path.GetDirectoryName outFile)
+        DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") article
+    )
+
 let generateSite cfg changes =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
@@ -140,6 +155,9 @@ let generateSite cfg changes =
                     blogPosts.[article.Language] |> List.ofSeq
                 else 
                     [] 
+
+            generateRedirectPages cfg article
+            
             processFile cfg file 
                 { Article = article
                   BlogPosts = blogPosts
@@ -198,6 +216,7 @@ let app =
             return Choice1Of2 () })
         path "/" >=> request (fun _ -> handleDir "")
         pathScan "/%s/" handleDir
+        pathScan "/%s" (fun path -> File.ReadAllText(cfg.OutputDir </> path) |> Successful.OK)
         Files.browseHome ]
 
 let serverConfig =

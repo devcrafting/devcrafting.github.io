@@ -19,6 +19,7 @@
     * Switch from one lang to another if several articles with same UniqueKey exist
 * Deploy to gh-pages branch automatically (or master if [username].github.io repository)
 * 404 page
+* Pretty code formatting based on FSharp.Formatting 
 * SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
     * Microformats : itemtype, itemscope, itemprop (http://www.alsacreations.com/article/lire/1509-microdata-microformats-schema-semantique.html)
 
@@ -33,6 +34,7 @@
 * Google Analytics + cookies warning
 * Comments integrated with Disqus (make it configurable)
 * Links to share articles on Twitter or Linked In
+* Links checker : detect links that does not return HTTP Code 200
 * RSS flux
 * Tag cloud canvas : http://www.goat1000.com/tagcanvas-shapes.php
 * Author ? Displayed on posts + page by authors

@@ -31,11 +31,12 @@ type Article<'T> =
         Layout: string
         Tags: string list
         Hidden: bool
+        RedirectFrom: string list
     }
     member x.With(body, abs) =
         { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; ShortTitle = x.ShortTitle
           Abstract = abs; Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language
-          Type = x.Type; Layout = x.Layout; Hidden = x.Hidden }
+          Type = x.Type; Layout = x.Layout; Hidden = x.Hidden; RedirectFrom = x.RedirectFrom }
 
 type File =
 | Content of string
