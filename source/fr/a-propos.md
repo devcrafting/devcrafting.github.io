@@ -2,6 +2,7 @@ A propos
 ========
 
 - uniquekey: about
+- redirectfrom: /qui
 
 DevCrafting est une EURL créée en novembre 2013 par Clément Bouillier, membre du groupe DevLyon créé en novembre 2012 par plusieurs professionnels passionnés d'informatique. DevCrafting offre au travers de ce groupe l'accès à des compétences diverses, ainsi que des profils très homogènes autour de notre approche de l'informatique.
 

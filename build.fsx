@@ -110,7 +110,7 @@ open System.Web
 let generateRedirectPages cfg articles =
     articles
     |> Seq.collect (fun a -> a.RedirectFrom |> List.map (fun r -> a, r))
-    |> Seq.sortByDescending snd // Allow to generate longer path first and then take decision when sub path have to be generated
+    |> Seq.sortByDescending (snd >> String.length) // Allow to generate longer path first and then take decision when sub path have to be generated
     |> Seq.iter (fun (a, r) -> 
         printfn "Generate redirect page %s for %s" r a.Url
         let encodedPath = 
