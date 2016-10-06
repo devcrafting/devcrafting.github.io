@@ -1,3 +1,5 @@
+- redirectfrom: /blog
+
 <!DOCTYPE html>
 <html>
     <header>
