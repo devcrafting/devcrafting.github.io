@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta http-equiv="refresh" content="0; /fr/blog/2014/07-Premiers-mois-d-activites/" />
+        <meta rel="canonical" href="/fr/blog/2014/07-Premiers-mois-d-activites/"/>
+        <meta name="robots" rel="noindex, follow" />
+        <title>DevCrafting redirect</title>
+    </header>
+    <body>
+        <h1>DevCrafting redirect (automatic if HTTP REFRESH meta is supported)</h1>
+        <ul>
+            <li><a href="/fr/blog/2014/07-Premiers-mois-d-activites/">Mes premiers mois d'activité</a></li>
+        </ul>
+    </body>
+</html>

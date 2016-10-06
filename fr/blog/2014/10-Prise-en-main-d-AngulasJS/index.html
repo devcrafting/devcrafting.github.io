@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+    <meta name="author" content="Clément Bouillier">
+    <meta rel="canonical" href="/fr/blog/2014/10-Prise-en-main-d-AngulasJS/"/>
+    <link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/styles/custom.css" />
+    <link rel="stylesheet" href="/styles/FSharpFormatting/style.css"/>
+    <title>Prise en main d'AngularJS : retour d'expérience - DevCrafting</title>
+
+     
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-devcrafting">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/fr/">
+                        <img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png"/>
+                        <img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png"/>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="dc-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        
+                            
+                            <li class="dropdown">
+                                <a href="/fr/services/">Services</a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
+                                    
+                                    <li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
+                                    
+                                    <li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
+                                    
+                                </ul>
+                            </li>
+                            
+                        
+                            
+                            <li><a href="/fr/blog/">Blog</a></li>
+                            
+                        
+                            
+                            <li><a href="/fr/contact/">Contact</a></li>
+                            
+                        
+                            
+                            <li><a href="/fr/a-propos/">A propos</a></li>
+                            
+                        
+                    </ul>    
+                    <div class="navbar-right">               
+                        <p class="social-links">
+                            <a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+                            <a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+                            <a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+                        </p>
+                        
+                        <p class="lang-switcher">
+                            <span class="lang-mobile-only">Lang:</span>
+                            
+                            <a href="/fr/blog/2014/10-Prise-en-main-d-AngulasJS/">FR</a>
+                            
+                        </p>
+                             
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Prise en main d'AngularJS : retour d'expérience</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/fr/tag/JavaScript/" class="label label-default">JavaScript</a>
+            
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"/>
+            <time itemprop="datePublished" datetime="2014-10-23T00:00:00.0000000">
+            jeudi 23 octobre 2014
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>Je vous propose dans ce billet quelques réflexions sur mes premiers pas avec AngularJS (voir aussi <a href="/fr/2014/09-Activites-de-l-ete-autoformation-lyontechhub">billet sur mes activités de l'été</a>).</p>
+<h2>Prise en main</h2>
+<p>Pour commencer, j'ai trouvé la prise en main d'AngularJS très aisée, la documentation est bien faite (bien que le site soit un peu lent). Le cours CodeSchool m'a permis de mettre le pied à l'étrier de manière efficace.</p>
+<p>Pour résumer, voici ce qu'il faut comprendre à mon avis pour commencer (retrouver ces points dans l'historique des commits sur le site du LyonTechHub) :</p>
+<ul>
+<li>Les modules et leurs dépendances à d'autres modules, utile pour modulariser l'application</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// 1er argument = nom du module</span>
+<span class="c">// 2nd argument = tableau de dépendances</span>
+<span class="k">var</span> app <span class="o">=</span> angular.module(<span class="s">"lyontechhub"</span>, [<span class="s">"mgcrea.ngStrap.navbar"</span>]);
+</code></pre></td></tr></table>
+<ul>
+<li>Les directives (standards et personnalisées), le binding et les filtres pour agrémenter le dev Web, une sorte de "super HTML" (cf. <a href="https://docs.angularjs.org/api/ng/directive">https://docs.angularjs.org/api/ng/directive</a> et <a href="https://docs.angularjs.org/api/ng/filter),">https://docs.angularjs.org/api/ng/filter),</a> voici quelques exemples :</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="html"><span class="c">&lt;!-- ng-app permet de déclarer l'usage du module nommer sur ce noeud du DOM (pas forcément html) --&gt;</span>
+<span class="k">&lt;</span><span class="i">html</span> <span class="o">lang</span><span class="k">="fr"</span>&<span class="o">lt</span>;<span class="o">span</span> <span class="o">class</span><span class="k">="x"</span><span class="k">&gt;</span> ng-app="lyontechhub"<span class="k">&lt;/</span><span class="i">span</span><span class="k">&gt;&gt;</span>
+
+<span class="c">&lt;!-- ng-view permet de lier le contenu de la balise au template défini pour l'URL en cours via le routing (cf. ci-dessous) --&gt;</span>
+<span class="k">&lt;</span><span class="i">div</span> <span class="o">ng-view</span><span class="k">&gt;&lt;/</span><span class="i">div</span><span class="k">&gt;</span>
+
+<span class="c">&lt;!-- ng-repeat permet de répéter une balise (ici 'li') à partir d'une liste du modèle --&gt;</span>
+<span class="c">&lt;!-- | orderBy est un filtre, la syntaxe {{ }} permet de binder une propriété du modèle --&gt;</span>
+<span class="k">&lt;</span><span class="i">ul</span> <span class="o">class</span><span class="k">="communitiesList"</span><span class="k">&gt;</span>
+    <span class="k">&lt;</span><span class="i">li</span> <span class="o">ng-repeat</span><span class="k">="community in communitiesViewModel.communities | orderBy : 'name'"</span> <span class="o">id</span><span class="k">="{{ community.key }}"</span><span class="k">&gt;</span>
+        <span class="k">&lt;</span><span class="i">h2</span><span class="k">&gt;&lt;</span><span class="i">a</span> <span class="o">href</span><span class="k">="#/community/{{ community.key }}"</span><span class="k">&gt;&lt;</span><span class="i">img</span> <span class="o">src</span><span class="k">="/imgs/{{ community.key }}.png"</span><span class="k">&gt;</span>{{ community.name }}<span class="k">&lt;/</span><span class="i">a</span><span class="k">&gt;&lt;/</span><span class="i">h2</span><span class="k">&gt;</span>
+        <span class="k">&lt;</span><span class="i">p</span><span class="k">&gt;</span>{{ community.shortDescription }}<span class="k">&lt;/</span><span class="i">p</span><span class="k">&gt;</span>
+        <span class="k">&lt;</span><span class="i">hr</span><span class="k">/&gt;</span>
+    <span class="k">&lt;/</span><span class="i">li</span><span class="k">&gt;</span>
+<span class="k">&lt;/</span><span class="i">ul</span><span class="k">&gt;</span>
+
+<span class="c">&lt;!-- bs-navbar est une directive personnalisée proposée par le module angular-strap --&gt;</span>
+<span class="c">&lt;!-- Ref: http://mgcrea.github.io/angular-strap/, voir l'exemple de déclaration ci-dessous --&gt;</span>
+<span class="k">&lt;</span><span class="i">div</span> <span class="o">class</span><span class="k">="collapse navbar-collapse"</span> <span class="o">id</span><span class="k">="bs-navbar-collapse-1"</span>&<span class="o">lt</span>;<span class="o">span</span> <span class="o">class</span><span class="k">="x"</span><span class="k">&gt;</span> bs-navbar<span class="k">&lt;/</span><span class="i">span</span><span class="k">&gt;&gt;</span>
+</code></pre></td></tr></table>
+<ul>
+<li>Voici comment déclarer une directive personnalisée par exemple (cf. <a href="https://code.angularjs.org/1.2.24/docs/guide/directive">https://code.angularjs.org/1.2.24/docs/guide/directive</a> pour plus de détails)</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// Les directives personnalisées permettent de créer des composants d'interfaces réutilisables</span>
+<span class="c">// bien utile pour limiter la duplication de code HTML</span>
+.directive(<span class="s">'blocHtmlSouventRepete'</span>, <span class="k">function</span>() {
+    <span class="k">return</span> {
+        template: 'Name: {{community.name}} Address: {{community.address}}'
+    };
+});
+</code></pre></td></tr></table>
+<ul>
+<li>Le routing pour gérer plusieurs pages (module ngRoute séparé depuis la version 1.2 d'AngularJS)</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// app est un module (ou un sous-module) pour lequel on configure le routing, </span>
+<span class="c">// c'est-à-dire quel template de vue est associé à quelle URL (utilisé par la directive ng-view)</span>
+<span class="c">// on peut également spécifier un controller avec les propriétés "controller" et "controllerAs"</span>
+app.config([<span class="s">"$routeProvider"</span>, <span class="k">function</span>($routeProvider) {
+    $routeProvider
+        .when(<span class="s">"/"</span>, {
+            templateUrl: <span class="s">"views/welcome.html"</span>
+        })
+[...]
+        .otherwise({
+            redirectTo: <span class="s">"/"</span>
+        });
+}]);
+</code></pre></td></tr></table>
+<ul>
+<li>Les controlleurs (ou View Models, cf. ci-dessous)</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// app est un module (ou un sous-module), on peut par exemple créer un sous-module par domaine métier de l'application</span>
+<span class="c">// $http est un service défini comme une dépendance à injecter (/!\ pas les mêmes dépendances que pour les modules)</span>
+<span class="c">// la fonction prend en paramètre les dépendances définies juste avant et décrit la logique du controlleur</span>
+app.controller(<span class="s">"CommunitiesViewModel"</span>, [<span class="s">"$http"</span>, <span class="k">function</span>($http){
+    [...logique de présentation, <span class="o">/</span><span class="o">!</span>\ PAS DE LOGIQUE METIER <span class="o">/</span><span class="o">!</span>\...]
+}]);
+</code></pre></td></tr></table>
+<ul>
+<li>Les services (standards et personnalisés), cf. <a href="https://docs.angularjs.org/api/ng/service">https://docs.angularjs.org/api/ng/service</a> (les services standards sont préfixés par un $)</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript"><span class="c">// dans le controlleur ci-dessus, on a une dépendance sur le service $http qui permet de faire des requêtes HTTP</span>
+$http.get(<span class="s">"/data/communities.json"</span>).success(<span class="k">function</span>(data) {
+    [...traitement de <span class="s">'data'</span>]
+});
+
+<span class="c">// et voici un exemple de service personnalisé</span>
+<span class="c">// (un repository pour abstraire l'accès aux données JSON...un peu surfait, mais ça donne un exemple)</span>
+<span class="c">// on définit un objet (avec 2 méthodes ici)...</span>
+<span class="k">var</span> communitiesRepository <span class="o">=</span> <span class="k">function</span>($http) {
+    <span class="k">this</span>.getOne <span class="o">=</span> <span class="k">function</span>(key) {
+        <span class="k">return</span> $http.get(<span class="s">"/data/"</span> <span class="o">+</span> key <span class="o">+</span> <span class="s">".json"</span>);
+    };
+    <span class="k">this</span>.getAll <span class="o">=</span> <span class="k">function</span>() {
+        <span class="k">return</span> $http.get(<span class="s">"/data/communities.json"</span>);
+    };
+}
+
+<span class="c">// ...on définit la factory qui permet à AngularJS d'injecté le service lorsqu'il est déclaré en dépendance...</span>
+app.factory(<span class="s">'communitiesRepository'</span>, [<span class="s">'$http'</span>, <span class="k">function</span>($http) {
+<span class="k">return</span> <span class="k">new</span> communitiesRepository($http);
+}]);
+
+<span class="c">// ...dans un autre fichier, on peut injecter ce service</span>
+app.controller(<span class="s">"CommunitiesViewModel"</span>, [<span class="s">"communitiesRepository"</span>, <span class="k">function</span>(communitiesRepository){ [...] });
+</code></pre></td></tr></table>
+<p>Bien évidemment, AngularJS ne se résume pas à ça, mais les grandes lignes (de la v1.3) sont là si je ne me trompe pas. Avec ça, vous êtes bien armés pour attaquer tout le reste. Le tutoriel et le guide du développeur sont bien fait.</p>
+<h2>Les "controlleurs" ou View Models</h2>
+<p>Avant la version 1.2 d'AngularJS, les controlleurs avaient $scope injecté systématiquement afin (notamment) de fournir les données à la vue pour le binding. Par exemple :</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript">app.controller(<span class="s">"CommunitiesController"</span>, <span class="k">function</span>($scope){
+    $scope.communities <span class="o">=</span> [<span class="s">"MUGLyon"</span>, <span class="s">"CARA"</span>];
+});
+</code></pre></td></tr></table>
+<p>Depuis la version 1.2, la syntaxe appelée "controllerAs" a été introduite. Les controlleurs n'ont plus à avoir $scope pour passer des données à la vue, ils portent les données à binder.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="javascript">app.controller(<span class="s">"CommunitiesViewModel"</span>, <span class="k">function</span>(){
+    <span class="k">this</span>.communities <span class="o">=</span> [<span class="s">"MUGLyon"</span>, <span class="s">"CARA"</span>];
+});
+</code></pre></td></tr></table>
+<p>Vous noterez que du coup j'ai nommé mon controlleur ViewModel plutôt que Controller, car à mes yeux on est alors plus dans un pattern MVVM (Model-View-ViewModel) que dans un pattern MVC (Model-View-Controller). En effet, définir un état pour un Controller m'a paru un peu "choquant", et surtout ça ressemble tellement à un ViewModel que je ne vois pas l'intérêt de créer la confusion en l'appelant Controller. Aussi, ça se rapproche ainsi beaucoup de concepts vus dans WPF ou Knockout. Bref, je pinaille sur des concepts, d'ailleurs AngularJS a pris le parti de dire que c'est un framework MVW, où W signifie Whatever :), c'est-à-dire ce qu'on veut : Controller ou ViewModel ou autre...</p>
+<p>Au passage, je trouve cette notation "controllerAs" plus légère et moins "je fourre tout dans $scope". C'est d'ailleurs aussi l'avis de Todd Moto, dont je vous recommande les conventions de code AngularJS : <a href="https://github.com/toddmotto/angularjs-styleguide/.">https://github.com/toddmotto/angularjs-styleguide/.</a></p>
+<h2>La faible intrusivité du framework dans les View Models</h2>
+<p>Un dernier point qui m'a marqué est la faible intrusivité du framework au niveau des ViewModels (ou Controller, vous avez compris). En effet, je connaissais Knockout où chaque propriété pour laquelle on souhaite faire un databinding dynamique (c'est-à-dire si la valeur change en JS, la valeur affichée change aussi), il est nécessaire de le déclarer en tant que ko.observable() ou ko.observableArray(), puis d'utiliser une fonction pour définir (set) ou récupérer (get) la valeur de la propriété. Je trouve cette notation un peu lourde dans Knockout, j'ai donc bien apprécié la syntaxe AngularJS.</p>
+<p>A noter que pour Knockout, vous pouvez rajouter <a href="http://blog.stevensanderson.com/2013/05/20/knockout-es5-a-plugin-to-simplify-your-syntax/">un plugin pour éviter cette notation</a>. Attention, cela nécessite un navigateur implémentant ECMAScript5, soit au moins IE9 dans la famille IE...</p>
+<p>Voilà, jetez un oeil à AngularJS, c'est une corde à son arc qui est toujours intéressante d'avoir en ce moment.</p>
+
+
+
+    </div>
+    <!-- TODO: comments => Disquss -->
+</article>
+
+            </div>
+            <div class="col-sm-3">
+                <p>
+                    <a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4>Contact &amp; about</h4>
+                    <p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a>
+                        and <a href="http://dotliquidmarkup.org/">DotLiquid</a>.
+                        It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>, created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+                        For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+                    </p>
+                    <p>Please submit issues &amp; corrections on GitHub. Use pull requests for minor corrections only.</p>
+                    <ul>
+                        <li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+                        <li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+                        <li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <h4>License</h4>
+                    <p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+                    All source code samples are licensed under Apache 2.0.
+                    </p>
+                    <p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="/scripts/main.js"></script>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-52462933-1', 'auto');
+    ga('send', 'pageview');
+
+    </script>
+</body>
+
+</html>

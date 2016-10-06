@@ -34,12 +34,12 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     font-size: 24px;
 }
 
-.navbar-devcrafting .navbar-nav > li > a:hover {
+.navbar-devcrafting .navbar-nav li a:hover {
     background-color: transparent;
     color: rgb(220, 220, 220);
 }
 
-.navbar-devcrafting .navbar-nav > li > a {
+.navbar-devcrafting .navbar-nav li a {
     color: rgb(240, 150, 9);
 }
 
@@ -49,9 +49,9 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     font-size: 24px;
 }
 
-.navbar-devcrafting .active > a,
-.navbar-devcrafting .active > a:focus,
-.navbar-devcrafting .active > a:hover,
+.navbar-devcrafting .navbar-nav .active > a,
+.navbar-devcrafting .navbar-nav .active > a:focus,
+.navbar-devcrafting .navbar-nav .active > a:hover,
 .navbar-devcrafting .lang-switcher > a.active {
     color: rgb(220, 220, 220);
     background: rgb(30, 30, 30);
@@ -89,6 +89,10 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 
 .fa-tags > a:last-child::after {
     content: ''
+}
+
+.devcrafting-article-body {
+    margin-top: 20px;
 }
 
 .devcrafting-404-warning {
@@ -184,6 +188,8 @@ footer {
     color: rgb(30, 30, 30);
     background-color: rgb(220, 220, 220);
     font-size: 70%;
+    padding-top: 30px;
+    margin-top: 30px;
 }
 
 footer ul {
