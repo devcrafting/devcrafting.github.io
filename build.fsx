@@ -107,17 +107,21 @@ let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (tr
 
 open System.Web
 
-let generateRedirectPages cfg article =
-    article.RedirectFrom
-    |> List.iter (fun r -> 
-        printfn "Generate redirect page %s for %s" r article.Url
+let generateRedirectPages cfg articles =
+    articles
+    |> Seq.collect (fun a -> a.RedirectFrom |> List.map (fun r -> a, r))
+    |> Seq.sortByDescending snd // Allow to generate longer path first and then take decision when sub path have to be generated
+    |> Seq.iter (fun (a, r) -> 
+        printfn "Generate redirect page %s for %s" r a.Url
         let encodedPath = 
             r.Split([| '/' |], StringSplitOptions.RemoveEmptyEntries) 
             |> Seq.fold (fun fullPath path -> fullPath </> HttpUtility.UrlEncode(HttpUtility.UrlDecode(path))) String.Empty
-        let outFile = cfg.OutputDir </> encodedPath
+        let mutable outFile = cfg.OutputDir </> encodedPath
+        if Directory.Exists(outFile) then
+            outFile <- outFile </> "index.html"
         printfn "%s" outFile
         ensureDirectory(Path.GetDirectoryName outFile)
-        DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") article
+        DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") a
     )
 
 let generateSite cfg changes =
@@ -145,6 +149,9 @@ let generateSite cfg changes =
     trace "Generating tag pages..."
     let tags = generateTagPages articles menuByLanguage translations |> List.ofSeq
 
+    trace "Generating redirect pages..."
+    generateRedirectPages cfg articles
+
     trace "Processing files..."
     files
     |> Seq.iter (function 
@@ -155,8 +162,6 @@ let generateSite cfg changes =
                     blogPosts.[article.Language] |> List.ofSeq
                 else 
                     [] 
-
-            generateRedirectPages cfg article
             
             processFile cfg file 
                 { Article = article
@@ -216,8 +221,12 @@ let app =
             return Choice1Of2 () })
         path "/" >=> request (fun _ -> handleDir "")
         pathScan "/%s/" handleDir
-        pathScan "/%s" (fun path -> File.ReadAllText(cfg.OutputDir </> path) |> Successful.OK)
-        Files.browseHome ]
+        Files.browseHome
+        pathScan "/%s" (fun path -> 
+            if Directory.Exists(cfg.OutputDir </> path) then
+                Redirection.moved_permanently ("/" + path + "/") // Same behavior as Jekyll
+            else
+                File.ReadAllText(cfg.OutputDir </> path) |> Successful.OK) ]
 
 let serverConfig =
   { Web.defaultConfig with
@@ -232,7 +241,7 @@ let startServer () =
 
 // FAKE
 Target "run" (fun () ->
-    generateSite cfg Set.empty
+    regenerateSite ()
     use watcher = 
         !! (cfg.SourceDir </> "**/*.*") ++ (cfg.LayoutsDir </> "*.*")
         |> WatchChanges (fun e ->
