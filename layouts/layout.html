@@ -1,3 +1,12 @@
+---
+{% if model.Article.RedirectFrom != empty %}
+redirect_from:
+{% endif %}
+{% for redirect in model.Article.RedirectFrom %}
+  - {{ redirect }}
+{% endfor %}
+---
+
 <!DOCTYPE html>
 <html lang="{{ model.Article.Language }}">
 

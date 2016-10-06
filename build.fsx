@@ -108,6 +108,9 @@ let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (tr
 open System.Web
 
 let generateRedirectPages cfg articles =
+    // on Windows, it will only handle case insensitive URL (not the standard for URL)
+    // ex: if you want redirect from /blog and /Blog, it is not possible on Windows
+    // workaround is to rely on other mecanism: Jekyll redirect_from or web server/proxy... 
     articles
     |> Seq.collect (fun a -> a.RedirectFrom |> List.map (fun r -> a, r))
     |> Seq.sortByDescending (snd >> String.length) // Allow to generate longer path first and then take decision when sub path have to be generated
