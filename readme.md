@@ -24,10 +24,10 @@
     * Microformats : itemtype, itemscope, itemprop (http://www.alsacreations.com/article/lire/1509-microdata-microformats-schema-semantique.html)
     * Old content migration on the same domain with "redirectfrom" metadata (http-equiv="refresh", rel="canonical")
     * Blogspot migration guidelines: http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
+* Google Analytics + cookies warning
 
 # Features TODO
 
-* Google Analytics + cookies warning
 * SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
     * Google Webmaster Tools guidelines
     * XML sitemap
