@@ -22,16 +22,15 @@
 * Pretty code formatting based on FSharp.Formatting 
 * SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
     * Microformats : itemtype, itemscope, itemprop (http://www.alsacreations.com/article/lire/1509-microdata-microformats-schema-semantique.html)
+    * Old content migration on the same domain with "redirectfrom" metadata (http-equiv="refresh", rel="canonical")
+    * Blogspot migration guidelines: http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
 
 # Features TODO
 
+* Google Analytics + cookies warning
 * SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
-    * Old content migration and URL conservation guidelines (redirect 301, http-equiv="refresh", rel="canonical"...)
-    * http://konradpodgorski.com/blog/2013/10/21/how-i-migrated-my-blog-from-wordpress-to-octopress/#redirect-301-on-github-pages
-    * http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
     * Google Webmaster Tools guidelines
     * XML sitemap
-* Google Analytics + cookies warning
 * Comments integrated with Disqus (make it configurable)
 * Links to share articles on Twitter or Linked In
 * Links checker : detect links that does not return HTTP Code 200
