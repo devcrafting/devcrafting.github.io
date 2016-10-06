@@ -3,7 +3,7 @@ Blog
 
 - uniquekey: blog
 - layout: bloglisting
-- redirectfrom: /Blog
+- redirectfrom: /blog
 
 Derniers articles
 -----------------
