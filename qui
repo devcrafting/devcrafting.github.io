@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta http-equiv="refresh" content="0; /fr/a-propos/" />
+        <meta rel="canonical" href="/fr/a-propos/"/>
+        <meta name="robots" rel="noindex, follow" />
+        <title>DevCrafting redirect</title>
+    </header>
+    <body>
+        <h1>DevCrafting redirect (automatic if HTTP REFRESH meta is supported)</h1>
+        <ul>
+            <li><a href="/fr/a-propos/">A propos</a></li>
+        </ul>
+    </body>
+</html>
