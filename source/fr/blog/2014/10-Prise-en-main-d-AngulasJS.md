@@ -4,6 +4,7 @@ Prise en main d'AngularJS : retour d'expérience
 - uniquekey: prise-en-main-angularjs
 - date: 2014-10-23
 - tags: JavaScript
+- redirectfrom: /Blog/Billet/6/Prise-en-main-d'AngularJS---retour-d'expérience
 
 ------------------------
 

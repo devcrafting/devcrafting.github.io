@@ -212,6 +212,7 @@ let handleDir dir =
   let html = File.ReadAllText(cfg.OutputDir </> dir </> "index.html")
   html.Replace(cfg.Root, sprintf "http://localhost:%d" port)
       .Replace("</body", wsRefresh + "</body")
+      .Replace("---", "")
   |> Successful.OK
 
 let app = 
