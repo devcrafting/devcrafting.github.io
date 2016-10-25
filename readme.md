@@ -20,7 +20,8 @@
 * Deploy to gh-pages branch automatically (or master if [username].github.io repository)
 * 404 page
 * Pretty code formatting based on FSharp.Formatting 
-* SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
+* SEO: 
+    * avoid duplicate content, canonical url, nice URLs, meta title/description
     * Microformats : itemtype, itemscope, itemprop (http://www.alsacreations.com/article/lire/1509-microdata-microformats-schema-semantique.html)
     * Old content migration on the same domain with "redirectfrom" metadata (http-equiv="refresh", rel="canonical")
     * Blogspot migration guidelines: http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
@@ -28,7 +29,7 @@
 
 # Features TODO
 
-* SEO: avoid duplicate content, canonical url, nice URLs, meta title/description
+* SEO:
     * Google Webmaster Tools guidelines
     * XML sitemap
 * Comments integrated with Disqus (make it configurable)

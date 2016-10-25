@@ -184,6 +184,43 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     padding: 7px 9px;
 }
 
+#cookie-banner, #inform-and-ask, #inform-and-ask div {
+    color: rgb(30, 30, 30);
+    background-color: rgb(220, 220, 220);
+}
+
+#cookie-banner a:hover {
+    color: rgb(30, 30, 30);
+}
+
+#cookie-banner-message {
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+#inform-and-consent, #aknowledge-optout {
+    width: 300px;
+    border: 1px solid #cccccc;
+    padding :10px 10px;
+    text-align:center;
+    position: fixed;
+    top:30px;
+    left:50%;
+    margin-top:0px;
+    margin-left:-150px;
+    z-index:100000;
+}
+
+#inform-and-consent button {
+    margin: 0px 20px;
+}
+
+#inform-and-consent div {
+    margin: 20px 0px;
+}
+
 footer {
     color: rgb(30, 30, 30);
     background-color: rgb(220, 220, 220);
