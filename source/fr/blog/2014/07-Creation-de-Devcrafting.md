@@ -3,7 +3,7 @@ Création de ma société DevCrafting
 
 - uniquekey: creation-de-DevCrafting
 - date: 2014-07-02
-- tags: Entrepreunariat
+- tags: devcrafting
 - redirectfrom: /Blog/Billet/2/Création-de-DevCrafting
 
 ----------------------

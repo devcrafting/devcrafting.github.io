@@ -3,7 +3,7 @@ Activités de l'été : auto-formation et LyonTechHub
 
 - uniquekey: activite-ete-autoformation-LyonTechHub
 - date: 2014-09-10
-- tags: Entrepreunariat, Cloud, Communautés, Outils de dev, JavaScript
+- tags: devcrafting, Cloud, Communautés, Outils de dev, JavaScript
 - redirectfrom: /Blog/Billet/5/Activités-de-l%27été---auto-formation---LyonTechHub
 
 ---------------------------

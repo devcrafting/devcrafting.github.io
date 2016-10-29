@@ -3,7 +3,7 @@ Mes premiers mois d'activité
 
 - uniquekey: premiers-mois-d-activité
 - date: 2014-07-04
-- tags: Entrepreunariat
+- tags: devcrafting
 - redirectfrom: /Blog/Billet/4/Mes-premiers-mois-d%27activité
 
 -----------------------
