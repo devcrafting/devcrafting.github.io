@@ -168,8 +168,8 @@ let transform withOptions file =
 
         Article (file, article.With(File.ReadAllText(tmpBody.FileName), File.ReadAllText(tmpAbstract.FileName)))
     | ".html" -> 
-        Article (file, { UniqueKey = "index"; Language = ""; Url = "/"; CompleteUrl = withOptions.Root + "/"; 
-                         Title = ""; ShortTitle = ""
+        Article (file, { UniqueKey = "index"; Language = "fr"; Url = "/"; 
+                         CompleteUrl = withOptions.Root + "/"; Title = ""; ShortTitle = ""
                          Abstract = ""; Date = DateTime.MinValue; Body = File.ReadAllText(file);
                          Type = None; Layout = "raw"; Tags = []; Hidden = false; RedirectFrom = [] })
     | _ -> Content file

@@ -1,6 +1,7 @@
 module Domain
 
 open System
+open System.Collections.Generic
 
 type GenerationOptions = {
     OutputDir: string
@@ -9,7 +10,13 @@ type GenerationOptions = {
     Root: string
     OutputGitRemote: string
     Prefix: string option
+    Comments: CommentSystem option
     FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
+}
+and CommentSystem = Disqus of IDictionary<string, string>
+and Disqus = { 
+    PageUrl: string
+    DisqusInstance: string
 }
 and FileToUrlConvertionPattern = {
     FilePattern: string

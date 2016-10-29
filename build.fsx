@@ -25,6 +25,7 @@ let cfg = {
     OutputGitRemote = "https://github.com/devcrafting/devcrafting.com"
     Root = "http://www.devcrafting.com"
     Prefix = Some ""
+    Comments = Disqus (dict [ ("fr", "devcrafting-2"); ("en", "devcrafting-1") ] ) |> Some
     FileToUrlConvertionPatterns = [ { FilePattern = "/404.md"; Convertion = HtmlFile } ], DirectoryWithIndexHtml
 }
 
@@ -43,6 +44,7 @@ type ArticleViewModel = {
     BlogPosts: Article<string> list
     Navbar: NavbarItem list
     Translations: IDictionary
+    CommentsWidget: string
 }
 
 let processFile cfg (file:String) articleViewModel =
@@ -127,6 +129,13 @@ let generateRedirectPages cfg articles =
         DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") a
     )
 
+let getCommentsWidget cfg forArticle =
+    match cfg.Comments with
+    | None -> ""
+    | Some (Disqus config) -> 
+        let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language] }
+        DotLiquid.render (cfg.LayoutsDir </> "disqus.html") model
+
 let generateSite cfg changes =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
@@ -171,7 +180,8 @@ let generateSite cfg changes =
                   BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language]
-                  Translations = translations.[article.Language] }
+                  Translations = translations.[article.Language] 
+                  CommentsWidget = getCommentsWidget cfg article }
         | Content file
             when changes = Set.empty || Set.contains file changes -> copyFile cfg file
         | _ -> ())
