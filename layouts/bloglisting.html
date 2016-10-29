@@ -13,9 +13,9 @@
                     {% for tag in post.Tags %}
                         <a href="/{{ post.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
                     {% endfor %}
+                    {{ post.Comments.CountWidget }}
                 </div>
                 <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
-                    <!-- nb comments + link => Disqus -->
                     <span class="fa fa-clock-o"/>
                     <time itemprop="datePublished" datetime="{{ post.Date | Date: 'O' }}">
                     {{ post.Date | localizedDate: model.Translations.dateFormat, post.Language }}
@@ -33,4 +33,5 @@
         </article>
         <hr/>
     {% endfor %}
+    {{ model.Article.Comments.ScriptWidget }}
 {% endblock %}

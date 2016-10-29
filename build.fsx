@@ -44,7 +44,6 @@ type ArticleViewModel = {
     BlogPosts: Article<string> list
     Navbar: NavbarItem list
     Translations: IDictionary
-    Comments: CommentsWidgets
 }
 
 let processFile cfg (file:String) articleViewModel =
@@ -131,21 +130,27 @@ let generateRedirectPages cfg articles =
 
 let getComments cfg forArticle =
     match cfg.CommentsSystem with
-    | None -> { CountWidget = ""; DisplayWidget = "" }
+    | None -> { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
     | Some (Disqus config) -> 
         let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language] }
         { 
             CountWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusCount.html") model
             DisplayWidget = DotLiquid.render (cfg.LayoutsDir </> "disqus.html") model
+            ScriptWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusScript.html") model
         }
 
 let generateSite cfg changes =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
-        |> Seq.map (fun file -> transform cfg file)
+        |> Seq.map (fun file -> 
+            match transform cfg file with
+            | Article (name, article) -> Article (name, { article with Comments = getComments cfg article })
+            | other -> other)
     let articles = 
         files
-        |> Seq.choose (function | Article (_, article) -> Some article | _ -> None)
+        |> Seq.choose (function 
+            | Article (_, article) -> Some article
+            | _ -> None)
         |> Seq.filter (fun a -> not a.Hidden)
     let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.distinct
     let menuByLanguage = 
@@ -177,14 +182,13 @@ let generateSite cfg changes =
                     blogPosts.[article.Language] |> List.ofSeq
                 else 
                     [] 
-            
+
             processFile cfg file 
                 { Article = article
                   BlogPosts = blogPosts
                   ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
                   Navbar = menuByLanguage.[article.Language]
-                  Translations = translations.[article.Language] 
-                  Comments = getComments cfg article }
+                  Translations = translations.[article.Language] }
         | Content file
             when changes = Set.empty || Set.contains file changes -> copyFile cfg file
         | _ -> ())

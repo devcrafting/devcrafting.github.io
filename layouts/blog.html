@@ -8,7 +8,7 @@
             {% for tag in model.Article.Tags %}
                 <a href="/{{ model.Article.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
             {% endfor %}
-            {{ model.Comments.CountWidget }}
+            {{ model.Article.Comments.CountWidget }}
         </div>
         <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
             <!-- TODO: nb comments + link => Disqus -->
@@ -21,6 +21,7 @@
     <div class="devcrafting-article-body" itemprop="articleBody">
     {{ model.Article.Body }}
     </div>
-    {{ model.Comments.DisplayWidget }}
+    {{ model.Article.Comments.DisplayWidget }}
 </article>
+{{ model.Article.Comments.ScriptWidget }}
 {% endblock %}

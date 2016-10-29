@@ -148,6 +148,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
         Hidden = match tryFind "hidden" props with Some hidden -> bool.Parse(hidden) | None -> false
         RedirectFrom = (defaultArg (tryFind "redirectfrom" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
+        Comments = { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
     }
 
 let transform withOptions file =
@@ -168,7 +169,8 @@ let transform withOptions file =
 
         Article (file, article.With(File.ReadAllText(tmpBody.FileName), File.ReadAllText(tmpAbstract.FileName)))
     | ".html" -> 
-        Article (file, { UniqueKey = "index"; Language = "fr"; Url = "/"; 
+        Article (file, { UniqueKey = "index"; Language = "fr"; Url = "/"
+                         Comments = { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
                          CompleteUrl = withOptions.Root + "/"; Title = ""; ShortTitle = ""
                          Abstract = ""; Date = DateTime.MinValue; Body = File.ReadAllText(file);
                          Type = None; Layout = "raw"; Tags = []; Hidden = false; RedirectFrom = [] })

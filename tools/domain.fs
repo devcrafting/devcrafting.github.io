@@ -14,7 +14,7 @@ type GenerationOptions = {
     FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
 }
 and CommentsSystem = Disqus of IDictionary<string, string>
-and CommentsWidgets = { CountWidget: string; DisplayWidget: string }
+and CommentsWidgets = { CountWidget: string; DisplayWidget: string; ScriptWidget: string }
 and Disqus = { 
     PageUrl: string
     DisqusInstance: string
@@ -41,10 +41,11 @@ type Article<'T> =
         Tags: string list
         Hidden: bool
         RedirectFrom: string list
+        Comments: CommentsWidgets
     }
     member x.With(body, abs) =
         { UniqueKey = x.UniqueKey; Url = x.Url; CompleteUrl = x.CompleteUrl; 
-          Title = x.Title; ShortTitle = x.ShortTitle
+          Title = x.Title; ShortTitle = x.ShortTitle; Comments = x.Comments
           Abstract = abs; Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language
           Type = x.Type; Layout = x.Layout; Hidden = x.Hidden; RedirectFrom = x.RedirectFrom }
 
