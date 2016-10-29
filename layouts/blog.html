@@ -8,10 +8,11 @@
             {% for tag in model.Article.Tags %}
                 <a href="/{{ model.Article.Language }}/tag/{{ tag }}/" class="label label-default">{{ tag }}</a>
             {% endfor %}
+            {{ model.Comments.CountWidget }}
         </div>
         <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
             <!-- TODO: nb comments + link => Disqus -->
-            <span class="fa fa-clock-o"/>
+            <span class="fa fa-clock-o"></span>
             <time itemprop="datePublished" datetime="{{ model.Article.Date | Date: 'O' }}">
             {{ model.Article.Date | localizedDate: model.Translations.dateFormat, model.Article.Language }}
             </time>
@@ -20,6 +21,6 @@
     <div class="devcrafting-article-body" itemprop="articleBody">
     {{ model.Article.Body }}
     </div>
-    {{ model.CommentsWidget }}
+    {{ model.Comments.DisplayWidget }}
 </article>
 {% endblock %}
