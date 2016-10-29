@@ -26,13 +26,13 @@
     * Old content migration on the same domain with "redirectfrom" metadata (http-equiv="refresh", rel="canonical")
     * Blogspot migration guidelines: http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
 * Google Analytics + cookies warning
+* Comments integrated with Disqus (make it configurable)
 
 # Features TODO
 
 * SEO:
     * Google Webmaster Tools guidelines
     * XML sitemap
-* Comments integrated with Disqus (make it configurable)
 * Links to share articles on Twitter or Linked In
 * Links checker : detect links that does not return HTTP Code 200
 * RSS flux

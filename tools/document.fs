@@ -139,6 +139,7 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
         Abstract = abs
         Date = defaultArg (tryFind "date" props |> Option.map DateTime.Parse) DateTime.MinValue
         Url = url
+        CompleteUrl = cfg.Root + url
         Body = body
         Type = articleType
         Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
@@ -167,7 +168,8 @@ let transform withOptions file =
 
         Article (file, article.With(File.ReadAllText(tmpBody.FileName), File.ReadAllText(tmpAbstract.FileName)))
     | ".html" -> 
-        Article (file, { UniqueKey = "index"; Language = ""; Url = "/"; Title = ""; ShortTitle = ""
+        Article (file, { UniqueKey = "index"; Language = ""; Url = "/"; CompleteUrl = withOptions.Root + "/"; 
+                         Title = ""; ShortTitle = ""
                          Abstract = ""; Date = DateTime.MinValue; Body = File.ReadAllText(file);
                          Type = None; Layout = "raw"; Tags = []; Hidden = false; RedirectFrom = [] })
     | _ -> Content file

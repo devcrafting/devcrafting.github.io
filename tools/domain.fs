@@ -22,6 +22,7 @@ type Article<'T> =
         UniqueKey: string
         Language: string
         Url: string
+        CompleteUrl: string
         Title: string
         ShortTitle: string
         Abstract: 'T
@@ -34,7 +35,8 @@ type Article<'T> =
         RedirectFrom: string list
     }
     member x.With(body, abs) =
-        { UniqueKey = x.UniqueKey; Url = x.Url; Title = x.Title; ShortTitle = x.ShortTitle
+        { UniqueKey = x.UniqueKey; Url = x.Url; CompleteUrl = x.CompleteUrl; 
+          Title = x.Title; ShortTitle = x.ShortTitle
           Abstract = abs; Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language
           Type = x.Type; Layout = x.Layout; Hidden = x.Hidden; RedirectFrom = x.RedirectFrom }
 
