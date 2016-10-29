@@ -37,7 +37,7 @@ En fait, je me dis que je devrais écrire des billets plus courts et moins compl
 
 Ecrire des billets de blog prend beaucoup de temps, et avoir un rythme constant est encore plus difficile. Dans mes expériences précédentes, écrire n'était pas une priorité (quand j'avais le temps), je n'était donc pas constant et j'ai perdy la foi de continuer au final...
 
-En parlant avec [@ouarzy](https://twitter.com/ouarzy), j'ai compris comment il essayait de réserver du temps chaque semaine pour écrire, sans y déroger pour garder le rythme. Son expérience montre que ça marche plutôt bien: il réussit à écrire régulièrement and reçoit de nombreux retour de la communauté.
+En parlant avec [@ouarzy](https://twitter.com/ouarzy), j'ai compris comment il essayait de réserver du temps chaque semaine pour écrire, sans y déroger pour garder le rythme. Son expérience montre que ça marche plutôt bien: il réussit à écrire régulièrement et reçoit de nombreux retour de la communauté.
 
 ## Un nouvel essai
 
