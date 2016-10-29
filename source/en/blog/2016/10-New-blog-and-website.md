@@ -3,7 +3,7 @@ New blog and website
 
 - uniquekey: new-blog-and-website
 - date: 2016-10-25
-- tags: fsharp,devcrafting
+- tags: fsharp,devcrafting,community
 
 --------------
 
@@ -45,19 +45,19 @@ Now I justified myself ;), I can expose my "plan", or rather my new wish: a new 
 
 * An offline edition based on [GitHub Pages](https://pages.github.com), Markdown and [F# Formatting](https://tpetricek.github.io/FSharp.Formatting/)
 * Simpler or more limited subjects, with less self-censorship ;)
-* Time allocated every week to write blog posts
+* Time allocated every week to write blog posts, lets say 4 times a week for 1 hour, in the morning, during lunch break or in the evening, depending on my constraints
 * Some subjects in English, some in French (or even both?!), depending on which community I would like to share with
 
-Hope I will keep the pace of writing, let's say one or two times a month as a good start!
+Hope I will keep the pace of writing, let's say one or two times a month in each language would be a good start!
 
-## Side-effects: some fun(ctional) with F#
+## Side effects: some fun(ctional) with F#
 
-I will probably write more on this, but I built my new website/blog with F#, using Markdown or F#, processed with [F# Formatting library](https://tpetricek.github.io/FSharp.Formatting/) to obtain a static site published on [GitHub Pages](https://pages.github.com).
+I will probably write more on this. I built my new website/blog with F#, using Markdown or F#, processed with [F# Formatting library](https://tpetricek.github.io/FSharp.Formatting/) to obtain a static site published on [GitHub Pages](https://pages.github.com).
 
 Note I had a look at [FsBlog](https://github.com/fsprojects/FsBlog), but find it too difficult to add multilingual support in the code base, with lots of coupling and poor unit tests in place.
 
 You can have a look at the [reame.md file](https://github.com/devcrafting/devcrafting.github.io/blob/dev/readme.md) to see which features I support. Most of features are configurable, F# code is located in [tools directory](https://github.com/devcrafting/devcrafting.github.io/tree/dev/tools) and [build.fsx file](https://github.com/devcrafting/devcrafting.github.io/blob/dev/build.fsx). For sure, I could improve it, and I could add some unit tests to avoid future problems (the same I got with FsBlog...).
 
-Note I could have done TDD, but I found it quite difficult to improve both on a language and on a practice with this language (I will try to write on that). I could say I tried Type-DD (i.e write Types first instead of Tests), but it would be pretentious ;).
+Note I could have done TDD, but I found it quite difficult to improve both on a language and on a practice with this language (I will try to write on that). By the way, I experimented the fact that REPL (immediate code execution with F# interactive) gives a quick feedback loop. I could say I tried Type-DD (i.e write strong Types first instead of Tests), but it would be pretentious ;).
 
 Hope you will enjoy reading me, [in French](http://www.devcrafting.com/fr/blog/) and/or [in English](http://www.devcrafting.com/en/blog/).
