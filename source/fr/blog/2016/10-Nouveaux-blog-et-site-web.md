@@ -3,7 +3,7 @@ Nouveau blog et nouveau site web
 
 - uniquekey: new-blog-and-website
 - date: 2016-10-25
-- tags: fsharp,devcrafting,community
+- tags: fsharp,devcrafting,Communautés
 
 --------------
 
