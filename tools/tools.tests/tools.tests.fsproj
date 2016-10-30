@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="source/**/*.*">
+    <Content Include="source/minimal.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="source\nometadata.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="document.tests.fs" />

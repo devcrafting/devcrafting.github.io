@@ -14,7 +14,7 @@ let ``Any file with extension other than .fsx or .md are transformed in a Conten
     transform cfg "anyfile" = Content "anyfile"
 
 [<Property>]
-let ``File with .md extension are transformed in an Article`` cfg =
+let ``File with .md extension are transformed in an Article file`` cfg =
     let cfg = 
         { cfg with
             SourceDir = "source/" 

@@ -7,3 +7,5 @@ output/
 bin/
 obj/
 build/
+*.suo
+*.user
