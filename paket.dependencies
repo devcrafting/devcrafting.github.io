@@ -1,7 +1,10 @@
 source https://nuget.org/api/v2
 
+nuget FsCheck.Xunit
 nuget FSharp.Core
 nuget FSharp.Formatting 3.0.0-beta01
 nuget DotLiquid
 nuget FAKE
 nuget Suave
+nuget xunit.assert
+nuget xunit.runner.console

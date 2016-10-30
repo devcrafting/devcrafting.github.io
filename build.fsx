@@ -305,4 +305,24 @@ Target "generate" (fun () ->
     regenerateSite ()
 )
 
+let buildDir  = "./build/"
+
+let appReferences  =
+    !! "/**/*.csproj"
+    ++ "/**/*.fsproj"
+
+Target "build" (fun _ ->
+    MSBuildDebug buildDir "Build" appReferences
+    |> Log "AppBuild-Output: "
+)
+
+open Fake.Testing
+
+Target "tests" (fun () -> 
+    !! "build/*.tests.dll"
+    |> xUnit2 (fun p -> { p with ToolPath = "packages/xunit.runner.console/tools/xunit.console.exe" })
+)
+
+"build" ==> "tests" 
+
 RunTargetOrDefault "run"
