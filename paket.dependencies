@@ -6,5 +6,5 @@ nuget FSharp.Formatting 3.0.0-beta01
 nuget DotLiquid
 nuget FAKE
 nuget Suave
-nuget xunit.assert
+nuget Unquote
 nuget xunit.runner.console
