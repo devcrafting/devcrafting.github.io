@@ -18,6 +18,7 @@ and CommentsWidgets = { CountWidget: string; DisplayWidget: string; ScriptWidget
 and Disqus = { 
     PageUrl: string
     DisqusInstance: string
+    Translations: IDictionary<string, obj>
 }
 and FileToUrlConvertionPattern = {
     FilePattern: string

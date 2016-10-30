@@ -20,4 +20,6 @@ let translationByLanguage =
            ("continueReading",
             dict [ ("fr", "Lire la suite..."); ("en", "continue reading...") ])
            ("postsTagged",
-            dict [ ("fr", "Articles avec le label"); ("en", "Posts tagged with") ]) ]
+            dict [ ("fr", "Articles avec le label"); ("en", "Posts tagged with") ])
+           ("commentsCountDefaultText",
+            dict [ ("fr", "Laisser un commentaire"); ("en", "Leave a comment") ]) ]

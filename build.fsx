@@ -128,11 +128,11 @@ let generateRedirectPages cfg articles =
         DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") a
     )
 
-let getComments cfg forArticle =
+let getComments cfg forArticle translations =
     match cfg.CommentsSystem with
     | None -> { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
     | Some (Disqus config) -> 
-        let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language] }
+        let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language]; Translations = translations }
         { 
             CountWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusCount.html") model
             DisplayWidget = DotLiquid.render (cfg.LayoutsDir </> "disqus.html") model
@@ -142,17 +142,17 @@ let getComments cfg forArticle =
 let generateSite cfg changes =
     let files =
         listFiles cfg.SourceDir |> List.ofSeq
-        |> Seq.map (fun file -> 
-            match transform cfg file with
-            | Article (name, article) -> Article (name, { article with Comments = getComments cfg article })
-            | other -> other)
+        |> Seq.map (fun file -> transform cfg file)
+    let languagesUsed =
+        files 
+        |> Seq.choose (function | Article (_, article) -> Some article.Language | _ -> None ) |> Seq.distinct
+    let translations = getTranslations languagesUsed 
     let articles = 
         files
         |> Seq.choose (function 
-            | Article (_, article) -> Some article
+            | Article (_, article) -> Some { article with Comments = getComments cfg article translations.[article.Language] }
             | _ -> None)
         |> Seq.filter (fun a -> not a.Hidden)
-    let languagesUsed = articles |> Seq.map (fun a -> a.Language) |> Seq.distinct
     let menuByLanguage = 
         languagesUsed
         |> Seq.map (fun l -> l, generateMenu menu l articles |> List.ofSeq)
@@ -164,7 +164,6 @@ let generateSite cfg changes =
         |> Seq.sortByDescending (fun a -> a.Date)
         |> Seq.groupBy (fun a -> a.Language)
         |> dict
-    let translations = getTranslations languagesUsed
 
     trace "Generating tag pages..."
     let tags = generateTagPages articles menuByLanguage translations |> List.ofSeq
