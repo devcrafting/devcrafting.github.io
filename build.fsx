@@ -96,7 +96,7 @@ let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (tr
         let tag = fst tagWithArticles
         let tagViewModel = { 
             Tag = tag
-            BlogPosts = snd tagWithArticles |> Seq.map snd |> List.ofSeq
+            BlogPosts = snd tagWithArticles |> Seq.map snd |> Seq.sortByDescending (fun a -> a.Date) |> List.ofSeq
             Navbar = navbar.[tag.Language]
             Translations = translations.[tag.Language] }
         printfn "Generate tag page for: %s" tagViewModel.Tag.Title
