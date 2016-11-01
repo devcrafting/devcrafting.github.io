@@ -47,7 +47,10 @@
     <Content Include="source/minimal.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="source\nometadata.md">
+    <Content Include="source\noMetadata.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="source\shortTitle.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="document.tests.fs" />
