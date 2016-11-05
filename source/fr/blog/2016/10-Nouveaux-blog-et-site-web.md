@@ -62,5 +62,8 @@ A noter que j'aurais pu le faire en TDD, mais j'ai trouvé assez difficile de m'
 
 J'espère que vous aurez plaisir à me lire, [en français](http://www.devcrafting.com/fr/blog/) et/ou [en anglais](http://www.devcrafting.com/en/blog/).
 
+-----------
+
 EDIT : merci à [@emroeck](https://twitter.com/emroeck) (et [son outil](https://github.com/emmanuelroecker/php-spellchecker)) et [@ouarzy](https://twitter.com/ouarzy) pour leurs corrections ;)
+
 EDIT2 : la date initiale du post était celle du début de rédaction...les esprits taquins ;) disaient que ça faisait déjà une semaine que je n'avais pas écrit...un article en anglais et un en français sont en cours ;). [@ouarzy](https://twitter.com/ouarzy) faisait la remarque qu'il avait toujours plusieurs brouillons en cours, et qu'il travaillait par itérations successives et refactoring (recommandation du livre [On Writing Well de William Zinsser](https://www.google.fr/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=on%20writing%20well))
