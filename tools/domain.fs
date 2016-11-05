@@ -12,6 +12,7 @@ type GenerationOptions = {
     Prefix: string option
     CommentsSystem: CommentsSystem option
     FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
+    DraftsFolderOrFilePrefix: string list
 }
 and CommentsSystem = Disqus of IDictionary<string, string>
 and CommentsWidgets = { CountWidget: string; DisplayWidget: string; ScriptWidget: string }

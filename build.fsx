@@ -27,6 +27,7 @@ let cfg = {
     Prefix = Some ""
     CommentsSystem = Disqus (dict [ ("fr", "devcrafting-2"); ("en", "devcrafting-1") ] ) |> Some
     FileToUrlConvertionPatterns = [ { FilePattern = "/404.md"; Convertion = HtmlFile } ], DirectoryWithIndexHtml
+    DraftsFolderOrFilePrefix = [ "drafts" ]
 }
 
 let rec listFiles root = seq {
@@ -180,12 +181,18 @@ let generateSite cfg changes =
                 if blogPosts.ContainsKey(article.Language) then
                     blogPosts.[article.Language] |> List.ofSeq
                 else 
-                    [] 
+                    []
+
+            let articlesLanguages =
+                if articlesByKey.ContainsKey(article.UniqueKey) then
+                    articlesByKey.[article.UniqueKey] |> List.ofSeq
+                else
+                    []
 
             processFile cfg file 
                 { Article = article
                   BlogPosts = blogPosts
-                  ArticlesLanguages = articlesByKey.[article.UniqueKey] |> List.ofSeq
+                  ArticlesLanguages = articlesLanguages
                   Navbar = menuByLanguage.[article.Language]
                   Translations = translations.[article.Language] }
         | Content file
@@ -318,11 +325,11 @@ Target "build" (fun _ ->
 
 open Fake.Testing
 
-Target "tests" (fun () -> 
+Target "test" (fun () -> 
     !! "build/*.tests.dll"
     |> xUnit2 (fun p -> { p with ToolPath = "packages/xunit.runner.console/tools/xunit.console.exe" })
 )
 
-"build" ==> "tests" 
+"build" ==> "test" 
 
 RunTargetOrDefault "run"

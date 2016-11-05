@@ -100,6 +100,12 @@ let private readMetadata (paragraphs:MarkdownParagraphs) =
 let private tryFind k (props:IDictionary<string, string>) = 
     if props.ContainsKey k then Some(props.[k]) else None
 
+let private hiddenBecauseInDraftsFolderOrFilePrefix (normalizedRelativeFileName:string) cfg =
+    let splittedPath = normalizedRelativeFileName.Split([| '/' |])
+    if splittedPath.Length < 2 then false else
+    cfg.DraftsFolderOrFilePrefix
+    |> Seq.contains splittedPath.[splittedPath.Length - 2]
+
 (* Adapted to support multi lang *)
 let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, abstractOpt, body) =
     let abs, body =
@@ -145,7 +151,9 @@ let private parseMetadata (cfg:GenerationOptions) (file:string) (title, props, a
         Layout = defaultArg (tryFind "layout" props) (defaultArg articleType "default")
         Tags = (defaultArg (tryFind "tags" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
-        Hidden = match tryFind "hidden" props with Some hidden -> bool.Parse(hidden) | None -> false
+        Hidden = match tryFind "hidden" props with 
+                    | Some hidden -> bool.Parse(hidden)
+                    | None -> hiddenBecauseInDraftsFolderOrFilePrefix normalizedRelativeFileName cfg
         RedirectFrom = (defaultArg (tryFind "redirectfrom" props) "").Split([| ',' |], StringSplitOptions.RemoveEmptyEntries) 
                 |> Seq.map (fun s -> s.Trim()) |> List.ofSeq
         Comments = { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
@@ -169,4 +177,3 @@ let transform withOptions file =
 
         Article (file, article.With(File.ReadAllText(tmpBody.FileName), File.ReadAllText(tmpAbstract.FileName)))
     | _ -> Content file
-

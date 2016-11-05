@@ -47,9 +47,21 @@ module ``Simplest file transformations use case: `` =
         raisesWith <@ transform cfg "source/nometadata.md" @> (fun e -> <@ e.Message.StartsWith("No metadata") @>)
 
 module ``Transformation of 'basic' metadata: `` =
-
     [<Property>]
     let ``ShortTitle metadata is parsed`` cfg =
         let cfg = basicCfg cfg
         transform cfg "source/shortTitle.md" !=!
             fun article -> article.ShortTitle =! "shortTitle"
+
+module ``Detect hidden file in transform`` =
+    [<Property>]
+    let ``When it contains hidden metadata`` cfg =
+        let cfg = basicCfg cfg
+        transform cfg "source/hidden.md" !=!
+            fun article -> article.Hidden =! true
+
+    [<Property>]
+    let ``When they are in a drafts directory given in config`` cfg =
+        let cfg = { basicCfg cfg with DraftsFolderOrFilePrefix = [ "drafts" ] }
+        transform cfg "source/drafts/test.md" !=!
+            fun article -> article.Hidden =! true
