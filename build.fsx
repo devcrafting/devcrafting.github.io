@@ -198,7 +198,11 @@ let generateSite cfg changes =
         | Content file
             when changes = Set.empty || Set.contains file changes -> copyFile cfg file
         | _ -> ())
-
+    
+    trace "Ignore drafts when publishing"
+    File.WriteAllLines(
+        cfg.OutputDir </> ".gitignore", 
+        cfg.DraftsFolderOrFilePrefix |> Seq.map (fun x -> x + "/"))
 
 let regenerateSite () = 
     trace "Regenerating site from scratch"
