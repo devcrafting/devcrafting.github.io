@@ -141,17 +141,23 @@ let getComments cfg forArticle translations =
         }
 
 let generateSite cfg changes =
-    let files =
+    let filesWithoutComments =
         listFiles cfg.SourceDir |> List.ofSeq
         |> Seq.map (fun file -> transform cfg file)
     let languagesUsed =
-        files 
+        filesWithoutComments
         |> Seq.choose (function | Article (_, article) -> Some article.Language | _ -> None ) |> Seq.distinct
     let translations = getTranslations languagesUsed 
+    let files =
+        filesWithoutComments
+        |> Seq.map (function 
+                    | Article(file, article) -> 
+                        Article(file, { article with Comments = getComments cfg article translations.[article.Language] })
+                    | other -> other)
     let articles = 
         files
         |> Seq.choose (function 
-            | Article (_, article) -> Some { article with Comments = getComments cfg article translations.[article.Language] }
+            | Article (file, article) -> Some article
             | _ -> None)
         |> Seq.filter (fun a -> not a.Hidden)
     let menuByLanguage = 
@@ -177,6 +183,7 @@ let generateSite cfg changes =
     |> Seq.iter (function 
         | Article (file, article) 
             when changes = Set.empty || Set.contains file changes || article.Layout = "bloglisting" ->
+            
             let blogPosts = 
                 if blogPosts.ContainsKey(article.Language) then
                     blogPosts.[article.Language] |> List.ofSeq
