@@ -122,7 +122,9 @@ redirect_from:
             
                 <a href="/fr/tag/devcrafting/" class="label label-default">devcrafting</a>
             
-            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/fr/blog/2014/07-Creation-de-Devcrafting/#disqus_thread">Laisser un commentaire</a>
+
         </div>
         <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
             <!-- TODO: nb comments + link => Disqus -->
@@ -189,8 +191,24 @@ redirect_from:
 
 
     </div>
-    
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/fr/blog/2014/07-Creation-de-Devcrafting/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-2.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 </article>
+<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
 
 
 			</div>
@@ -240,7 +258,8 @@ redirect_from:
         tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
         tagAnalyticsCNIL.CookieConsent.start();
     </script>
-	
+	<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
 </body>
 
 </html>
