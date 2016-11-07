@@ -93,6 +93,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 
 .devcrafting-article-body {
     margin-top: 20px;
+    text-align: justify;
 }
 
 .devcrafting-404-warning {
@@ -241,4 +242,21 @@ footer li {
 footer a, footer a:active, footer a:hover, footer a:visited {
     color: rgb(0, 0, 0);
     font-weight: bold;
+}
+
+.img-float-left {
+    float: left;
+    margin: 10px;
+    max-width: 230px;
+}
+
+.img-float-right {
+    float: right;
+    margin: 10px;
+    max-width: 230px;
+}
+
+.img-bg-white {
+    padding: 5px;
+    background-color: white;
 }
