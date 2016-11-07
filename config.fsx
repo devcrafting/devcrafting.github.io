@@ -5,7 +5,7 @@ open Navbar
 let menu submenu menuItem =
     [
         subMenu "services" [
-            menuItem "architecture-and-conception"
+            menuItem "architecture-and-design"
             menuItem "software-craftsmanship-practices"
             menuItem "agile-approaches"
         ]

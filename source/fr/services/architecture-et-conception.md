@@ -1,7 +1,7 @@
 Architecture et conception
 ===========================
 
-- uniquekey: architecture-and-conception
+- uniquekey: architecture-and-design
 - layout: default
 
 Les nouvelles technologies offrent de plus en plus de solutions pour répondre aux besoins de vos clients, parfois de façon plus ou moins adaptées en fonction de votre contexte. Comment choisir entre des solutions très génériques/standards et des solutions sur mesure, ou comment mixer les deux, tel est le challenge de l'informatique d'aujourd'hui.
