@@ -1,6 +1,8 @@
 Pourquoi vous devriez vraiment passer à Git
 ===========================================
 
+- uniquekey: why-you-should-migrate-to-git
+- date: 2016-11-07
 - tags: git, outils
 
 -----------------
