@@ -1,0 +1,248 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/fr/blog/2016/pourquoi-vous-devriez-passer-a-git/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>Pourquoi vous devriez vraiment passer à Git - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/fr/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li class="dropdown">
+							<a href="/fr/services/">Services</a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
+								
+								<li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
+								
+								<li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
+								
+							</ul>
+						</li>
+						  
+						<li><a href="/fr/blog/">Blog</a></li>
+						  
+						<li><a href="/fr/contact/">Contact</a></li>
+						  
+						<li><a href="/fr/a-propos/">A propos</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/fr/blog/2016/pourquoi-vous-devriez-passer-a-git/">FR</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Pourquoi vous devriez vraiment passer à Git</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/fr/tag/git/" class="label label-default">git</a>
+            
+                <a href="/fr/tag/outils/" class="label label-default">outils</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/fr/blog/2016/pourquoi-vous-devriez-passer-a-git/#disqus_thread">Laisser un commentaire</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="0001-01-01T00:00:00.0000000">
+            lundi 1 janvier 0001
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>J'ai mis relativement longtemps à passer à Git, j'ai démarré "seulement" début 2013. Auparavant, j'ai travaillé successivement avec Subversion et TFS Version Control. Et dernièrement, j'ai retrouvé TFS VC sur une mission. J'ai aussi croisé ClearCase. C'est l'occasion de faire un retour d'expérience et d'avancer des arguments pour ceux qui ne seraient toujours pas passés à Git (ou un autre DVCS - Distributed Version Control System - ayant le même principe de fonctionnement).</p>
+<h2>Rapide tour d'horizon</h2>
+<img alt="Logo de Git" class="img-float-left img-bg-white" src="/images/git.png"/>
+<p><a href="https://subversion.apache.org/">Subversion</a> a été la norme à la suite de CVS, notamment pour beaucoup de projets Open Source (dont de nombreux sur SourceForge), puis l'arrivée de <a href="https://git-scm.com/">Git</a> (et d'autres DVCS comme Mercurial) a sonné le glas de Subversion et aujourd'hui la majorité des projets Open Source est géréé avec Git (surtout sur GitHub).</p>
+<p>Mais qu'en est-il de son utilisation par les entreprises? J'ai clairement remarqué que beaucoup d'entreprises (en France en tout cas) avaient mis beaucoup de temps à passer à un DVCS, ou n'y étaient toujours pas passées.</p>
+<p>Certaines étaient passées à Subversion déjà tardivement. D'autres utilisaient encore des CVS payants plus ou moins anciens (PVCS, ClearCase...). Certaines étaient passées à <a href="https://www.visualstudio.com/en-us/docs/tfvc/overview">TFS VC</a>, qui faisait plus récent et plus "sérieux" que Subversion (avec Microsoft comme faire-valoir). A noter que concrètement, TFS VC était très proche de Subversion et franchement mieux intégré (pour des devs sur plateforme .NET au moins).</p>
+<p>De nombreuses raisons (plus ou moins bonnes) à cette réticence des entreprises, dont:</p>
+<ul>
+<li>"Il n'y a pas assez de personnes qui connaissent" =&gt; avec ce genre d'arguments, on taillerait encore des silex...et surtout, c'est tombé à l'eau avec de plus en plus de jeunes connaissant Git (formés dès leurs études? ou par eux-mêmes?)</li>
+<li>"L'Open Source ce n'est pas assez sérieux pour l'entreprise" =&gt; sans commentaires...</li>
+<li>"Subversion marche très bien (dans mon contexte)" =&gt; c'est possible dans certains cas, mais quand même cela ressemble souvent à la stratégie de l'autruche</li>
+<li>"La migration va coûter cher" =&gt; râté, il y a plusieurs outils comme <a href="https://git-scm.com/book/fr/v1/Git-et-les-autres-syst%C3%A8mes-Git-et-Subversion">Git-SVN</a> ou <a href="https://github.com/git-tfs/git-tfs">Git-TFS</a>, qui permettent de travailler avec Git en local et Subversion ou TFS VC sur un serveur central, mais permettent aussi de réaliser une migration vers Git assez simplement...</li>
+<li>"Git est un marteau pour écraser une mouche, je n'ai pas de problématiques complexes de développement distribué..." =&gt; c'est un argument de façade, mais en fait, les fonctionnalités des DCVS ne servent pas que dans un contexte de développement distribué...</li>
+<li>Mais surtout, la raison la plus probable, mais la moins avouable, est que beaucoup de personnes craignent le changement...ils ont "peur" de passer d'un outil qu'ils maîtrisent (et encore) à un outil inconnu! Surtout que Git a toujours eu un peu cette réputation d'être ardu au début...</li>
+</ul>
+<p>Vous vous sentez un peu bousculé par cette introduction (à noter que j'espère que vous n'avez pas pris personnellement mes sarcasmes...), je vous propose de reprendre quelques points cruciaux de la gestion de configuration. Dernièrement, j'ai eu des expériences avec des CVS classiques, voire un pré-historique ;), cela pourra peut-être apporter plus d'éléments.</p>
+<h2>Expérience récente avec ClearCase</h2>
+<img alt="Logo de ClearCase" class="img-float-left" src="/images/IBM-ClearCase.png"/>
+<p>J'ai participé à une migration de ClearCase vers Git, et franchement, il faut être masochiste pour utiliser ClearCase car c'est extrêmement lent et très complexe. Le plus étonnant dans cette expérience a tout de même été que, malgré que la plupart des personnes partageait une certaine aversion à ClearCase, ils étaient peu enclin à passer à Git...une manifestation de la "peur" du changement probablement?</p>
+<p>D'un point de vue plus technique, et pour étayer un peu mon jugement à l'emporte-pièce ci-dessus, ClearCase suit les fichiers unitairement, avec un historique de version propre à chacun, sans atomicité des changements de plusieurs fichiers (comme les changesets dans TFS VC ou les commits Git). De plus, le système est basé sur un modèle à base de "Locks", ne permettant qu'à une seule personne de modifier un fichier...à noter que certains y voyaient un intérêt particulier ("si quelqu'un bosse sur un fichier alors il ne faut pas que je travaille dessus aussi"), un argument un peu désuet à mon sens avec l'utilisation de plus en plus de fichiers (on s'éloigne heureusement des applications avec des fichiers sources de milliers de lignes).</p>
+<p>Les impacts de cela sont qu'ajouter un fichier est une opération unitaire, que pour modifier un fichier il faut d'abord l'extraire, que l'archivage (commit/checkin) se fait fichier par fichier, toutes ces opérations sont fastidieuses et ralentissent notablement le développement...</p>
+<p>De plus, la gestion des branches (streams) est connue comme "avancée" certes, mais complexe, dans ClearCase...et complexe n'est pas un vain mot, d'ailleurs très peu de personnes géraient cela dans l'entreprise où j'effectuais la migration...sans compter la lenteur effarante de toutes les opérations sur les branches.</p>
+<p>Le passage à Git était l'occasion de mettre la puissance des branches dans les mains des développeurs, avec certes une peur de l'inconnue, mais globablement après un peu de pratique et une dose de bonne volonté, j'ai l'impression que c'est très bien passé (avec même certains au point sur le Feature Branching). A noter par contre que la migration de ClearCase vers Git n'est pas une mince affaire si on veut migrer son historique.</p>
+<h2>Expérience récente avec TFS VC</h2>
+<img alt="Logo de TFS VC" class="img-float-left" src="/images/TFS-logo.png"/>
+<p>Autre expérience avec un CVS plus "récent" et plus "sérieux" : TFS VC de Microsoft. L'ayant utilisé pendant un certain temps, je n'étais pas particulièrement pro "Microsoft/TFS bashing", surtout qu'objectivement je ne trouvais pas cet outil si catastrophique, sans être extraordinaire non plus évidemment. Cependant, mon retour récent à la gestion de configuration avec TFS VC est l'occasion de revenir sur cette brique TFS un peu viellissante à mon goût.</p>
+<p>Comme je disais en introduction, TFS VC est très proche de Subversion. En arrivant en 2005, c'était franchement (enfin) un bon rafraichissement côté Microsoft, pour ceux qui ont connu Visual Source Safe...Ces CVS ont apportés notamment l'atomicité des modifications d'un ensemble de fichiers : les changesets/révisions. En apparence, les commits Git n'apportent rien de plus. Mais en fait, en regardant Git dans son ensemble, les commits apportent notamment un niveau d'atomicité/cohérence supplémentaire sur l'ensemble du dépôt.</p>
+<p>Concrêtement avec TFS VC, quand vous faites un check-in, s'il n'y a pas de conflits, un nouveau changeset est créé sur le serveur sans que vous ayez à mettre à jour votre version locale. Résultat : vous avez potentiellement mis à disposition des autres un code qui ne fonctionne pas avec les changesets que vous n'avez pas récupérés, d'où un potentiel problème "d'incohérence" de votre dépôt (est-ce que l'ensemble compile même encore ?!)...certes cela n'existe pas avec Subversion qui force à mettre à jour sa version locale avant de faire un check-in, mais cela m'amène à un autre point.</p>
+<p>En effet, j'ai vraiment eu du mal à faire de petits pas avec TFS VC (idem avec Subversion) et j'ai eu quelques sueurs froides quand je devais récupérer la dernière version alors que j'avais des modifications en cours...et là je me suis dit vive les commits locaux : 1) ils me permettent d'avancer par petits pas sans avoir forcément à les mettre à disposition de tous avant d'avoir un ensemble satisfaisant de commits et 2) la mise à jour de ma version locale est sécurisée par le fait qu'il faut avoir un espace de travail "propre" sans modifications en cours, donc sans risque de perdre ses modifications locales lors d'une mise à jour à partir du serveur.</p>
+<p>Pour finir avec TFS, un serveur Git est intégré depuis TFS 2013, donc vous pouvez oublier TFS VC. Pensez-y.</p>
+<h2>Pour finir : autres petits plus "pro-Git"</h2>
+<p>Je n'ai évidemment pas parlé de tous les aspects de Git, ce serait long pour un billet, l'objectif était de faire un rapide retour sur quelques aspects m'ayant marqués en réutilisant des CVS après mon adoption de Git. Pour conclure, j'ajoute tout de même quelques autres petits plus de Git.</p>
+<img alt="Branches Git" class="img-float-right" src="/images/GitBranching.jpg"/>
+<p>Premièrement les branches sont des "first-class citizen", c'est-à-dire que ce ne sont plus des sous-répertoires du dépôt, organisés de manière plus ou moins rigoureuse...le concept de branche est central dans Git, vous commencez sur une branche (master typiquement), à partir de laquelle vous allez pouvoir créer d'autres branches pour isoler vos développements, mais votre espace de travail local ne reflète qu'une seule branche à la fois, il n'y a plus de mapping d'un sous-ensemble du dépôt comme sur Subversion ou TFS VC. Vous devez basculer d'une branche à l'autre pour changer votre espace de travail. Cela peut paraîtrei contraignant, mais au final, je trouve cela plutôt sécurisant.</p>
+<p>De plus, la manipulation des branches est nettement plus aisée qu'avec TFS VC ou Subversion. Qui peut me dire avoir utilisé intensivement les branches sur ces outils sans aucun problème ? Je connais plus de gens qui me disent les avoir évitées...et pourtant les pratiques associées aux branches comme le Feature Branching apporte une grande souplesse, c'est une partie de ce qu'on appelle les <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/">workflows Git</a>. On peut se dire que "ça ne nous servirait à rien", mais après avoir essayé, on en comprend mieux l'utilité.</p>
+<p>Enfin, un autre argument : c'est le travail offline et la rapidité de fonctionnement que cela apporte. En fait cela est permis par <a href="https://git-scm.com/book/fr/v1/Les-tripes-de-Git">"les tripes de Git"</a>, qui de part son aspect distribué, permet/nécessite que chacun ait en local l'ensemble de l'historique du dépôt (central pour simplifier). A partir de là, toutes les opérations de changement de branche, de commits, de visualisation de l'historique sont locales et très rapides, et c'est un régal ! A noter que l'aspect distribué permet aussi d'envisager des scénarios autres que le serveur centralisé avec des clients, toute copie du dépôt peut faire office de serveur pour un autre dépôt. Et au passage, toute copie du dépôt est une sauvegarde.</p>
+<p>Voilà, j'espère que ce billet pourra convaincre quelques derniers résistants à faire le pas. Les premiers temps sont un peu "rudes", mais une fois un peu exercé, on ne peut plus s'en passer.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/fr/blog/2016/pourquoi-vous-devriez-passer-a-git/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-2.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
