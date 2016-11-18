@@ -2,7 +2,7 @@
 
 open Navbar
 
-let menu submenu menuItem =
+let menu menuItem =
     [
         subMenu "services" [
             menuItem "architecture-and-design"

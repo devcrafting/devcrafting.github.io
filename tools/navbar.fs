@@ -36,6 +36,6 @@ let generateMenu menuDefinition language (articles:Article<String> seq) =
         |> Seq.filter (fun a -> a.Language = language) 
         |> Seq.groupBy (fun a -> a.UniqueKey)
         |> dict
-    menuDefinition subMenu menuItem
+    menuDefinition menuItem
     |> Seq.map (fun (generateMenuItem: IDictionary<String, Article<String> seq> -> NavbarItem option) -> generateMenuItem articlesByKey)
     |> Seq.choose id
