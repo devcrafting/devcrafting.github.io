@@ -7,6 +7,7 @@
 #load "tools/document.fs"
 #load "tools/dotliquid.fs"
 #load "config.fsx"
+#load "tools/viewmodels.fs"
 
 open System
 open System.IO
@@ -17,6 +18,7 @@ open Document
 open Domain
 open Navbar
 open Config
+open ViewModels
 
 let cfg = { 
     SourceDir = __SOURCE_DIRECTORY__ </> "source"
@@ -25,7 +27,7 @@ let cfg = {
     OutputGitRemote = "https://github.com/devcrafting/devcrafting.com"
     Root = "http://www.devcrafting.com"
     Prefix = Some ""
-    CommentsSystem = Disqus (dict [ ("fr", "devcrafting-2"); ("en", "devcrafting-1") ] ) |> Some
+    CommentsSystem = Disqus (dict [ ("fr", "devcrafting-2"); ("en", "devcrafting-1") ] )
     FileToUrlConvertionPatterns = [ { FilePattern = "/404.md"; Convertion = HtmlFile } ], DirectoryWithIndexHtml
     DraftsFolderOrFilePrefix = [ "drafts" ]
 }
@@ -38,14 +40,6 @@ let rec listFiles root = seq {
 
 open System.Collections
 open System.Collections.Generic
-
-type ArticleViewModel = {
-    Article: Article<string>
-    ArticlesLanguages: Article<string> list
-    BlogPosts: Article<string> list
-    Navbar: NavbarItem list
-    Translations: IDictionary
-}
 
 let processFile cfg (file:String) articleViewModel =
     printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
@@ -131,8 +125,8 @@ let generateRedirectPages cfg articles =
 
 let getComments cfg forArticle translations =
     match cfg.CommentsSystem with
-    | None -> { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
-    | Some (Disqus config) -> 
+    | NoComments -> { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
+    | Disqus config -> 
         let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language]; Translations = translations }
         { 
             CountWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusCount.html") model

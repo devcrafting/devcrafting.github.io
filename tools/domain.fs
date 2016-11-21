@@ -10,11 +10,11 @@ type GenerationOptions = {
     Root: string
     OutputGitRemote: string
     Prefix: string option
-    CommentsSystem: CommentsSystem option
+    CommentsSystem: CommentsSystem
     FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
     DraftsFolderOrFilePrefix: string list
 }
-and CommentsSystem = Disqus of IDictionary<string, string>
+and CommentsSystem = NoComments | Disqus of IDictionary<string, string>
 and CommentsWidgets = { CountWidget: string; DisplayWidget: string; ScriptWidget: string }
 and Disqus = { 
     PageUrl: string
