@@ -6,8 +6,11 @@
 #load "tools/domain.fs"
 #load "tools/document.fs"
 #load "tools/dotliquid.fs"
-#load "config.fsx"
+#load "tools/navbar.fs"
 #load "tools/viewmodels.fs"
+#load "tools/rendering.fs"
+
+#load "config.fsx"
 
 open System
 open System.IO
@@ -18,7 +21,7 @@ open Document
 open Domain
 open Navbar
 open Config
-open ViewModels
+open Rendering
 
 let cfg = { 
     SourceDir = __SOURCE_DIRECTORY__ </> "source"
@@ -32,29 +35,9 @@ let cfg = {
     DraftsFolderOrFilePrefix = [ "drafts" ]
 }
 
-let rec listFiles root = seq {
-  if not (File.Exists(root </> ".ignore")) then
-    yield! Directory.GetFiles(root)
-    for d in Directory.GetDirectories(root) do
-      yield! listFiles d }
 
 open System.Collections
 open System.Collections.Generic
-
-let processFile cfg (file:String) articleViewModel =
-    printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
-    let outFile = 
-        let outFileTmp = cfg.OutputDir </> articleViewModel.Article.Url.Substring(1)
-        if outFileTmp.EndsWith(".html") then outFileTmp 
-        else outFileTmp </> "index.html"
-    ensureDirectory (Path.GetDirectoryName outFile)
-    DotLiquid.transform outFile (articleViewModel.Article.Layout + ".html") articleViewModel
-
-let copyFile cfg (file:String) =
-    printfn "Copying content file: %s" (file.Replace(cfg.SourceDir, ""))
-    let outFile = file.Replace(cfg.SourceDir, cfg.OutputDir)
-    ensureDirectory (Path.GetDirectoryName outFile)
-    File.Copy(file, outFile, true)
 
 let getTranslations languages = 
     let translations = new Dictionary<string, Dictionary<string, obj>>()
