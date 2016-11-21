@@ -41,8 +41,9 @@
     <Compile Include="domain.fs" />
     <Compile Include="document.fs" />
     <Compile Include="navbar.fs" />
-    <Compile Include="dotliquid.fs" />
+    <Compile Include="localization.fs" />
     <Compile Include="viewmodels.fs" />
+    <Compile Include="dotliquid.fs" />
     <Compile Include="rendering.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

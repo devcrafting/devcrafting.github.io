@@ -5,9 +5,10 @@
 #load "packages/FSharp.Formatting/FSharp.Formatting.fsx"
 #load "tools/domain.fs"
 #load "tools/document.fs"
-#load "tools/dotliquid.fs"
 #load "tools/navbar.fs"
+#load "tools/localization.fs"
 #load "tools/viewmodels.fs"
+#load "tools/dotliquid.fs"
 #load "tools/rendering.fs"
 
 #load "config.fsx"
@@ -38,22 +39,6 @@ let cfg = {
 
 open System.Collections
 open System.Collections.Generic
-
-let getTranslations languages = 
-    let translations = new Dictionary<string, Dictionary<string, obj>>()
-    languages
-    |> Seq.iter (fun lang -> 
-        let translationsForLang = new Dictionary<string, obj>()
-        translations.Add(lang, translationsForLang)
-        if not (String.IsNullOrWhiteSpace(lang)) then
-            translationByLanguage
-            |> Seq.iter (fun kvp ->
-                if kvp.Value.ContainsKey(lang) then
-                    translationsForLang.Add(kvp.Key, kvp.Value.[lang])
-                else
-                    traceImportant (sprintf "Translation missing for %s in %s" kvp.Key lang))
-    )
-    translations
 
 type TagViewModel = {
     Tag: Tag
@@ -124,7 +109,7 @@ let generateSite cfg changes =
     let languagesUsed =
         filesWithoutComments
         |> Seq.choose (function | Article (_, article) -> Some article.Language | _ -> None ) |> Seq.distinct
-    let translations = getTranslations languagesUsed 
+    let translations = Localization.getTranslations languagesUsed translationByLanguage traceImportant 
     let files =
         filesWithoutComments
         |> Seq.map (function 
