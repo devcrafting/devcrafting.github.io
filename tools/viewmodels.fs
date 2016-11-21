@@ -11,3 +11,14 @@ type ArticleViewModel = {
     Navbar: NavbarItem list
     Translations: IDictionary
 }
+
+type TagViewModel = {
+    Tag: Tag
+    BlogPosts: Article<string> list
+    Navbar: NavbarItem list
+    Translations: IDictionary
+}
+and Tag = {
+    Title: string
+    Language: string
+}

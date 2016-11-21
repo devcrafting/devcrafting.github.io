@@ -40,34 +40,6 @@ let cfg = {
 open System.Collections
 open System.Collections.Generic
 
-type TagViewModel = {
-    Tag: Tag
-    BlogPosts: Article<string> list
-    Navbar: NavbarItem list
-    Translations: IDictionary
-}
-and Tag = {
-    Title: string
-    Language: string
-}
-
-let generateTagPages articles (navbar: IDictionary<string, NavbarItem list>) (translations: IDictionary<string, Dictionary<string, obj>>) = 
-    articles
-    |> Seq.collect (fun a -> a.Tags |> Seq.map (fun t -> { Title = t; Language = a.Language }, a))
-    |> Seq.groupBy fst
-    |> Seq.map (fun tagWithArticles ->
-        let tag = fst tagWithArticles
-        let tagViewModel = { 
-            Tag = tag
-            BlogPosts = snd tagWithArticles |> Seq.map snd |> Seq.sortByDescending (fun a -> a.Date) |> List.ofSeq
-            Navbar = navbar.[tag.Language]
-            Translations = translations.[tag.Language] }
-        printfn "Generate tag page for: %s" tagViewModel.Tag.Title
-        let outFile = cfg.OutputDir </> tagViewModel.Tag.Language </> "tag" </> tagViewModel.Tag.Title </> "index.html"
-        ensureDirectory (Path.GetDirectoryName outFile)
-        DotLiquid.transform outFile (cfg.LayoutsDir </> "tag.html") tagViewModel
-        tagViewModel
-    )
 
 open System.Web
 
@@ -135,7 +107,7 @@ let generateSite cfg changes =
         |> dict
 
     trace "Generating tag pages..."
-    let tags = generateTagPages articles menuByLanguage translations |> List.ofSeq
+    let tags = generateTagPages cfg articles menuByLanguage translations |> List.ofSeq
 
     trace "Generating redirect pages..."
     generateRedirectPages cfg articles
