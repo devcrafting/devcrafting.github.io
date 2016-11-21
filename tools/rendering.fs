@@ -3,6 +3,7 @@ module Rendering
 open System
 open System.Collections.Generic
 open System.IO
+open System.Web
 open Fake
 
 open Domain
@@ -47,3 +48,34 @@ let generateTagPages cfg articles (navbar: IDictionary<string, NavbarItem list>)
         DotLiquid.transform outFile (cfg.LayoutsDir </> "tag.html") tagViewModel
         tagViewModel
     )
+
+let generateRedirectPages cfg articles =
+    // on Windows, it will only handle case insensitive URL (not the standard for URL)
+    // ex: if you want redirect from /blog and /Blog, it is not possible on Windows
+    // workaround is to rely on other mecanism: Jekyll redirect_from or web server/proxy... 
+    articles
+    |> Seq.collect (fun a -> a.RedirectFrom |> List.map (fun r -> a, r))
+    |> Seq.sortByDescending (snd >> String.length) // Allow to generate longer path first and then take decision when sub path have to be generated
+    |> Seq.iter (fun (a, r) -> 
+        printfn "Generate redirect page %s for %s" r a.Url
+        let encodedPath = 
+            r.Split([| '/' |], StringSplitOptions.RemoveEmptyEntries) 
+            |> Seq.fold (fun fullPath path -> fullPath </> HttpUtility.UrlEncode(HttpUtility.UrlDecode(path))) String.Empty
+        let mutable outFile = cfg.OutputDir </> encodedPath
+        if Directory.Exists(outFile) then
+            outFile <- outFile </> "index.html"
+        printfn "%s" outFile
+        ensureDirectory(Path.GetDirectoryName outFile)
+        DotLiquid.transform outFile (cfg.LayoutsDir </> "redirect.html") a
+    )
+
+let getComments cfg forArticle translations =
+    match cfg.CommentsSystem with
+    | NoComments -> { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
+    | Disqus config -> 
+        let model = { PageUrl = forArticle.CompleteUrl; DisqusInstance = config.[forArticle.Language]; Translations = translations }
+        { 
+            CountWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusCount.html") model
+            DisplayWidget = DotLiquid.render (cfg.LayoutsDir </> "disqus.html") model
+            ScriptWidget = DotLiquid.render (cfg.LayoutsDir </> "disqusScript.html") model
+        }
