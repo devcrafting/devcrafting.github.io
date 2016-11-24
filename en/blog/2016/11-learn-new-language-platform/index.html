@@ -1,0 +1,247 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/en/blog/2016/11-learn-new-language-platform/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>About learning a new language/platform - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/en/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li class="dropdown">
+							<a href="/en/services/">Services</a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="/en/services/architecture-and-design/">Architecture and conception</a></li>
+								
+								<li><a href="/en/services/software-craftsmanship-practices/">Software Craftsmanship practices</a></li>
+								
+								<li><a href="/en/services/agile-approaches/">Agile approaches</a></li>
+								
+							</ul>
+						</li>
+						  
+						<li><a href="/en/blog/">Blog</a></li>
+						  
+						<li><a href="/en/contact/">Contact</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/en/blog/2016/11-learn-new-language-platform/">EN</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">About learning a new language/platform</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/en/tag/learning/" class="label label-default">learning</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/en/blog/2016/11-learn-new-language-platform/#disqus_thread">Leave a comment</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2016-11-24T00:00:00.0000000">
+            Thursday, November 24, 2016
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>As I said about F# in <a href="/en/blog/2016/10-New-blog-and-website/">this post</a>, I used a sort of "maturity model" to learn new languages/platforms. That's at least my way of learning based on some experiences, I don't know if it would be applicable to anyone. So I would like to expose facts that lead me to this "model".</p>
+<p>Note I use quotes for "good" and "best" qualifiers for practices, because I don't really like these words, as they are judging practices without really having real and tangible proofs of what is good or best (context dependent probably?). It could be another subject to write on...so let's continue.</p>
+<h2>A bit of history (about my experiences on .NET and Java)</h2>
+<img alt="I don't know what I am doing" class="img-float-left" src="/images/no-idea-what-im-doing.jpg"/>
+<p>During first years of working (2004~2008), I focused on .NET platform (cause I was paid for...), but in my free time, I always kept a eye on Java ecosystem because it was my initial education. From the beginning (of my "career"), I was interested in improving my skills. Around 2004, there was a lot more new things in the Java ecosystem than in the .NET one (or it was more confidential). In my opinion, the key was the community, lots of things emerged from the community in the Java ecosystem. .NET ecosystem was more focused on improving language, open source community was emerging slowly, and Microsoft was still more focused on Visual Studio wizards than trying to really improve development practices...</p>
+<p>During the first year, I was mostly trying to deliver "value" on (ugly) legacy system, learning and using .NET language and tools, since I knew only Java when I started. I had a look at NUnit, I tried it, but I was not aware of TDD, neither of SOLID principles...it was too much things to master at this time.</p>
+<img alt="try hard crazy experiments" class="img-float-right" src="/images/mad-scientist.png"/>
+<p>Then, during the three following years, I started "from scratch" projects, trying to deliver value the "good way", based on knowledge I acquired previously...but I felt some "things" were still missing...obviously, I learned lots of new things also, following evolution and emergence of .NET community.</p>
+<p>In 2008, I started to go to meetups (Alt.Net in Paris) and discovered that my feeling I was missing "things" was not an illusion :). Meetups helped me a lot to discover quickly (lots of) things I did not know. I was more confortable with language, frameworks and libs, and I started to focus more on practices and concepts (patterns, architecture styles...).</p>
+<p>From this first 4 years experience, I feel I had to go through learning basic stuff about .NET platform, before I could try to dig practices and concepts. That is the base of "a sort of maturity model" I would like to talk about here.</p>
+<h2>A sort of "maturity model" for learning a new language/platform?</h2>
+<p>Today, I feel like I could work with any language/platform tomorrow, but would I be efficient/productive? I think that when you learned a language and you try hard to always search alternatives, you are able to start with a new language/platform.</p>
+<p>But the question is how to become more efficient with it. From my experience, I would give the following guidance, that I call a "maturity model":</p>
+<img alt="Learning a language/platform 'maturity model'" class="img-float-right" src="/images/learning-language-platform-maturity-model.png"/>
+<ol>
+<li>Know the language</li>
+<li>Know associated tools, frameworks &amp; libs</li>
+<li>Use practices</li>
+<li>Make contextual/deliberate choices: tools/frameworks/libs/practices you need</li>
+</ol>
+<p>Note that I put practices usage (like TDD, clean code...) quite late in the model, because I think at start it could be a distraction more than a real help at first. Also, I do not consider this model as a silver bullet, for sure I adapt it to context. For example, I can start learning some tools without knowing everything about the language, or I will start using some practices as of I know some tools helping to use them, I don't need to know many tools to start.</p>
+<p>I also make a parallel with <a href="https://en.wikipedia.org/wiki/Maslow's_hierarchy_of_needs">Maslow's hierarchy of needs</a>. We could see the language as the physiological, tools as safety, frameworks and libs as love/belonging, practices as esteem and contextual/deliberate choices as the self-actualization/transcendence :).</p>
+<p>Let's dig my experiences after 2008 to exercise this model. Note that following experiences occured after having started to practice TDD and other practices.</p>
+<h2>My (small) experience with JS &amp; Node.js</h2>
+<p>I used JS from the begining, but the hard way without any lib (I was targeting IE6!). Then I switched to jQuery. My JS development was like the poor man of my stack, I knew I was not doing "well" (or least "as good as" in .NET), I can't exactly explain why I did not try to improve in fact...a bad excuse: missing time? ;)</p>
+<p>Lately, I started using dependency management lib like Require.js, even more lately, I used a bit some build tools like Gulp, Node.js with browserify, I started practicing TDD (with Jasmine and Mocha)...</p>
+<p>Retrospectively (biased?!), I think I did not consider JS as a core knowledge (as lot of developers I think), so I did not spend enough time to improve my skills. In fact, I was missing some basic ones to be able to use practices like TDD. And I did not even tried before I acquired better basic skills in JS. I suppose I would have struggled if I tried.</p>
+<h2>My (small) experience with PHP</h2>
+<p>My PHP skills were very basic (back in high school, for an association website ;)). I was "sold" on a project as an architect who knew web development, e-commerce, MVC and "software good practices". I was requested to help rebuild a (ugly-old-style) PHP website...</p>
+<p>I also faced a team with low development skills, I mean even in basic OOP. In this context, when we discussed about "how to start?", we reviewed two main options: use Symfony framework as a base VS everything-from-scratch...I did not want to go the "everything by the framework" way, but in the other hand I did not think we would manage to start from scratch given team skills. Note I include myself, since I was absolutely not proficient in PHP, even if I know "more" about architecture and practices...</p>
+<p>This experience tend to verify my model, we missed skills to make a deliberate choice, the team knew the language, but not enough about tools, frameworks, libs, practices and architecture, on the other hand I did not know enough about the language and tools...so we were not able to make a deliberate choice and made choices that we do not completely master.</p>
+<h2>My (small) experience with Android</h2>
+<p>I started Android development with lot of confidence, because I thought I knew enough about Java and I could accomodate with the framework given my "higher level of abstraction" skills acquired in other languages...and it was a hard experience.</p>
+<p>I tried hard to do TDD, with the terrifying discovery it was quite difficult to find TDD resources based on Android platform. I discovered things I did not know about Java (with a bit of desillusion sometimes...like the generic types implementation). I struggled with the Android framework and its high-coupling aspects...</p>
+<p>In fact, with the proposed model light, I would say I tried to use practices and concepts, without knowing anough about lower level of abstraction like the Java language itself and the Android framework. In the end, I am not sure I chose the best approach to develop an Android application. That was the first time I thought about this sort of "maturity model".</p>
+<h2>My (ongoing) experience with F#</h2>
+<img alt="F# logo" class="img-float-right" src="/images/fsharp.png"/>
+<p>Given my previous experience, for my last learning experience (F#), I tried to apply my model. First, I thought I should focus on the language first. Note that sometimes at the beginning of this learning process, with <a href="https://www.twitter.com/florentpellet">@florentpellet</a>, we tried to do TDD in some coding dojos, and in fact, we often just managed to make one or two tests, struggling with unit tests tools more than learning the language...</p>
+<p>After practicing the language, now I focused on tools and libs (this blog "engine" was an occasion to use some). Now I start to practice TDD, and I feel more confortable because I better know the language and some tools (I am still learning language, other tools and libs...).</p>
+<p>I would be pleased to have your feedbacks on your experiences and your thoughts on this sort of maturity model.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/en/blog/2016/11-learn-new-language-platform/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
