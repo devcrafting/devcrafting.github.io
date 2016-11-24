@@ -40,7 +40,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 }
 
 .navbar-devcrafting .navbar-nav {
-    font-size: 4em;
+    font-size: 3em;
 }
 
 .navbar-devcrafting .navbar-nav li a:hover {
@@ -59,7 +59,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 .navbar-devcrafting .lang-switcher {
     margin: 0px;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .navbar-devcrafting .navbar-nav .active > a,
@@ -89,7 +89,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 
 .dropdown-menu > li > a {
     color: rgb(240, 150, 9);
-    font-size: 0.7em;
+    font-size: 2em;
 }
 
 .lang-mobile-only {
