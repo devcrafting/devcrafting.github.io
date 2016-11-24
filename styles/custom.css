@@ -2,11 +2,20 @@ body {
     background-color: rgb(30, 30, 30);
     color: rgb(220, 220, 220);
     font-family: "Lucida Sans";
-    font-size: 16px;
+    font-size: 1.2vw;
+}
+
+h1 {
+    font-size: 2.2em;
 }
 
 h2 {
     color: rgb(240, 150, 9);
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.4em;
 }
 
 a, a:visited, .label {
@@ -30,8 +39,8 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     font-family: "Freestyle Script";
 }
 
-.navbar-devcrafting {
-    font-size: 24px;
+.navbar-devcrafting .navbar-nav {
+    font-size: 3em;
 }
 
 .navbar-devcrafting .navbar-nav li a:hover {
@@ -43,10 +52,14 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     color: rgb(240, 150, 9);
 }
 
+.navbar-devcrafting .navbar-right {
+    margin: 2vw 2vw 0 0;
+}
+
 .navbar-devcrafting .lang-switcher {
     margin: 0px;
     text-align: center;
-    font-size: 24px;
+    font-size: 1.5em;
 }
 
 .navbar-devcrafting .navbar-nav .active > a,
@@ -76,11 +89,12 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 
 .dropdown-menu > li > a {
     color: rgb(240, 150, 9);
-    font-size: 32px;
+    font-size: 2em;
 }
 
 .lang-mobile-only {
     display: none;
+    font-size: 2em;
 }
 
 .fa-tags > a::after {
@@ -97,14 +111,14 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 }
 
 .devcrafting-404-warning {
-    font-size: 48px;
+    font-size: 3em;
     margin-top: 30px;
     margin-bottom: 10px;
 }
 
 @media (min-width: 768px) {
-    .navbar-devcrafting {
-        font-size: 48px;
+    .navbar-devcrafting .navbar-nav {
+        /*font-size: 3em;*/
     }
 
     .navbar-devcrafting .navbar-nav > li > a {
@@ -164,7 +178,6 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     cursor: pointer;
     text-decoration: none;
     border-radius: 17px;
-    font-size: 20px;
 }
 
 .social-links .fa-twitter, .social-links .fa-twitter:hover, .social-links .fa-twitter:visited, .social-links .fa-twitter:active {
@@ -197,7 +210,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 #cookie-banner-message {
     text-align: center;
     padding: 5px;
-    font-size: 12px;
+    font-size: 0,75em;
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -225,7 +238,7 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 footer {
     color: rgb(30, 30, 30);
     background-color: rgb(220, 220, 220);
-    font-size: 70%;
+    font-size: 0.8em;
     padding-top: 30px;
     margin-top: 30px;
 }
