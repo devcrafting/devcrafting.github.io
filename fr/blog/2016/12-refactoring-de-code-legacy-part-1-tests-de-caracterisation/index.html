@@ -1,0 +1,274 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>Refactoring de code legacy : tests de caractérisation - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/fr/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li class="dropdown">
+							<a href="/fr/services/">Services</a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
+								
+								<li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
+								
+								<li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
+								
+							</ul>
+						</li>
+						  
+						<li><a href="/fr/blog/">Blog</a></li>
+						  
+						<li><a href="/fr/contact/">Contact</a></li>
+						  
+						<li><a href="/fr/a-propos/">A propos</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/">FR</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Refactoring de code legacy : tests de caractérisation</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/fr/tag/refactoring/" class="label label-default">refactoring</a>
+            
+                <a href="/fr/tag/software craftsmanship/" class="label label-default">software craftsmanship</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/#disqus_thread">Laisser un commentaire</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2016-12-06T00:00:00.0000000">
+            mardi 6 décembre 2016
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>Après avoir suivi une journée d'atelier avec <a href="https://twitter.com/mfeathers">Mickael Feathers</a>, l'auteur de <a href="http://wiki.c2.com/?WorkingEffectivelyWithLegacyCode">Working effectively with legacy code</a>, il fallait que je fasse un billet sur ce sujet (en français car il y a déjà beaucoup de contenu en anglais). J'en aurais même plusieurs :), voici la première partie se concentrant sur la première étape : écrire des tests de caractérisation. Nous verrons dans la suite de cette série l'isolation des dépendances, puis quelques techniques de refactoring typiques.</p>
+<p>J'avais déjà lu le livre en 2008, j'ai souvent fait des codings dojo sur du code legacy, mais cet atelier était l'occasion de s'exercer une nouvelle fois et de voir comment Mickael Feathers animait son atelier. Voici donc un retour sur les points principaux.</p>
+<h2>Mais au fait, c'est quoi du code legacy?</h2>
+<img alt="Le code legacy est comme une bombe à retardement, qui finira par vous exploser dans les mains, et qu'on craint de désamorcer" class="img-float-left" src="/images/bombe.png"/>
+<p>Il y a pas mal de discussions sur ce sujet, je ne vais pas rentrer dans des explications détaillées des controverses. Je vous propose deux définitions (imparfaites probablement).</p>
+<p>Premièrement, je dirais que tout code écrit, même très "beau" et testé, devient rapidement du code legacy. En effet, pour écrire un code donné, vous avez fait des choix en fonction d'un contexte donné. Or le contexte peut (va) évoluer et les choix faits lors du développement de ce code vont s'avérer alors potentiellement moins adaptés. Le soucis avec cette définition est qu'il n'y a pas de discrimination du code legacy, quasiment tout le code en production l'est. Dans ce cas, sur lequel faut-il se focaliser ?</p>
+<p>Aternativement, on pourrait dire que c'est du code qui gratte lorsqu'on essaie de le changer, voir qu'on craint de changer de peur de tout casser. Je restreint intentionnellement à du code qu'on veut changer car le code qui ne change pas fonctionne transquillement en production. Même si ce dernier est potentiellement très "moche", pas testé...il fonctionne. Pourquoi le soupçonner/l'identifier comme legacy si vous n'avez pas l'intention de le changer? Avec cette définition, on peut plus facilement discriminer le code legacy. C'est d'ailleurs comment travailler avec (changer) ce code qui nous intéresse tout particulièrement.</p>
+<h2>Premier pas : tests de caractérisation</h2>
+<p>La première technique à utiliser face à un code legacy est l'écriture de tests de caractérisation, c'est-à-dire d'appeler le code existant sans le modifier pour voir comment il se comporte. Cela permet d'écrire des tests automatisés qui assurent que les comportements observés sont conservés lors du refactoring, car a priori ces comportements sont ceux de l'application en production. On appelle aussi cette technique le "<strong>Golden Master</strong>", du nom donné aux résultats donnés par le code legacy original.</p>
+<img alt="Boîte noire symbolisant le code à tester pour le refactorer" class="img-full-width" src="/images/blackbox.png"/>
+<p>Ecrire des tests unitaires automatisés ne sera probablement pas une bonne idée, car cela nécessite une bonne connaissance du code existant. Il est préférable de <strong>tester le code en mode "boîte noire"</strong> plutôt que d'essayer d'ouvrir la boîte tout de suite.</p>
+<p>Petit rappel: ne changer pas les fonctionnalités lors d'un refactoring, ou plutôt alterner des phases de refactoring et d'ajout de fonctionnalités. Il est important de séparer les deux activités pour éviter des effets indésirables (i.e des bugs probablement).</p>
+<h2>Concrètement...</h2>
+<p>Pour commencer vos tests de caractérisation, <strong>ne résonner pas trop sur le code existant et notamment sur les dépendances ou la configuration nécessaire</strong>. Faites au plus simple: un test où vous appelez le code existant sans aucune configuration préalable (instanciation d'une classe + appel d'une méthode typiquement). Cela va permettre de "sentir" les <strong>effets de bord</strong> :</p>
+<ul>
+<li>les exceptions (pas de connexion à la base de données, fichiers/dossiers introuvables, connexion réseau à un service...)</li>
+<li>les messages de sortie à la console (si vous savez qu'il y a une librairie de log, vous pouvez vous permettre de configurer une sortie sur la console...)</li>
+</ul>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="c">// Classe à tester (qui cache probablement plein d'autres classes = dépendances...)</span>
+<span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose() { <span class="o">.</span><span class="o">.</span><span class="o">.</span> }
+}
+
+<span class="c">// Test de caractérisation</span>
+<span class="k">public</span> <span class="k">class</span> CodeBoiteBoite
+{
+    [Fact] <span class="k">public</span> <span class="k">void</span> DevraitFaireQuelqueChose() 
+    {
+        <span class="k">var</span> boiteNoire <span class="o">=</span> <span class="k">new</span> CodeBoiteNoire();
+        <span class="k">var</span> resultat <span class="o">=</span> boiteNoire.FaireQuelqueChose();
+        <span class="c">// TODO : isoler les dépendances et ajouter des asserts découverts en exécutant le test</span>
+    }
+}
+</code></pre></td></tr></table>
+<p>Votre test a de fortes chances d'être rouge en raison d'une exception (j'aurais même tendance à débrancher le câble réseau si vous suspectez des appels réseaux indésirables). Dans ce cas, votre objectif est de vous séparer de la dépendance l'ayant créée pour pouvoir utiliser un simuli de cette dépendance. C'est l'objet du billet suivant. Faites de même avec les sorties à la console, vous devez vous en abstraire pour pouvoir écrire des assertions.</p>
+<p>Une fois toutes les exceptions évitées (ou si vous n'avez pas d'exceptions), intéressez-vous au résultat: la valeur de retour de la méthode appellée ou les valeurs passées en paramètre des dépendances isolées, et écrivez une ou des assertions pour vérifier que ce résultat peut-être conservé.</p>
+<h2>Détails d'implémentation</h2>
+<p>Si vous avez des types autres que les types primitifs, vous pouvez tout à fait utiliser leur sérialisation JSON ou surcharger la méthode ToString().</p>
+<p>Pour simplifier, dans vos assertions, vous pouvez tester le fait que le résultat contient des sous-ensembles attendus, plutôt que de systématiquement tester la totalité.</p>
+<p>La bibliothèque <a href="http://approvaltests.com">Approval Tests (plusieurs languages disponibles)</a> peut vous faciliter la vie pour gérer la conservation du résultat (pour éviter de grosses chaînes de caractères dans vos classes de tests). Elle s'appuie sur un fichier préfixé par le nom du test et suffixé par "approved" que vous conserver dans votre gestionnaire de code source. Quand vous lancez le test, elle génère un fichier suffixé par "received". Vous avez ensuite le choix de la manière de rapporter le résultat. En local, s'il y a des différences avec le fichier "approved", elle ouvre typiquement votre outil de diff (sinon elle n'interfère pas). Vous voyez ainsi les différences.</p>
+<h2>Isoler les effets de bord et programmation fonctionnelle...</h2>
+<p>Vous aurez remarqué qu'on cherche via ces tests à isoler les effets de bord, c'est la même chose quand on écrit des tests en mode TDD. Finalement, ne serait-ce pas mieux d'avoir une architecture où les effets de bord sont isolés à la périphérie? C'est un sujet très intéressant portés par des languages fonctionnels, dont F# et Haskel. <a href="https://twitter.com/ploeh">Mark Seeman</a> a donné une présentation très intéressante (et accessible/pas élitiste) à <a href="http://www.buildstuff.lt">BuildStuff</a>, la vidéo sera en ligne prochainement, je mettrais le lien ici...</p>
+<h2>Suite...</h2>
+<p>Pour mener à bien cette étape de tests de caractérisation, vous allez certainement avoir besoin de la première pratique de refactoring : l'isolation des dépendances. Ce sera le sujet du projet billet (désolé pour le suspense ;)).</p>
+<p>Circonspect ? Pratiquez en allant à des "codings dojos" ou des "legacy code retreat", il y a pas mal de groupes locaux organisant ce genre d'événements.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-2.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
