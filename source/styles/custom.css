@@ -259,14 +259,19 @@ footer a, footer a:active, footer a:hover, footer a:visited {
 
 .img-float-left {
     float: left;
-    margin: 10px;
-    max-width: 230px;
+    margin: 2vw;
+    max-width: 10vw;
 }
 
 .img-float-right {
     float: right;
-    margin: 10px;
-    max-width: 230px;
+    margin: 2vw;
+    max-width: 10vw;
+}
+
+.img-full-width {
+    width: 80%;
+    margin: 2vh 10%;
 }
 
 .img-bg-white {
