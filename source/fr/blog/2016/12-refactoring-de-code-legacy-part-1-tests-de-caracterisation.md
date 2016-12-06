@@ -2,7 +2,8 @@ Refactoring de code legacy : tests de caractérisation
 =====================================================
 
 - uniquekey: refactoring-legacy-code-tests-de-caracterisation
-- tags: refactoring
+- date: 2016-12-06
+- tags: refactoring, software craftsmanship
 
 ----------------
 
