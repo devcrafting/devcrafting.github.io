@@ -17,12 +17,12 @@ NB: désolé pour le délai de cette suite, j'ai eu du [refactoring de plancher 
 
 ## Isoler les dépendances
 
-<img alt="Plat de nouilles représentant les fortes dépendances à isoler" class="img-float-right" src="" />
+<img alt="Plat de nouilles représentant les fortes dépendances à isoler" class="img-float-right" src="/images/spaghetti-bolognese.jpg" />
 
 L'objectif est de rendre explicite les dépendances en les isolant. Pour cela, voici la technique de base en trois étapes :
 
 * Extraire les dépendances sous forme d'interfaces
-* Utiliser ces interfaces dans un nouveau constructeur de la classe à tester
+* Utiliser ces interfaces dans un nouveau constructeur de la classe à tester (en gardant le constructeur existant)
 * Bouchonner les dépendances dans les tests
 
 Reprenons l'exemple du [billet précédent](/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/), où nous avons identifié les effets de bord avec les tests de caractérisation :
@@ -95,9 +95,52 @@ Si vous avez plusieurs effets de bord, vous allez avoir beaucoup de paramètres 
 
 Si une méthode publique de la classe initiale ne fait que faire le passe-plat vers une méthode d'une dépendance, il est préférable dans un premier temps de garder intacte l'API publique. Le nettoyage se fait plutôt une fois qu'on y voit plus clair.
 
+A noter que certains éditeurs de code permettent de faire cette opération automatiquement.
+
 ## Isoler un Singleton
 
-Le cas du pattern Singleton est un peu particulier, car il porte la propriété d'unicité dans le système qu'il peut être nécessaire de conserver (mais le plus souvent vous pouvez vous en passer). Dans ce cas, il est aussi possible de rajouter un niveau d'indirection au travers d'une méthode virtuelle "protected" encapsulant les appels au singleton. On peut alors surcharger cette méthode dans une classe dérivant de la classe à tester et utiliser cette classe dérivée. Cela est un artifice pour tester, mais on n'altère pas la classe à tester même en ajoutant un niveau d'indirection. On évitera par contre d'utiliser un setter pour définir l'instance unique sur la classe implémentant le Singleton, car cela apporte de la confusion à l'API publique de cette classe.
+Le cas du pattern Singleton est un peu particulier, car il porte la propriété d'unicité dans le système qu'il peut être nécessaire de conserver (mais le plus souvent vous pouvez vous en passer). Exemple :
+
+    [lang=csharp]
+    public class CodeBoiteNoire
+    {
+        public string FaireQuelqueChose() 
+        { 
+            ...
+            UnSingleton.Instance.FaireAutreChose();
+            ...
+        }
+    }
+
+Pour conserver la propriété d'unicité, il est possible de rajouter un niveau d'indirection au travers d'une méthode virtuelle "protected" encapsulant les appels au singleton. On peut alors surcharger cette méthode dans une classe dérivant de la classe à tester et utiliser cette classe dérivée dans le test.
+
+    [lang=csharp]
+    public class CodeBoiteNoire
+    {
+        protected virtual void FaireAutreChose()
+        {
+            UnSingleton.Instance.FaireAutreChose();
+        }
+
+        public string FaireQuelqueChose()
+        {
+            ...
+            FaireAutreChose();
+            ...
+        }
+    }
+
+    // Dans les tests, utiliser une classe dérivée surchargeant la classe à tester
+    public class CodeBoiteNoireATester
+    {
+        protected override void FaireAutreChose() {
+            // simuli de l'appel au singleton
+        }
+    }
+
+Cela reste un artifice pour tester, mais on n'altère pas le comportement de la classe à tester en ajoutant ce niveau d'indirection (à condition de ne pas faire autre chose dans cette méthode d'indirection!). 
+
+On évitera par contre d'utiliser un setter pour définir l'instance unique sur la classe implémentant le Singleton, car cela apporte de la confusion à l'API publique du singleton.
 
 ## Isoler une dépendance statique
 
