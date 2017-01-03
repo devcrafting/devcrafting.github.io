@@ -185,7 +185,7 @@
     }
 }
 </code></pre></td></tr></table>
-<p>Votre test a de fortes chances d'être rouge en raison d'une exception (j'aurais même tendance à débrancher le câble réseau si vous suspectez des appels réseaux indésirables). Dans ce cas, votre objectif est de vous séparer de la dépendance l'ayant créée pour pouvoir utiliser un simuli de cette dépendance. C'est l'objet du billet suivant. Faites de même avec les sorties à la console, vous devez vous en abstraire pour pouvoir écrire des assertions.</p>
+<p>Votre test a de fortes chances d'être rouge en raison d'une exception (j'aurais même tendance à débrancher le câble réseau si vous suspectez des appels réseaux indésirables). Dans ce cas, votre objectif est de vous séparer de la dépendance l'ayant créée pour pouvoir utiliser un simuli de cette dépendance. C'est l'objet du <a href="/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/">billet suivant</a>. Faites de même avec les sorties à la console, vous devez vous en abstraire pour pouvoir écrire des assertions.</p>
 <p>Une fois toutes les exceptions évitées (ou si vous n'avez pas d'exceptions), intéressez-vous au résultat: la valeur de retour de la méthode appellée ou les valeurs passées en paramètre des dépendances isolées, et écrivez une ou des assertions pour vérifier que ce résultat peut-être conservé.</p>
 <h2>Détails d'implémentation</h2>
 <p>Si vous avez des types autres que les types primitifs, vous pouvez tout à fait utiliser leur sérialisation JSON ou surcharger la méthode ToString().</p>
@@ -194,7 +194,7 @@
 <h2>Isoler les effets de bord et programmation fonctionnelle...</h2>
 <p>Vous aurez remarqué qu'on cherche via ces tests à isoler les effets de bord, c'est la même chose quand on écrit des tests en mode TDD. Finalement, ne serait-ce pas mieux d'avoir une architecture où les effets de bord sont isolés à la périphérie? C'est un sujet très intéressant portés par des languages fonctionnels, dont F# et Haskel. <a href="https://twitter.com/ploeh">Mark Seeman</a> a donné une présentation très intéressante (et accessible/pas élitiste) à <a href="http://www.buildstuff.lt">BuildStuff</a>, la vidéo sera en ligne prochainement, je mettrais le lien ici...</p>
 <h2>Suite...</h2>
-<p>Pour mener à bien cette étape de tests de caractérisation, vous allez certainement avoir besoin de la première pratique de refactoring : l'isolation des dépendances. Ce sera le sujet du projet billet (désolé pour le suspense ;)).</p>
+<p>Pour mener à bien cette étape de tests de caractérisation, vous allez certainement avoir besoin de la première pratique de refactoring : l'isolation des dépendances. C'est le <a href="/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/">sujet du billet suivant</a>.</p>
 <p>Circonspect ? Pratiquez en allant à des "codings dojos" ou des "legacy code retreat", il y a pas mal de groupes locaux organisant ce genre d'événements.</p>
 
 

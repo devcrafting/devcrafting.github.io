@@ -1,0 +1,509 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around application development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>Refactoring de code legacy : isoler les dépendances - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/fr/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li class="dropdown">
+							<a href="/fr/services/">Services</a>
+							<ul class="dropdown-menu">
+								
+								<li><a href="/fr/services/architecture-et-conception/">Architecture et conception</a></li>
+								
+								<li><a href="/fr/services/pratiques-software-craftsmanship/">Pratiques Software Craftsmanship</a></li>
+								
+								<li><a href="/fr/services/demarches-agiles/">Démarches Agile</a></li>
+								
+							</ul>
+						</li>
+						  
+						<li><a href="/fr/blog/">Blog</a></li>
+						  
+						<li><a href="/fr/contact/">Contact</a></li>
+						  
+						<li><a href="/fr/a-propos/">A propos</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/">FR</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Refactoring de code legacy : isoler les dépendances</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/fr/tag/refactoring/" class="label label-default">refactoring</a>
+            
+                <a href="/fr/tag/software craftsmanship/" class="label label-default">software craftsmanship</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/#disqus_thread">Laisser un commentaire</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2017-01-03T00:00:00.0000000">
+            mardi 3 janvier 2017
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>Voici la suite du <a href="/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/">billet sur l'isolation des dépendances dans le cadre d'un refactoring de code legacy</a>. Ces billets font suite à une journée d'atelier avec <a href="https://twitter.com/mfeathers">Mickael Feathers</a>, l'auteur de <a href="http://wiki.c2.com/?WorkingEffectivelyWithLegacyCode">Working effectively with legacy code</a>.</p>
+<p>Dans le premier billet, nous avons vu comment écrire des tests de caractérisation. Dans ce billet, nous allons voir comment isoler les dépendances identifiées via les tests de caractérisation.</p>
+<p>NB: désolé pour le délai de cette suite, j'ai eu du <a href="https://twitter.com/clem_bouillier/status/811701932951748608">refactoring de plancher à faire</a> (entre autres travaux et rangement)...une autre histoire ;).</p>
+<h2>Isoler les dépendances</h2>
+<img alt="Plat de nouilles représentant les fortes dépendances à isoler" class="img-float-right" src="/images/spaghetti-bolognese.jpg" />
+<p>L'objectif est de rendre explicite les dépendances en les isolant. Pour cela, voici la technique de base en trois étapes :</p>
+<ul>
+<li>Extraire les dépendances sous forme d'interfaces</li>
+<li>Utiliser ces interfaces dans un nouveau constructeur de la classe à tester (en gardant le constructeur existant)</li>
+<li>Bouchonner les dépendances dans les tests</li>
+</ul>
+<p>Reprenons l'exemple du <a href="/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/">billet précédent</a>, où nous avons identifié les effets de bord avec les tests de caractérisation :</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose() 
+    { 
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="c">// Accès à une base de données (lecture ou écriture)</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="c">// Ou encore écriture à la console</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="c">// Ou autres effets de bord...</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+</code></pre></td></tr></table>
+<p>Ajoutons donc une interface pour isoler le premier effet de bord, un accès à une base de données :</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+<span class="l">43: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="c">// L'interface de l'effet de bord</span>
+<span class="c">// A NOTER : on cherchera à donner un nom beaucoup plus explicite à la classe et à la méthode</span>
+<span class="k">public</span> <span class="k">interface</span> IAccessBaseDeDonnees
+{
+    <span class="k">public</span> <span class="k">void</span> SauvegarderDonnees();
+}
+
+<span class="c">// L'implémentation contenant le code extrait de la méthode testée</span>
+<span class="k">public</span> <span class="k">class</span> AccessBaseDeDonnees
+{
+    <span class="k">public</span> <span class="k">void</span> SauvegarderDonnees()
+    {
+        <span class="c">// A NOTER : le commentaire extrait ne sert plus à rien</span>
+        <span class="c">// =&gt; on a mis l'équivalent dans le nom de la classe et de la méthode </span>
+        <span class="c">// Accès à une base de données (lecture ou écriture)</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+
+<span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">private</span> IAccessBaseDeDonnees _accessBaseDeDonnees;
+
+    <span class="c">// On conserve le constructeur par défaut pour ne pas casser le code existant</span>
+    <span class="k">public</span> CodeBoiteNoire() <span class="o">:</span> <span class="k">this</span>(<span class="k">new</span> AccessBaseDeDonnees()) {}
+
+    <span class="c">// Nouveau constructeur qu'on peut utiliser dans les tests de caractérisation</span>
+    <span class="k">public</span> CodeBoiteNoire(IAccessBaseDeDonnees accessBaseDeDonnees)
+    {
+        _accessBaseDeDonnees <span class="o">=</span> accessBaseDeDonnees;
+    }
+
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose() 
+    {
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="c">// on remplace le code extrait par l'appel à la méthode</span>
+        _accessBaseDeDonnees.SauvegarderDonnees();
+        <span class="c">// Ou encore écriture à la console</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        <span class="c">// Ou autres effets de bord...</span>
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+</code></pre></td></tr></table>
+<p>On répéte alors cette opération pour chaque effet de bord trouvé lors des tests de caractérisation. Pour les tests de caractérisation, il y a la possibilité d'utiliser le nouveau constructeur en passant un simuli d'implémentation. On pourra utiliser un "Stub" (implémentation écrite dans le code de test) ou un "Mock" (implémentation générée par une lib de mock en donnant le comportement attendu, via une lambda typiquement). Je ne rentre pas dans le débat Mock versus Stub, voici un <a href="http://blogs.developpeur.org/tja/archive/2009/09/15/tests-diff-rence-entre-les-mocks-et-les-stubs.aspx">court article de Thomas Jaskula</a> et <a href="http://martinfowler.com/articles/mocksArentStubs.html">l'article initiateur de ce débat, de Martin Fowler</a>.</p>
+<p>Si vous avez plusieurs effets de bord, vous allez avoir beaucoup de paramètres dans le constructeur. C'est très intéressant, cela explicite et documente les dépendances, en plus de révéler le fait que la classe a probablement trop de responsabilités. <strong>Faire émerger les dépendances est aussi un moyen très efficace de découvrir un problème de conception</strong>.</p>
+<p>Si une méthode publique de la classe initiale ne fait que faire le passe-plat vers une méthode d'une dépendance, il est préférable dans un premier temps de garder intacte l'API publique. Le nettoyage se fait plutôt une fois qu'on y voit plus clair.</p>
+<p>A noter que certains éditeurs de code permettent de faire cette opération automatiquement.</p>
+<h2>Isoler un Singleton</h2>
+<p>Le cas du pattern Singleton est un peu particulier, car il porte la propriété d'unicité dans le système qu'il peut être nécessaire de conserver (mais le plus souvent vous pouvez vous en passer). Exemple :</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose() 
+    { 
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        UnSingleton.Instance.FaireAutreChose();
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+</code></pre></td></tr></table>
+<p>Pour conserver la propriété d'unicité, il est possible de rajouter un niveau d'indirection au travers d'une méthode virtuelle "protected" encapsulant les appels au singleton. On peut alors surcharger cette méthode dans une classe dérivant de la classe à tester et utiliser cette classe dérivée dans le test.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">protected</span> <span class="k">virtual</span> <span class="k">void</span> FaireAutreChose()
+    {
+        UnSingleton.Instance.FaireAutreChose();
+    }
+
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose()
+    {
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        FaireAutreChose();
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+
+<span class="c">// Dans les tests, utiliser une classe dérivée surchargeant la classe à tester</span>
+<span class="k">public</span> <span class="k">class</span> CodeBoiteNoireATester
+{
+    <span class="k">protected</span> <span class="k">override</span> <span class="k">void</span> FaireAutreChose() {
+        <span class="c">// simuli de l'appel au singleton</span>
+    }
+}
+</code></pre></td></tr></table>
+<p>Cela reste un artifice pour tester, mais on n'altère pas le comportement de la classe à tester en ajoutant ce niveau d'indirection (à condition de ne pas faire autre chose dans cette méthode d'indirection!).</p>
+<p>On évitera par contre d'utiliser un setter pour définir l'instance unique sur la classe implémentant le Singleton, car cela apporte de la confusion à l'API publique du singleton.</p>
+<h2>Isoler une dépendance statique</h2>
+<p>Enfin, il y a également le cas des dépendances statiques via des appels de méthodes statiques. Pour les isoler, il est possible de créer une méthode non statique utilisant cette méthode statique. Vous pouvez alors surcharger la méthode utilisant la méthode statique avec une méthode prenant en plus une instance de la classe définissant la nouvelle méthode non statique.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose()
+    { 
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        DependanceStatique.FaireAutreChose();
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+
+<span class="k">public</span> <span class="k">class</span> DependanceStatique
+{
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> FaireAutreChose() { <span class="o">.</span><span class="o">.</span><span class="o">.</span> } 
+}
+</code></pre></td></tr></table>
+<p>Se transforme en :</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> CodeBoiteNoire
+{
+    [Obsolete(<span class="s">"...mais on conserve l'API publique"</span>)]
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose()
+    {
+        FaireQuelqueChose(<span class="k">new</span> DependanceStatique());
+    }
+
+    <span class="c">// On ajoute une surcharge de la méthode à tester</span>
+    <span class="k">public</span> <span class="k">string</span> FaireQuelqueChose(DependanceStatique dependance)
+    { 
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+        dependance.FaireAutreChose();
+        <span class="o">.</span><span class="o">.</span><span class="o">.</span>
+    }
+}
+
+<span class="k">public</span> <span class="k">class</span> DependanceStatique
+{
+    <span class="c">// On ajoute une méthode non statique déléguant à la méthode statique</span>
+    <span class="k">public</span> <span class="k">void</span> FaireAutreChose() 
+    {
+        FaireAutreChose();
+    }
+
+    [Obsolete(<span class="s">"...mais on ne l'enlève pas pour faire petit à petit"</span>)]
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> FaireAutreChose() { <span class="o">.</span><span class="o">.</span><span class="o">.</span> } 
+}
+</code></pre></td></tr></table>
+<p>Un cas typique peut-être l'utilisation du DateTime.Now à isoler dans une classe Time.</p>
+<h2>La suite...</h2>
+<p>Ces premières techniques permettent déjà d'obtenir une base solide pour des refactorings plus poussés, je dirais même qu'elles sont nécessaires. Dans le prochain billet, nous nous intéresserons donc à quelques techniques de refactoring complémentaires.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-2.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-2.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
