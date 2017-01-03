@@ -59,7 +59,7 @@ Pour commencer vos tests de caractérisation, **ne résonner pas trop sur le cod
         }
     }
 
-Votre test a de fortes chances d'être rouge en raison d'une exception (j'aurais même tendance à débrancher le câble réseau si vous suspectez des appels réseaux indésirables). Dans ce cas, votre objectif est de vous séparer de la dépendance l'ayant créée pour pouvoir utiliser un simuli de cette dépendance. C'est l'objet du billet suivant. Faites de même avec les sorties à la console, vous devez vous en abstraire pour pouvoir écrire des assertions.
+Votre test a de fortes chances d'être rouge en raison d'une exception (j'aurais même tendance à débrancher le câble réseau si vous suspectez des appels réseaux indésirables). Dans ce cas, votre objectif est de vous séparer de la dépendance l'ayant créée pour pouvoir utiliser un simuli de cette dépendance. C'est l'objet du [billet suivant](/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/). Faites de même avec les sorties à la console, vous devez vous en abstraire pour pouvoir écrire des assertions.
 
 Une fois toutes les exceptions évitées (ou si vous n'avez pas d'exceptions), intéressez-vous au résultat: la valeur de retour de la méthode appellée ou les valeurs passées en paramètre des dépendances isolées, et écrivez une ou des assertions pour vérifier que ce résultat peut-être conservé.
 
@@ -77,6 +77,6 @@ Vous aurez remarqué qu'on cherche via ces tests à isoler les effets de bord, c
 
 ## Suite...
 
-Pour mener à bien cette étape de tests de caractérisation, vous allez certainement avoir besoin de la première pratique de refactoring : l'isolation des dépendances. Ce sera le sujet du projet billet (désolé pour le suspense ;)).
+Pour mener à bien cette étape de tests de caractérisation, vous allez certainement avoir besoin de la première pratique de refactoring : l'isolation des dépendances. C'est le [sujet du billet suivant](/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/).
 
 Circonspect ? Pratiquez en allant à des "codings dojos" ou des "legacy code retreat", il y a pas mal de groupes locaux organisant ce genre d'événements.
