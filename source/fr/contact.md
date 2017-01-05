@@ -7,7 +7,7 @@ Vous pouvez me contacter:
 
 * [sur Twitter](https://twitter.com/clem_bouillier)
 * [sur LinkedIn](https://www.linkedin.com/in/clementbouillier)
-* [au travers de DevLyon](http://www.devlyon.com)
+* [au travers de DevLyon](http://www.devlyon.fr)
 * "in real life", à certains événements communautaires sur Lyon, principalement au MUG Lyon, aux Coding Dojos du groupe Software Craftsmanship, aux Human Talks...
 
 NB: pour contacter beaucoup d'autres personnes, aller voir [LyonTechHub](http://www.lyontechhub.com) pour accéder à un calendrier des événements communautaires de Lyon.

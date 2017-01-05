@@ -7,7 +7,7 @@ You can contact me:
 
 * [on Twitter](https://twitter.com/clem_bouillier)
 * [on LinkedIn](https://www.linkedin.com/in/clementbouillier)
-* [through DevLyon](http://www.devlyon.com)
+* [through DevLyon](http://www.devlyon.fr)
 * in real life, at some community meetups in Lyon, mainly MUG Lyon, Coding Dojos by Software Craftsmanship group, Human Talks...
 
 NB: to contact great people, check [LyonTechHub](http://www.lyontechhub.com) to view the calendar of community events in Lyon.
