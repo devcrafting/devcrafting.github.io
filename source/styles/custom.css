@@ -2,7 +2,7 @@ body {
     background-color: rgb(30, 30, 30);
     color: rgb(220, 220, 220);
     font-family: "Lucida Sans";
-    font-size: 1.2vw;
+    font-size: calc(14px + 0.25vw);
 }
 
 h1 {
@@ -94,7 +94,6 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
 
 .lang-mobile-only {
     display: none;
-    font-size: 2em;
 }
 
 .fa-tags > a::after {
@@ -260,13 +259,13 @@ footer a, footer a:active, footer a:hover, footer a:visited {
 .img-float-left {
     float: left;
     margin: 1vw;
-    max-width: 10vw;
+    max-width: 15%;
 }
 
 .img-float-right {
     float: right;
     margin: 1vw;
-    max-width: 10vw;
+    max-width: 15%;
 }
 
 .img-full-width {
