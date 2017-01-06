@@ -197,6 +197,12 @@ a:hover, a:active, h3.devcrafting-post-title-listing a {
     padding: 7px 9px;
 }
 
+.social-links .fa-rss, .social-links .fa-rss:hover, .social-links .fa-rss:visited, .social-links .fa-rss:active {
+    color: white;
+    background-color: rgb(248, 153, 29);
+    padding: 7px 9px;
+}
+
 #cookie-banner, #inform-and-ask, #inform-and-ask div {
     color: rgb(30, 30, 30);
     background-color: rgb(220, 220, 220);
