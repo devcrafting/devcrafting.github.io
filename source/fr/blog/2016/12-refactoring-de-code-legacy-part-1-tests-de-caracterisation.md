@@ -21,7 +21,7 @@ Il y a pas mal de discussions sur ce sujet, je ne vais pas rentrer dans des expl
 
 Premièrement, je dirais que tout code écrit, même très "beau" et testé, devient rapidement du code legacy. En effet, pour écrire un code donné, vous avez fait des choix en fonction d'un contexte donné. Or le contexte peut (va) évoluer et les choix faits lors du développement de ce code vont s'avérer alors potentiellement moins adaptés. Le soucis avec cette définition est qu'il n'y a pas de discrimination du code legacy, quasiment tout le code en production l'est. Dans ce cas, sur lequel faut-il se focaliser ?
 
-Aternativement, on pourrait dire que c'est du code qui gratte lorsqu'on essaie de le changer, voir qu'on craint de changer de peur de tout casser. Je restreint intentionnellement à du code qu'on veut changer car le code qui ne change pas fonctionne transquillement en production. Même si ce dernier est potentiellement très "moche", pas testé...il fonctionne. Pourquoi le soupçonner/l'identifier comme legacy si vous n'avez pas l'intention de le changer? Avec cette définition, on peut plus facilement discriminer le code legacy. C'est d'ailleurs comment travailler avec (changer) ce code qui nous intéresse tout particulièrement.
+Aternativement, on pourrait dire que c'est du code qui gratte lorsqu'on essaie de le changer, voir qu'on craint de changer de peur de tout casser. Je restreins intentionnellement à du code qu'on veut changer car le code qui ne change pas fonctionne tranquillement en production. Même si ce dernier est potentiellement très "moche", pas testé...il fonctionne. Pourquoi le soupçonner/l'identifier comme legacy si vous n'avez pas l'intention de le changer? Avec cette définition, on peut plus facilement discriminer le code legacy. C'est d'ailleurs comment travailler avec (changer) ce code qui nous intéresse tout particulièrement.
 
 ## Premier pas : tests de caractérisation
 
@@ -31,11 +31,11 @@ La première technique à utiliser face à un code legacy est l'écriture de tes
 
 Ecrire des tests unitaires automatisés ne sera probablement pas une bonne idée, car cela nécessite une bonne connaissance du code existant. Il est préférable de **tester le code en mode "boîte noire"** plutôt que d'essayer d'ouvrir la boîte tout de suite.
 
-Petit rappel: ne changer pas les fonctionnalités lors d'un refactoring, ou plutôt alterner des phases de refactoring et d'ajout de fonctionnalités. Il est important de séparer les deux activités pour éviter des effets indésirables (i.e des bugs probablement).
+Petit rappel: ne changez pas les fonctionnalités lors d'un refactoring, ou plutôt alterner des phases de refactoring et d'ajout de fonctionnalités. Il est important de séparer les deux activités pour éviter des effets indésirables (i.e des bugs probablement).
 
 ## Concrètement...
 
-Pour commencer vos tests de caractérisation, **ne résonner pas trop sur le code existant et notamment sur les dépendances ou la configuration nécessaire**. Faites au plus simple: un test où vous appelez le code existant sans aucune configuration préalable (instanciation d'une classe + appel d'une méthode typiquement). Cela va permettre de "sentir" les **effets de bord** :
+Pour commencer vos tests de caractérisation, **ne résonnez pas trop sur le code existant et notamment sur les dépendances ou la configuration nécessaire**. Faites au plus simple: un test où vous appelez le code existant sans aucune configuration préalable (instanciation d'une classe + appel d'une méthode typiquement). Cela va permettre de "sentir" les **effets de bord** :
 
 * les exceptions (pas de connexion à la base de données, fichiers/dossiers introuvables, connexion réseau à un service...)
 * les messages de sortie à la console (si vous savez qu'il y a une librairie de log, vous pouvez vous permettre de configurer une sortie sur la console...)
