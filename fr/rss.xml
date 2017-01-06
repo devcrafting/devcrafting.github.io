@@ -1,0 +1,103 @@
+<rss version="2.0">
+  <channel>
+    <title>DevCrafting Web site/blog - Clément Bouillier</title>
+    <link>http://www.devcrafting.com</link>
+    <description>Articles about software craftsmanship, Agile, software architecture and design</description>
+    <item>
+      <title>Refactoring de code legacy : isoler les dépendances</title>
+      <link>http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/</guid>
+      <pubDate>Mon, 02 Jan 2017 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Voici la suite du &lt;a href="/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/"&gt;billet sur l'isolation des dépendances dans le cadre d'un refactoring de code legacy&lt;/a&gt;. Ces billets font suite à une journée d'atelier avec &lt;a href="https://twitter.com/mfeathers"&gt;Mickael Feathers&lt;/a&gt;, l'auteur de &lt;a href="http://wiki.c2.com/?WorkingEffectivelyWithLegacyCode"&gt;Working effectively with legacy code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Dans le premier billet, nous avons vu comment écrire des tests de caractérisation. Dans ce billet, nous allons voir comment isoler les dépendances identifiées via les tests de caractérisation.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Refactoring de code legacy : tests de caractérisation</title>
+      <link>http://www.devcrafting.com/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2016/12-refactoring-de-code-legacy-part-1-tests-de-caracterisation/</guid>
+      <pubDate>Mon, 05 Dec 2016 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Après avoir suivi une journée d'atelier avec &lt;a href="https://twitter.com/mfeathers"&gt;Mickael Feathers&lt;/a&gt;, l'auteur de &lt;a href="http://wiki.c2.com/?WorkingEffectivelyWithLegacyCode"&gt;Working effectively with legacy code&lt;/a&gt;, il fallait que je fasse un billet sur ce sujet (en français car il y a déjà beaucoup de contenu en anglais). J'en aurais même plusieurs :), voici la première partie se concentrant sur la première étape : écrire des tests de caractérisation. Nous verrons dans la suite de cette série l'isolation des dépendances, puis quelques techniques de refactoring typiques.&lt;/p&gt;
+&lt;p&gt;J'avais déjà lu le livre en 2008, j'ai souvent fait des codings dojo sur du code legacy, mais cet atelier était l'occasion de s'exercer une nouvelle fois et de voir comment Mickael Feathers animait son atelier. Voici donc un retour sur les points principaux.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Pourquoi vous devriez vraiment passer à Git</title>
+      <link>http://www.devcrafting.com/fr/blog/2016/11-pourquoi-vous-devriez-passer-a-git/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2016/11-pourquoi-vous-devriez-passer-a-git/</guid>
+      <pubDate>Sun, 06 Nov 2016 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;J'ai mis relativement longtemps à passer à Git, j'ai démarré "seulement" début 2013. Auparavant, j'ai travaillé successivement avec Subversion et TFS Version Control. Et dernièrement, j'ai retrouvé TFS VC sur une mission. J'ai aussi croisé ClearCase. C'est l'occasion de faire un retour d'expérience et d'avancer des arguments pour ceux qui ne seraient toujours pas passés à Git (ou un autre DVCS - Distributed Version Control System - ayant le même principe de fonctionnement).&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Nouveau blog et nouveau site web</title>
+      <link>http://www.devcrafting.com/fr/blog/2016/10-Nouveaux-blog-et-site-web/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2016/10-Nouveaux-blog-et-site-web/</guid>
+      <pubDate>Fri, 28 Oct 2016 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;J'ai eu 2 blogs, le premier en anglais sur Blogspot et ensuite quand j'ai créé ma société DevCrafting, j'ai créé un autre site avec un blog en français avec Office365 (SharePoint).&lt;/p&gt;
+&lt;p&gt;Je n'ai jamais réussi à écrire de nouveaux billets, pour plusieurs raisons, plus ou moins bonnes, mais je voudrais à nouveau essayer avec une autre approche. Je voulais écrire ce billet pour donner un retour d'expérience sur mes 2 premières tentatives.&lt;/p&gt;
+&lt;p&gt;A noter que je voulais également pouvoir écrire parfois en anglais, parfois en français en fonction du sujet.&lt;/p&gt;
+&lt;p&gt;Enfin, j'aime l'idée de &lt;a href="https://github.com/fsprojects/FsBlog"&gt;FsBlog&lt;/a&gt;, mais comme tout ce que je voulais faire n'était pas supporté, j'ai décidé de jouer avec F# pour recréer mon site web et un blog à l'image de ce qu'a fait &lt;a href="http://tomasp.net/"&gt;Tomas Petricek&lt;/a&gt;.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>DevCrafting</title>
+      <link>http://www.devcrafting.com/fr/</link>
+      <guid>http://www.devcrafting.com/fr/</guid>
+      <pubDate>Fri, 15 Apr 2016 02:00:00 GMT</pubDate>
+      <description>
+
+</description>
+    </item>
+    <item>
+      <title>Prise en main d'AngularJS : retour d'expérience</title>
+      <link>http://www.devcrafting.com/fr/blog/2014/10-Prise-en-main-d-AngulasJS/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2014/10-Prise-en-main-d-AngulasJS/</guid>
+      <pubDate>Wed, 22 Oct 2014 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Je vous propose dans ce billet quelques réflexions sur mes premiers pas avec AngularJS (voir aussi &lt;a href="/fr/2014/09-Activites-de-l-ete-autoformation-lyontechhub"&gt;billet sur mes activités de l'été&lt;/a&gt;).&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Activités de l'été : auto-formation et LyonTechHub</title>
+      <link>http://www.devcrafting.com/fr/blog/2014/09-Activites-de-l-ete-autoformation-lyontechhub/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2014/09-Activites-de-l-ete-autoformation-lyontechhub/</guid>
+      <pubDate>Tue, 09 Sep 2014 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;J'avais prévu cette été une période assez large de "congés"...l'objectif était de pouvoir profiter de mes enfants, mais également d'en profiter pour avancer quelques sujets, dont me frotter de plus près à certaines technos...&lt;/p&gt;
+&lt;p&gt;Premier objectif que je m'étais fixé, aller plus loin dans le dev JavaScript. J'ai eu l'occasion de manipuler certains outils via les communautés, sur certains projets, mais je voulais tenter de les mettre en place pour m'y confronter un peu plus. Au menu initialement, j'avais prévu: AngularJS, Gulp, RequireJS, LESS, TypeScript...finalement, je ne me suis pas lancé complètement dans TypeScript, mais je me suis frotté en plus aux problématiques de SEO avec les SPA (Single Page Application), aux déploiements d'application Node.js sur Heroku, un peu de Ruby...bref, ça a été riche en apprentissages ! Ce billet reprend quelques éléments retenus de ces expérimentations.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Mes premiers mois d'activité</title>
+      <link>http://www.devcrafting.com/fr/blog/2014/07-Premiers-mois-d-activites/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2014/07-Premiers-mois-d-activites/</guid>
+      <pubDate>Thu, 03 Jul 2014 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Pour faire suite à mon &lt;a href="/fr/blog/2014/07-Creation-de-Devcrafting/"&gt;premier billet sur la création de DevCrafting&lt;/a&gt;, je propose un aperçu de mes premiers mois d'activité.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Création de ma société DevCrafting</title>
+      <link>http://www.devcrafting.com/fr/blog/2014/07-Creation-de-Devcrafting/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2014/07-Creation-de-Devcrafting/</guid>
+      <pubDate>Tue, 01 Jul 2014 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Voici le premier billet de ce blog, dans lequel je vais rapidement résumer ​la création de DevCrafting. Je vous invite à lire la &lt;a href="/Pages/Qui.aspx"&gt;page Qui&lt;/a&gt; de ce site pour en savoir un peu plus sur l'origine de la création de DevCrafting et mon experience personnelle.&lt;/p&gt;
+&lt;p&gt;DevCrafting a été officiellement créé en novembre 2013, mais la réflexion et la préparation ont démarré bien avant : se renseigner sur les démarches (banque, comptabilité, forme juridique...), se rapprocher de pairs, préparer un budget...&lt;/p&gt;
+
+
+</description>
+    </item>
+  </channel>
+</rss>

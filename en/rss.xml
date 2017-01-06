@@ -1,0 +1,68 @@
+<rss version="2.0">
+  <channel>
+    <title>DevCrafting Web site/blog - Clément Bouillier</title>
+    <link>http://www.devcrafting.com</link>
+    <description>Articles about software craftsmanship, Agile, software architecture and design</description>
+    <item>
+      <title>About learning a new language/platform</title>
+      <link>http://www.devcrafting.com/en/blog/2016/11-learn-new-language-platform/</link>
+      <guid>http://www.devcrafting.com/en/blog/2016/11-learn-new-language-platform/</guid>
+      <pubDate>Wed, 23 Nov 2016 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;As I said about F# in &lt;a href="/en/blog/2016/10-New-blog-and-website/"&gt;this post&lt;/a&gt;, I used a sort of "maturity model" to learn new languages/platforms. That's at least my way of learning based on some experiences, I don't know if it would be applicable to anyone. So I would like to expose facts that lead me to this "model".&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>New blog and website</title>
+      <link>http://www.devcrafting.com/en/blog/2016/10-New-blog-and-website/</link>
+      <guid>http://www.devcrafting.com/en/blog/2016/10-New-blog-and-website/</guid>
+      <pubDate>Fri, 28 Oct 2016 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;I had two blogs in the past, the first one in English on Blogspot and then when I created DevCrafting company, I created a new site only in French with Office 365 (SharePoint).&lt;/p&gt;
+&lt;p&gt;I never managed to keep writing new posts, for several reasons, mostly bad ones probably, but I would like to give another try with another approach. I want to talk about that as a feedback.&lt;/p&gt;
+&lt;p&gt;Also, I would like to be able to write sometimes in English, sometimes in French depending on the subject.&lt;/p&gt;
+&lt;p&gt;And last, I like the idea of &lt;a href="https://github.com/fsprojects/FsBlog"&gt;FsBlog&lt;/a&gt; and since it did not support all I wanted to do, I decided to play with F# on my own and to create my website and blog with F# as &lt;a href="http://tomasp.net/"&gt;Tomas Petricek did&lt;/a&gt;.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>Page not found</title>
+      <link>http://www.devcrafting.com/404.html</link>
+      <guid>http://www.devcrafting.com/404.html</guid>
+      <pubDate>Fri, 15 Apr 2016 02:00:00 GMT</pubDate>
+      <description>
+
+</description>
+    </item>
+    <item>
+      <title>DevCrafting</title>
+      <link>http://www.devcrafting.com/en/</link>
+      <guid>http://www.devcrafting.com/en/</guid>
+      <pubDate>Fri, 15 Apr 2016 02:00:00 GMT</pubDate>
+      <description>
+
+</description>
+    </item>
+    <item>
+      <title>Specialization in Agile : other visions than hyperspecialization</title>
+      <link>http://www.devcrafting.com/en/blog/2011/10-specialization-in-agile/</link>
+      <guid>http://www.devcrafting.com/en/blog/2011/10-specialization-in-agile/</guid>
+      <pubDate>Thu, 06 Oct 2011 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;I would like to write a post on this subject for a while (amongst lots of other…), and a post of Mike Cohn about &lt;a href="http://blog.mountaingoatsoftware.com/agile-in-the-age-of-hyperspecialization"&gt;Agile in the Age of Hyperspecialization&lt;/a&gt; reminds me the subject (in addition it is also a recurring subject at work for me). I wrote some comments on his blog, but I would like to detail a little bit here.&lt;/p&gt;  &lt;p&gt;First of all, I am not confortable with the analogy done between manufacturing activities (or buildings and civil works) and IT industry, which basically leads to reduce developers to “simple” workers that could work in a production line (cf. Ford, with respect for manufacturing workers)…and I think that’s a point that is totally missed with hyper-specialisation. &lt;/p&gt;  &lt;p&gt;I prefer other visions more suitable to our industry. In this first post, I will talk about “cultivate your code” analogy, “mentofacturing”, and feature teams approach.   &lt;br&gt;Then in a second post, I will dive into an illustration of what could be stereotypical organization nowadays with “hyperspecialization” and my vision (shared and applied in my team), which is best aligned with Agile and Lean principles from my point of view.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
+      <title>About communication mediums in general, but especially in enterprise</title>
+      <link>http://www.devcrafting.com/en/blog/2010/02-about-communication-mediums/</link>
+      <guid>http://www.devcrafting.com/en/blog/2010/02-about-communication-mediums/</guid>
+      <pubDate>Mon, 15 Feb 2010 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;&lt;span style="font-family:Arial;"&gt;I'd like to give my point of view about the subject of &lt;b&gt;communication&lt;/b&gt; &lt;b&gt;mediums&lt;/b&gt; in general, It is just a first try on this subject. I will dig &lt;b&gt;communication mediums in enterprise&lt;/b&gt; through communication tooling. The goal of this post is to &lt;b&gt;analyse which communication medium should be used for which purpose&lt;/b&gt;.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style="font-family:Arial;"&gt;This post is quite general and focused on concepts (even if I am not an expert in the field), I will publish an example of what I mean with an example around tools that can implement what I explain in this post.&lt;br&gt;&lt;/span&gt;&lt;/p&gt;  &lt;p&gt;&lt;span style="font-family:Arial;"&gt;Note : I do not talk about how people can change communication according to their behaviour, which is more psychology, I just talk about means, even it is sure that the way you communicate is also an important subject.&lt;/span&gt;&lt;/p&gt;  &lt;p&gt;&lt;span style="font-family:Arial;"&gt;I think communication as &lt;b&gt;the main factor of success in any project in general&lt;/b&gt;, because a project is rarely a personal one but the one of a community in general (which could be a couple, a team, a service, a department, an enterprise, and so on...). Good communication leads to more efficiency and comprehension.&lt;/span&gt;&lt;/p&gt;
+
+
+</description>
+    </item>
+  </channel>
+</rss>

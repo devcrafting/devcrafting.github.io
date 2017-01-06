@@ -126,7 +126,6 @@ tagAnalyticsCNIL.CookieConsentBuilder = function (gaProperty) {
                     callGoogleAnalytics();
             } else if (notToTrack()) {
                 tagAnalyticsCNIL.CookieConsent.gaOptout()
-                alert("You've enabled DoNotTrack, we're respecting your choice.")
             } else if (isTrackAccepted()) {
                 consent();
             } else {
