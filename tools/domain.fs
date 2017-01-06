@@ -13,6 +13,8 @@ type GenerationOptions = {
     CommentsSystem: CommentsSystem
     FileToUrlConvertionPatterns: FileToUrlConvertionPattern list * Convertion
     DraftsFolderOrFilePrefix: string list
+    RssTitle: string
+    RssDescription: string
 }
 and CommentsSystem = NoComments | Disqus of IDictionary<string, string>
 and CommentsWidgets = { CountWidget: string; DisplayWidget: string; ScriptWidget: string }

@@ -27,6 +27,7 @@
     * Blogspot migration guidelines: http://www.davidsottimano.com/cross-domain-canonicals-blogspot-blog/
 * Google Analytics + cookies warning
 * Comments integrated with Disqus (make it configurable)
+* Global RSS feeds by language
 
 # Features TODO
 
@@ -35,7 +36,7 @@
     * XML sitemap
 * Links to share articles on Twitter or Linked In
 * Links checker : detect links that does not return HTTP Code 200
-* RSS flux
+* Tag specific RSS feeds
 * Tag cloud canvas : http://www.goat1000.com/tagcanvas-shapes.php
 * Author ? Displayed on posts + page by authors
 * Custom theme: layout, content files (css, js, images)

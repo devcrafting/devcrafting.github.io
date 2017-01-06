@@ -36,6 +36,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="domain.fs" />
@@ -45,6 +47,7 @@
     <Compile Include="viewmodels.fs" />
     <Compile Include="dotliquid.fs" />
     <Compile Include="rendering.fs" />
+    <Compile Include="rss.fs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Choose>

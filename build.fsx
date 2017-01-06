@@ -1,6 +1,8 @@
 #r "packages/FAKE/tools/FakeLib.dll"
 #r "packages/DotLiquid/lib/NET45/DotLiquid.dll"
 #r "packages/Suave/lib/net40/Suave.dll"
+#r "System.Xml"
+#r "System.Xml.Linq"
 
 #load "packages/FSharp.Formatting/FSharp.Formatting.fsx"
 #load "tools/domain.fs"
@@ -10,6 +12,7 @@
 #load "tools/viewmodels.fs"
 #load "tools/dotliquid.fs"
 #load "tools/rendering.fs"
+#load "tools/rss.fs"
 
 #load "config.fsx"
 
@@ -34,6 +37,8 @@ let cfg = {
     CommentsSystem = Disqus (dict [ ("fr", "devcrafting-2"); ("en", "devcrafting-1") ] )
     FileToUrlConvertionPatterns = [ { FilePattern = "/404.md"; Convertion = HtmlFile } ], DirectoryWithIndexHtml
     DraftsFolderOrFilePrefix = [ "drafts" ]
+    RssTitle = "DevCrafting Web site/blog - Clément Bouillier"
+    RssDescription = "Articles about software craftsmanship, Agile, software architecture and design"
 }
 
 
@@ -80,6 +85,9 @@ let generateSite cfg changes =
 
     trace "Generating redirect pages..."
     generateRedirectPages cfg articles
+
+    trace "Generating RSS feeds.."
+    Rss.generateFeeds cfg articles
 
     trace "Processing files..."
     files
