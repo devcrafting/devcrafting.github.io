@@ -1,6 +1,10 @@
 Specialization in Agile (part 2): from theory to practice 
 =========================================================
 
+- uniquekey: specialization-in-agile-part-2
+- date: 2017-01-16
+- tags: Agile, Organization, learning
+
 --------------
 
 In the [first part post](/en/blog/2011/10-specialization-in-agile) (5 years ago...yes!), I talked about some refreshing visions on IT industry. It was quite rhetorical, now it’s time to illustrate with real examples from my experiences. 5 years later, sadly, I just have more examples...
