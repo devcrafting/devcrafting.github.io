@@ -1,8 +1,9 @@
-Refactoring de code legacy - deuxième partie
-============================================
+Refactoring de code legacy : "God class" et quelques autres techniques
+======================================================================
 
-- uniquekey: refactoring-legacy-code-part-2
-- tags : refactoring
+- uniquekey: refactoring-legacy-code-part-3
+- date : 2017-01-23
+- tags : refactoring, software craftsmanship
 
 ----------------
 
