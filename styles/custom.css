@@ -12,6 +12,7 @@ h1 {
 h2 {
     color: rgb(240, 150, 9);
     font-size: 1.8em;
+    clear: both;
 }
 
 h3 {
