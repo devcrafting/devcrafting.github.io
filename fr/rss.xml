@@ -4,6 +4,17 @@
     <link>http://www.devcrafting.com</link>
     <description>Articles about software craftsmanship, Agile, software architecture and design</description>
     <item>
+      <title>Refactoring de code legacy : "God class" et quelques autres techniques</title>
+      <link>http://www.devcrafting.com/fr/blog/2017/02-refactoring-de-code-legacy-part-3-god-class-et-autres-techniques/</link>
+      <guid>http://www.devcrafting.com/fr/blog/2017/02-refactoring-de-code-legacy-part-3-god-class-et-autres-techniques/</guid>
+      <pubDate>Tue, 14 Feb 2017 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;Voici la suite du &lt;a href="/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/"&gt;billet sur l'isolation des dépendances dans le cadre d'un refactoring de code legacy&lt;/a&gt;. Ces billets font suite à une journée d'atelier avec &lt;a href="https://twitter.com/mfeathers"&gt;Mickael Feathers&lt;/a&gt;, l'auteur de &lt;a href="http://wiki.c2.com/?WorkingEffectivelyWithLegacyCode"&gt;Working effectively with legacy code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Dans les deux premiers billets, nous avons vu comment écrire des tests de caractérisation et isoler les dépendances. Dans ce billet, nous allons voir quelques techniques de refactoring.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
       <title>Refactoring de code legacy : isoler les dépendances</title>
       <link>http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/</link>
       <guid>http://www.devcrafting.com/fr/blog/2017/01-refactoring-de-code-legacy-part-2-isoler-les-dependances/</guid>
