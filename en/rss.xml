@@ -4,6 +4,18 @@
     <link>http://www.devcrafting.com</link>
     <description>Articles about software craftsmanship, Agile, software architecture and design</description>
     <item>
+      <title>Functional code refactoring: towards immutability and pure functions</title>
+      <link>http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/</link>
+      <guid>http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/</guid>
+      <pubDate>Mon, 27 Feb 2017 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;In september 2015, I tried a refactoring kata to practice my F# skills. In this attemp, I focused on immutability and pure functions, keeping in mind what I know about refactoring in other language.&lt;/p&gt;
+&lt;p&gt;Then, in november 2016, I assisted to the refactoring workshop from &lt;a href="https://twitter.com/mfeathers"&gt;Michael Feather&lt;/a&gt; at &lt;a href="http://www.buildstuff.lt"&gt;BuildStuff&lt;/a&gt;. And talk a bit with him about the idea of identifying functional code smells and refactoring patterns.&lt;/p&gt;
+&lt;p&gt;So I like to start to write a bit on this subject, from my humble newbie perspective :).&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
       <title>Specialization in Agile (part 2): from theory to practice</title>
       <link>http://www.devcrafting.com/en/blog/2017/01-specialization-in-agile-part2/</link>
       <guid>http://www.devcrafting.com/en/blog/2017/01-specialization-in-agile-part2/</guid>

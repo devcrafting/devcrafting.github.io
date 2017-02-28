@@ -1,0 +1,235 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around software development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>Functional code refactoring: towards immutability and pure functions - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/en/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li><a href="/en/services/">Services</a></li>
+						  
+						<li><a href="/en/blog/">Blog</a></li>
+						  
+						<li><a href="/en/contact/">Contact</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+							<a class="fa fa-rss" title="RSS en" href="/en/rss.xml"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/">EN</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Functional code refactoring: towards immutability and pure functions</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/en/tag/fsharp/" class="label label-default">fsharp</a>
+            
+                <a href="/en/tag/refactoring/" class="label label-default">refactoring</a>
+            
+                <a href="/en/tag/functional/" class="label label-default">functional</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/#disqus_thread">Leave a comment</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2017-02-28T00:00:00.0000000">
+            Tuesday, February 28, 2017
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>In september 2015, I tried a refactoring kata to practice my F# skills. In this attemp, I focused on immutability and pure functions, keeping in mind what I know about refactoring in other language.</p>
+<p>Then, in november 2016, I assisted to the refactoring workshop from <a href="https://twitter.com/mfeathers">Michael Feather</a> at <a href="http://www.buildstuff.lt">BuildStuff</a>. And talk a bit with him about the idea of identifying functional code smells and refactoring patterns.</p>
+<p>So I like to start to write a bit on this subject, from my humble newbie perspective :).</p>
+<p>I started with the <a href="https://github.com/caradojo/trivia">Trivia kata</a> in F#, since I know a bit more on this language since a workshop with <a href="https://twitter.com/scottwlaschin">Scott Wlaschin</a> at <a href="http://www.ncrafts.io">NCrafts.io</a> 2015. By the way, this kata is really great, I recommend you to do it several times, in your preferred language or others to improve.</p>
+<h2>First goals: mutability and impure functions code smells</h2>
+<img alt="Lambda caracter as functional programming symbol" src="/images/functional-programming-lambda.png" class="img-float-left"/>
+<p>My first goals were to practice immutability and pure functions, two well-known "good practices" in functional programming. I think from this perspective, we could say that mutability and impure functions are code smells in functional code. At this time, I did not focus on any other code smells, I let this point for another blog post. Let's dive a bit why it would be interesting to fix these code smells.</p>
+<p>Mutability is about changing variables, or more exactly state of the program. What it means is that functions using a mutable variable will not have a deterministic behavior, i.e if call it twice with the same instance, it could give different output/side-effects, which can be quite disturbing to reproduce bugs/behaviors. Also when you change the state, you loose the previous state, then it is for example quite difficult to debug. Mutability also introduces time dependency, since at one time, your instance can be in state S1 and later in state S2. The most basic mutable variable used is DateTime.Now, and lots of people know that it is very difficult to test and debug (if you don't, <a href="http://stackoverflow.com/questions/2425721/unit-testing-datetime-now">read this for example</a>). We could summarize that it is a matter of reliability.</p>
+<p>Impure functions have somewhat the same drawbacks. An impure function is function that rely on reading external datas (other than the ones passed as arguments, read from a database for example) and/or that have side-effects (typically create/update/delete datas in files, call network). In fact, it is mostly any function using I/O. It means that it also adds time dependency. An impure function is also mostly not deterministic, making your program harder to reason about.</p>
+<p>Note that mutability and side-effects are necessary in the end for a program to be useful, that's why we often talk about <a href="https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell">functional core/imperative shell</a>. It means that the core implementing domain logic can be pure and immutable, and that side-effects and mutability can be segregated in the shell of your program.</p>
+<h2>Refactoring basic: caracterisation tests</h2>
+<img alt="Rosetta Stone illustrating the fact that Golden Master is something that will help you recognize that refactored program is still the same, as a translation is." title="Licensed under CC-SA. © Hans Hillewaert - https://commons.wikimedia.org/wiki/File:Rosetta_Stone.JPG" src="/images/Rosetta-Stone.jpg" class="img-float-left"/>
+<p>I did not invent anything new for caracterisation tests, I used the Golden Master technique. It is usually quite easy to setup. In Trivia kata it is event easier since there are lots of Console.WriteLine, so we just need to capture program output.</p>
+<p>I made it in several ways:
+<em> in 2015 <a href="https://github.com/devcrafting/trivia/blob/8d20d7c460d923a571abbba6396532f2e327c1e5/fsharp/Trivia/GameRunner.fsx">as a F# script</a>,
+</em> lately <a href="https://github.com/devcrafting/trivia/tree/fsharp_goldenmaster">as compiled program output capture with a FAKE script</a>.</p>
+<p>In both cases, simple tricks:
+<em> since there is some randomness, fix the seed
+</em> run several games to test several game combination, changing seed each time
+* redirect the program output (running the program itself or the script through fsi) in a goldenmaster.txt, given you commit it at first, then if it changes because of a bug, Git says that goldenmaster.txt file has changed.</p>
+<p>So, now let focus on refactoring goals.</p>
+<h2>My very first attempt</h2>
+<img alt="Nuclear explosion illustrating what I did when trying a big one shot refactoring!" src="/images/nuclear-explosion.jpg" class="img-float-left"/>
+<p>My first attempt was really not baby-steps oriented. I first tried to remove state too quickly writing public methods (roll &amp; answers) working on a new immutable type (F# record). I ended with a big refactor spending several hours without being able to check the golden master.</p>
+<p>In the end, I got a <a href="https://github.com/devcrafting/trivia/tree/immutableBigRefacto/fsharp">quite "satisfying" implementation</a>, fixing "bugs", but unable to verify the golden master, so I would say I "loose" this refactoring challenge.</p>
+<h2>Another attempt</h2>
+<p>So I tried again with baby/small steps (commits every 5 to 30 min max). I started creating a type and moving behavior from existing methods to "pure functions" operating on this type. I added some union cases types and some pattern matching, that were revealed useless in the end, but it was a good step toward removing mutability iteratively. It let you <a href="https://github.com/devcrafting/trivia/commits/immutabilityBabySteps/fsharp">have a look at commit history (screenshot below)</a>, I think it is quite descriptive.</p>
+<img alt="Commits history of baby step refactoring attempt" src="/images/triviaRefactoringFirstAttemptsCommitsHistory.png" class="img-full-width"/>
+<p>Note that I talk about pure functions, but they are NOT since there are still the Console.Write/printfn calls that are side-effects on the console. I will try to remove this in another refactoring session.</p>
+<p>In the end, it takes me far less time to refactoring with a much more reliable refactoring since I ran Golden Master before every commits. Sure there is a bias of doing it a second time, but you can see that I did not end up with the same model. I can assure you that I was often stuck at what to do next when I was in my big refactoring attempt, whereas it was much more fluent when I used baby steps. I trashed several times what I tried since previous commit to try something else.</p>
+<h2>Next step...</h2>
+<p>As a feedback of these two experiences, first I cannot recommend more than ever baby steps refactoring (something I knew about, but...no comments). From functional programming points of view, I understood that starting with refactoring inner functions to pure functions, removing mutability step by step was the key of success. It was in fact quite the same approach than in OO refactoring: let emerge some types, but create pure functions on these immutable types instead of encapsulate things in mutable types. I don't know if it is a good conclusion from a functional perspective, but I feel it like that.</p>
+<p>With two colleagues (<a href="https://www.reddit.com/user/aloisdg">Alois</a> and <a href="https://twitter.com/jfsaguin">Jeff</a>), we are trying to do this refactoring kata together. We first tried to find some code smells and we tried another way to refactor with baby steps. I let this for another blog post ;).</p>
+<p>I can just encourage you to give a try to functional refactoring to practice your functional programming skills. It was a really good exercise for me.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
