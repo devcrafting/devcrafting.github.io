@@ -4,6 +4,16 @@
     <link>http://www.devcrafting.com</link>
     <description>Articles about software craftsmanship, Agile, software architecture and design</description>
     <item>
+      <title>Functional architecture and hexagonal architecture</title>
+      <link>http://www.devcrafting.com/en/blog/2017/05-functional-architecture-part1/</link>
+      <guid>http://www.devcrafting.com/en/blog/2017/05-functional-architecture-part1/</guid>
+      <pubDate>Mon, 22 May 2017 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;I already mentioned the &lt;a href="https://www.youtube.com/watch?v=US8QG9I1XW0"&gt;video from Mark Seeman about Functional Architecture&lt;/a&gt;. I proposed sessions on this subject at &lt;a href="http://www.socrates-ch.org"&gt;SocratesCH&lt;/a&gt; to discuss and to understand it better. My understanding is still far from perfect, and in this blog post, I would like to give some feedbacks on experiments I have done with an OOP language, sketching hexagonal architecture implementations, before switching to functional implementation.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
       <title>Functional code refactoring: towards immutability and pure functions</title>
       <link>http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/</link>
       <guid>http://www.devcrafting.com/en/blog/2017/02-functional-refactoring-part1-towards-immutability-and-pure-functions/</guid>

@@ -1,0 +1,629 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around software development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/en/blog/2017/05-functional-architecture-part1/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>Functional architecture and hexagonal architecture - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/en/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li><a href="/en/services/">Services</a></li>
+						  
+						<li><a href="/en/blog/">Blog</a></li>
+						  
+						<li><a href="/en/contact/">Contact</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+							<a class="fa fa-rss" title="RSS en" href="/en/rss.xml"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/en/blog/2017/05-functional-architecture-part1/">EN</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">Functional architecture and hexagonal architecture</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/en/tag/fsharp/" class="label label-default">fsharp</a>
+            
+                <a href="/en/tag/csharp/" class="label label-default">csharp</a>
+            
+                <a href="/en/tag/functional/" class="label label-default">functional</a>
+            
+                <a href="/en/tag/architecture/" class="label label-default">architecture</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/en/blog/2017/05-functional-architecture-part1/#disqus_thread">Leave a comment</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2017-05-23T00:00:00.0000000">
+            Tuesday, May 23, 2017
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>I already mentioned the <a href="https://www.youtube.com/watch?v=US8QG9I1XW0">video from Mark Seeman about Functional Architecture</a>. I proposed sessions on this subject at <a href="http://www.socrates-ch.org">SocratesCH</a> to discuss and to understand it better. My understanding is still far from perfect, and in this blog post, I would like to give some feedbacks on experiments I have done with an OOP language, sketching hexagonal architecture implementations, before switching to functional implementation.</p>
+<p>The idea behind "functional architecture" is to have a pure "functional core" and an "imperative shell", pushing side effects to the border, removing them from the core (the domain, where rules are enforced) to make it more deterministic and then less error prone.</p>
+<h2>Setup context</h2>
+<h3>The domain and a proposed model</h3>
+<p>The code is based on a (subset of) online shopping domain. For the purpose of these experiments, I only focus on the use case of adding a product to cart with the following rules:</p>
+<ul>
+<li>Check enough stock then reserve temporarily (let's imagine there is a timer service that remove outdated reservations)</li>
+<li>Do not allow accumulated quantity (in the cart) for each product to be more than 10 (given it is possible to add a product several times, and cumulated quantity is 0)</li>
+</ul>
+<p>I propose the following model (with DDD in mind):</p>
+<ul>
+<li>ProductStock aggregate to enforce the first rule</li>
+<li>Cart aggregate to enforce the second one</li>
+</ul>
+<h3>Common technical assumptions</h3>
+<p>In any of the examples, I will rely on these assumptions:</p>
+<ul>
+<li>(sort of MVC) controller end point</li>
+<li>some data store somewhere (but not implemented =&gt; it is not the subject)</li>
+</ul>
+<h2>Hexagonal architecture with OOP</h2>
+<p>A.K.A. "<a href="http://jeffreypalermo.com/blog/the-onion-architecture-part-1/">Onion architecture</a>" or "<a href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">Clean architecture</a>" or "<a href="http://alistair.cockburn.us/Hexagonal+architecture">Port and Adapters</a>"...as <a href="http://blog.ploeh.dk/2013/12/03/layers-onions-ports-adapters-its-all-the-same/">Mark Seeman explained there are all about the same thing</a>.</p>
+<p>So the first step I propose is to setup an hexagonal architecture, with different flavors. It is a first step towards a functional architecture since the idea is to only rely on abstracted input and output adapters in the core.</p>
+<h3>"Ifs and primitives" implementation</h3>
+<p>First, I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfs.cs">rely only on primitives return types from the core domain</a>:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> CartControllerIfs(IProductStocks productStocks, ICarts carts)
+{
+    _productStocks <span class="o">=</span> productStocks;
+    _carts <span class="o">=</span> carts;
+}
+
+<span class="k">public</span> HttpResponseMessage AddProduct(AddProduct addProduct)
+{
+    <span class="k">var</span> productStock <span class="o">=</span> _productStocks.Get(addProduct.ProductId);
+    <span class="k">var</span> temporaryReservation <span class="o">=</span> productStock.MakeATemporaryReservation(addProduct.Quantity);
+    <span class="k">if</span> (temporaryReservation <span class="o">!</span><span class="o">=</span> <span class="k">null</span>)
+    {
+        _productStocks.Save(productStock);
+        <span class="k">var</span> cart <span class="o">=</span> _carts.Get(addProduct.CartId);
+        <span class="k">if</span> (cart.Add(addProduct.ProductId, addProduct.Quantity, temporaryReservation))
+        {
+            _carts.Save(cart);
+        }
+        <span class="k">else</span>
+        {
+            <span class="k">return</span> Error(<span class="s">"Sorry, cannot add to cart"</span>);
+        }
+    }
+    <span class="k">else</span>
+    {
+        <span class="k">return</span> Error(<span class="s">"Sorry, not enough stock"</span>);
+    }
+    <span class="k">return</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Created);
+}
+</code></pre></td></tr></table>
+<p>Drawbacks:</p>
+<ul>
+<li>Check "null" on productStock.MakeATemporaryReservation return =&gt; failure very implicit</li>
+<li>Check true/false on cart.Add =&gt; no information on why it fails</li>
+<li>Cascading "ifs"</li>
+<li>Pure and impure (Get/Save) functions alternate mixed with business logic</li>
+<li>Duplicate conditionals between aggregates functions and "ifs"</li>
+</ul>
+<p>Three first drawbacks are quite well known. The two last ones are more interesting.</p>
+<p>If we mix business logic with calls to pure and impure functions, then we need to test and test can become quite hard to write (because of need to write fake implementations for abstracted impure functions).</p>
+<p>About "duplicate conditionals", you can imagine that we have to write some conditions to return null or not on productStock.MakeATemporaryReservation, and the same for cart.Add. In the code using these methods, we add conditions based on their return values. Each of these conditions is a duplication of the inner conditions of called methods. That's why we talk about duplicate conditions.</p>
+<p>Note we could also have a <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfsWithServices.cs">slightly modified implementation with a ProductStockService and a CartService</a>:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+<span class="l">43: </span>
+<span class="l">44: </span>
+<span class="l">45: </span>
+<span class="l">46: </span>
+<span class="l">47: </span>
+<span class="l">48: </span>
+<span class="l">49: </span>
+<span class="l">50: </span>
+<span class="l">51: </span>
+<span class="l">52: </span>
+<span class="l">53: </span>
+<span class="l">54: </span>
+<span class="l">55: </span>
+<span class="l">56: </span>
+<span class="l">57: </span>
+<span class="l">58: </span>
+<span class="l">59: </span>
+<span class="l">60: </span>
+<span class="l">61: </span>
+<span class="l">62: </span>
+<span class="l">63: </span>
+<span class="l">64: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> ProductStockService
+{
+    <span class="k">private</span> <span class="k">readonly</span> IProductStocks _productStocks;
+
+    <span class="k">public</span> ProductStockService(IProductStocks productStocks)
+    {
+        _productStocks <span class="o">=</span> productStocks;
+    }
+
+    <span class="k">public</span> TemporaryReservation MakeATemporaryReservation(AddProduct addProduct)
+    {
+        <span class="k">var</span> productStock <span class="o">=</span> _productStocks.Get(addProduct.ProductId);
+        <span class="k">var</span> temporaryReservation <span class="o">=</span> productStock.MakeATemporaryReservation(addProduct.Quantity);
+        <span class="k">if</span> (temporaryReservation <span class="o">!</span><span class="o">=</span> <span class="k">null</span>)
+        {
+            _productStocks.Save(productStock);
+        }
+        <span class="k">return</span> temporaryReservation;
+    }
+}
+
+<span class="k">public</span> <span class="k">class</span> CartService
+{
+    <span class="k">private</span> <span class="k">readonly</span> ICarts _carts;
+
+    <span class="k">public</span> CartService(ICarts carts)
+    {
+        _carts <span class="o">=</span> carts;
+    }
+
+    <span class="k">public</span> <span class="k">bool</span> Add(AddProduct addProduct, TemporaryReservation temporaryReservation)
+    {
+        <span class="k">var</span> cart <span class="o">=</span> _carts.Get(addProduct.CartId);
+        <span class="k">if</span> (cart.Add(addProduct.ProductId, addProduct.Quantity, temporaryReservation))
+        {
+            _carts.Save(cart);
+            <span class="k">return</span> <span class="k">true</span>;
+        }
+        <span class="k">return</span> <span class="k">false</span>;
+    }
+}
+
+<span class="k">public</span> CartControllerIfsWithServices(ProductStockService productStockService, CartService cartService)
+{
+    _productStockService <span class="o">=</span> productStockService;
+    _cartService <span class="o">=</span> cartService;
+}
+
+<span class="k">public</span> HttpResponseMessage AddProduct(AddProduct addProduct)
+{
+    <span class="k">var</span> temporaryReservation <span class="o">=</span> _productStockService.MakeATemporaryReservation(addProduct);
+    <span class="k">if</span> (temporaryReservation <span class="o">!</span><span class="o">=</span> <span class="k">null</span>)
+    {
+        <span class="k">if</span>(!_cartService.Add(addProduct, temporaryReservation))
+        {
+            <span class="k">return</span> Error(<span class="s">"Sorry, cannot add to cart"</span>);
+        }
+    }
+    <span class="k">else</span>
+    {
+        <span class="k">return</span> Error(<span class="s">"Sorry, not enough stock"</span>);
+    }
+    <span class="k">return</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Created);
+}
+</code></pre></td></tr></table>
+<p>It has the same drawbacks, and it adds two others:</p>
+<ul>
+<li>There is a bit more of ceremony around injection</li>
+<li>Injection of data store abstractions hides the impure function calls inside services, which is against the idea of pushing side-effects to the border</li>
+</ul>
+<p>Note that I am absolutely not against injection, but sometimes abusing of injection can be worst than better.</p>
+<h3>"Exceptions" implementation</h3>
+<p>Then I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerException.cs">rely on exceptions for error cases</a>:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> HttpResponseMessage AddProduct(AddProduct addProduct)
+{
+    <span class="k">var</span> productStock <span class="o">=</span> _productStocks.Get(addProduct.ProductId);
+    <span class="k">try</span>
+    {
+        <span class="k">var</span> temporaryReservation <span class="o">=</span> productStock.MakeATemporaryReservation(addProduct.Quantity);
+        _productStocks.Save(productStock);
+        <span class="k">var</span> cart <span class="o">=</span> _carts.Get(addProduct.CartId);
+        cart.Add(addProduct.ProductId, addProduct.Quantity, temporaryReservation);
+        _carts.Save(cart);
+    }
+    <span class="k">catch</span> (BusinessException e)
+    {
+        <span class="k">var</span> httpResponseMessage <span class="o">=</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Forbidden)
+        {
+            Content <span class="o">=</span> <span class="k">new</span> StringContent(e.Message)
+        };
+        <span class="k">return</span> httpResponseMessage;
+    }
+    <span class="k">return</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Created);
+}
+</code></pre></td></tr></table>
+<p>Advantages:</p>
+<ul>
+<li>No more check on null/bool =&gt; more explicit with clear exceptions derived from BusinessException</li>
+<li>No more cascading "ifs"</li>
+<li>No more stop/continue business logic, try/catch is explicit to stop the flow in case of error</li>
+<li>Less duplicate conditionals</li>
+</ul>
+<p>But still, there is one drawback. Exceptions should not be used to handle business errors, they are expected, we usually consider exceptions are more for unexpected cases.</p>
+<p>It seems quite cool, but the drawback is still not so great. Note I was quite surprised in fact that this implementation feels so close to the next one using "continuation" (did I miss something?).</p>
+<h3>"Continuation" implementation</h3>
+<p>With previous implementation based on exceptions, we saw a pattern to continue execution: continues on success, stop and report on errors. Instead of exceptions, we can then rely on an Either generic type that represents success with a first type parameter (special case of void with EitherVoid) OR error with a second type parameter. Either type has a ContinueWith method. Let's see this <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerContinuation.cs">continuation implementation</a>.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
+<span class="l">35: </span>
+<span class="l">36: </span>
+<span class="l">37: </span>
+<span class="l">38: </span>
+<span class="l">39: </span>
+<span class="l">40: </span>
+<span class="l">41: </span>
+<span class="l">42: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> <span class="k">class</span> Either&lt;T<span class="n">1</span>, T<span class="n">2</span>&gt;
+{
+    <span class="k">private</span> T<span class="n">1</span> _left;
+    <span class="k">private</span> T<span class="n">2</span> _right;
+
+    <span class="k">private</span> Either(T<span class="n">1</span> t<span class="n">1</span>)
+    {
+        _left <span class="o">=</span> t<span class="n">1</span>;
+    }
+
+    <span class="k">private</span> Either(T<span class="n">2</span> t<span class="n">2</span>)
+    {
+        _right <span class="o">=</span> t<span class="n">2</span>;
+    }
+
+    <span class="k">public</span> <span class="k">static</span> Either&lt;T<span class="n">1</span>, T<span class="n">2</span>&gt; Left(T<span class="n">1</span> t<span class="n">1</span>)
+    {
+        <span class="k">return</span> <span class="k">new</span> Either&lt;T<span class="n">1</span>, T<span class="n">2</span>&gt;(t<span class="n">1</span>);
+    }
+
+    <span class="k">public</span> <span class="k">static</span> Either&lt;T<span class="n">1</span>, T<span class="n">2</span>&gt; Right(T<span class="n">2</span> t<span class="n">2</span>)
+    {
+        <span class="k">return</span> <span class="k">new</span> Either&lt;T<span class="n">1</span>, T<span class="n">2</span>&gt;(t<span class="n">2</span>);
+    }
+
+    <span class="k">internal</span> <span class="k">void</span> ContinueWith(Action&lt;T<span class="n">1</span>&gt; onT<span class="n">1</span>, Action&lt;T<span class="n">2</span>&gt; onT<span class="n">2</span>)
+    {
+        <span class="k">if</span> (_left <span class="o">!</span><span class="o">=</span> <span class="k">null</span>)
+        {
+            onT<span class="n">1</span>(_left);
+        }
+        onT<span class="n">2</span>(_right);
+    }
+}
+
+<span class="k">public</span> <span class="k">class</span> EitherVoid&lt;T&gt;
+{
+    <span class="k">internal</span> <span class="k">void</span> ContinueWith(Action onVoid, Action&lt;T&gt; onT)
+    {
+        [<span class="o">.</span><span class="o">.</span><span class="o">.</span>]
+    }
+}
+</code></pre></td></tr></table>
+<p>The implementation follows:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="csharp"><span class="k">public</span> HttpResponseMessage AddProduct(AddProduct addProduct)
+{
+    HttpResponseMessage response <span class="o">=</span> <span class="k">null</span>;
+    <span class="k">var</span> productStock <span class="o">=</span> _productStocks.Get(addProduct.ProductId);
+    <span class="k">var</span> eitherTemporaryReservationErrors <span class="o">=</span> productStock.MakeATemporaryReservation_(addProduct.Quantity);
+    eitherTemporaryReservationErrors.ContinueWith(temporaryReservation <span class="o">=</span><span class="o">&gt;</span>
+    {
+        _productStocks.Save(productStock);
+        <span class="k">var</span> cart <span class="o">=</span> _carts.Get(addProduct.CartId);
+        <span class="k">var</span> eitherVoidErrors <span class="o">=</span> cart.Add_(addProduct.ProductId, addProduct.Quantity, temporaryReservation);
+        eitherVoidErrors.ContinueWith(() <span class="o">=</span><span class="o">&gt;</span>
+        {
+            _carts.Save(cart);
+            response <span class="o">=</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Created);
+        }, x <span class="o">=</span><span class="o">&gt;</span> response <span class="o">=</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Forbidden));
+    }, x <span class="o">=</span><span class="o">&gt;</span> response <span class="o">=</span> <span class="k">new</span> HttpResponseMessage(HttpStatusCode.Forbidden));
+    <span class="k">return</span> response;
+}
+</code></pre></td></tr></table>
+<p>Advantages:</p>
+<ul>
+<li>Same as "exceptions" implementation</li>
+<li>But without using exceptions :)</li>
+</ul>
+<p>The main drawback of this implementation is that syntax is a bit ugly, with some sort of cascading.</p>
+<p>Note we could use Either type slightly modified to use it in the "if" implementation, removing the primitives drawbacks.</p>
+<p>NB: for C# developers, perhaps, it reminds you the Task API, it is very close. Task implement some sort of continuation expression. For JS developers, it reminds use of callbacks, it is the same idea.</p>
+<h2>Next step</h2>
+<p>I haven't though to other OOP implementations (at least in C#), if you do, please suggest me your thoughts.</p>
+<p>The next step I propose is to implement the same logic with F#, with functional architecture is mind. Stay tuned ;) (hoping I will not take 3 months to write it...).</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/en/blog/2017/05-functional-architecture-part1/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
