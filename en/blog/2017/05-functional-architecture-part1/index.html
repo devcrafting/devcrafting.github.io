@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="/styles/custom.css" />
 	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
-	<title>Functional architecture and hexagonal architecture - DevCrafting</title>
+	<title>Functional architecture and hexagonal architecture - "classic" OOP implementations - DevCrafting</title>
 
 	 
 </head>
@@ -99,7 +99,7 @@
 			<div class="col-sm-9">
 				
 <article itemscope itemtype="http://schema.org/Article">
-    <h1 itemprop="headline">Functional architecture and hexagonal architecture</h1>
+    <h1 itemprop="headline">Functional architecture and hexagonal architecture - "classic" OOP implementations</h1>
     <div class="row">
         <div class="col-sm-6 col-md-6" itemprop="keywords">
             <span class="fa fa-tags"></span>
@@ -149,7 +149,7 @@
 <p>A.K.A. "<a href="http://jeffreypalermo.com/blog/the-onion-architecture-part-1/">Onion architecture</a>" or "<a href="https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html">Clean architecture</a>" or "<a href="http://alistair.cockburn.us/Hexagonal+architecture">Port and Adapters</a>"...as <a href="http://blog.ploeh.dk/2013/12/03/layers-onions-ports-adapters-its-all-the-same/">Mark Seeman explained there are all about the same thing</a>.</p>
 <p>So the first step I propose is to setup an hexagonal architecture, with different flavors. It is a first step towards a functional architecture since the idea is to only rely on abstracted input and output adapters in the core.</p>
 <h3>"Ifs and primitives" implementation</h3>
-<p>First, I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfs.cs">rely only on primitives return types from the core domain</a>:</p>
+<p>First, I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerIfs.cs">rely only on primitives return types from the core domain</a>:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -221,7 +221,7 @@
 <p>Three first drawbacks are quite well known. The two last ones are more interesting.</p>
 <p>If we mix business logic with calls to pure and impure functions, then we need to test and test can become quite hard to write (because of need to write fake implementations for abstracted impure functions).</p>
 <p>About "duplicate conditionals", you can imagine that we have to write some conditions to return null or not on productStock.MakeATemporaryReservation, and the same for cart.Add. In the code using these methods, we add conditions based on their return values. Each of these conditions is a duplication of the inner conditions of called methods. That's why we talk about duplicate conditions.</p>
-<p>Note we could also have a <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfsWithServices.cs">slightly modified implementation with a ProductStockService and a CartService</a>:</p>
+<p>Note we could also have a <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerIfsWithServices.cs">slightly modified implementation with a ProductStockService and a CartService</a>:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -359,7 +359,7 @@
 </ul>
 <p>Note that I am absolutely not against injection, but sometimes abusing of injection can be worst than better.</p>
 <h3>"Exceptions" implementation</h3>
-<p>Then I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerException.cs">rely on exceptions for error cases</a>:</p>
+<p>Then I propose to <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerException.cs">rely on exceptions for error cases</a>:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -414,7 +414,7 @@
 <p>But still, there is one drawback. Exceptions should not be used to handle business errors, they are expected, we usually consider exceptions are more for unexpected cases.</p>
 <p>It seems quite cool, but the drawback is still not so great. Note I was quite surprised in fact that this implementation feels so close to the next one using "continuation" (did I miss something?).</p>
 <h3>"Continuation" implementation</h3>
-<p>With previous implementation based on exceptions, we saw a pattern to continue execution: continues on success, stop and report on errors. Instead of exceptions, we can then rely on an Either generic type that represents success with a first type parameter (special case of void with EitherVoid) OR error with a second type parameter. Either type has a ContinueWith method. Let's see this <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerContinuation.cs">continuation implementation</a>.</p>
+<p>With previous implementation based on exceptions, we saw a pattern to continue execution: continues on success, stop and report on errors. Instead of exceptions, we can then rely on an Either generic type that represents success with a first type parameter (special case of void with EitherVoid) OR error with a second type parameter. Either type has a ContinueWith method. Let's see this <a href="https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerContinuation.cs">continuation implementation</a>.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
