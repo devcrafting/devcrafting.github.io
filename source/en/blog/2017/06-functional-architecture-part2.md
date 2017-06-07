@@ -1,5 +1,5 @@
-Functional architecture and hexagonal architecture - introducing Railway programming
-====================================================================================
+Functional architecture and hexagonal architecture - Introducing Railway Oriented Programming
+=============================================================================================
 
 - uniquekey: functional-architecture-part2
 - date: 2017-06-07
