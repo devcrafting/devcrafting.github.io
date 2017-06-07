@@ -1,7 +1,7 @@
-Functional architecture and hexagonal architecture
-==================================================
+Functional architecture and hexagonal architecture - "classic" OOP implementations
+==================================================================================
 
-- uniquekey: functional architecture
+- uniquekey: functional-architecture-part1
 - date: 2017-05-23
 - tags: fsharp,csharp,functional,architecture
 
@@ -42,7 +42,7 @@ So the first step I propose is to setup an hexagonal architecture, with differen
 
 ### "Ifs and primitives" implementation
 
-First, I propose to [rely only on primitives return types from the core domain](https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfs.cs):
+First, I propose to [rely only on primitives return types from the core domain](https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerIfs.cs):
 
     [lang=csharp]
     public CartControllerIfs(IProductStocks productStocks, ICarts carts)
@@ -89,7 +89,7 @@ If we mix business logic with calls to pure and impure functions, then we need t
 
 About "duplicate conditionals", you can imagine that we have to write some conditions to return null or not on productStock.MakeATemporaryReservation, and the same for cart.Add. In the code using these methods, we add conditions based on their return values. Each of these conditions is a duplication of the inner conditions of called methods. That's why we talk about duplicate conditions.
 
-Note we could also have a [slightly modified implementation with a ProductStockService and a CartService](https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerIfsWithServices.cs):
+Note we could also have a [slightly modified implementation with a ProductStockService and a CartService](https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerIfsWithServices.cs):
 
     [lang=csharp]
     public class ProductStockService
@@ -166,7 +166,7 @@ Note that I am absolutely not against injection, but sometimes abusing of inject
 
 ### "Exceptions" implementation
 
-Then I propose to [rely on exceptions for error cases](https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerException.cs):
+Then I propose to [rely on exceptions for error cases](https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerException.cs):
 
     [lang=csharp]
     public HttpResponseMessage AddProduct(AddProduct addProduct)
@@ -204,7 +204,7 @@ It seems quite cool, but the drawback is still not so great. Note I was quite su
 
 ### "Continuation" implementation
 
-With previous implementation based on exceptions, we saw a pattern to continue execution: continues on success, stop and report on errors. Instead of exceptions, we can then rely on an Either generic type that represents success with a first type parameter (special case of void with EitherVoid) OR error with a second type parameter. Either type has a ContinueWith method. Let's see this [continuation implementation](https://github.com/devcrafting/FunctionalArchitecture/blob/master/CartControllerContinuation.cs).
+With previous implementation based on exceptions, we saw a pattern to continue execution: continues on success, stop and report on errors. Instead of exceptions, we can then rely on an Either generic type that represents success with a first type parameter (special case of void with EitherVoid) OR error with a second type parameter. Either type has a ContinueWith method. Let's see this [continuation implementation](https://github.com/devcrafting/FunctionalArchitecture/blob/de964e2ca67d20dace200b7ce21acad88ee5cad8/CartControllerContinuation.cs).
 
     [lang=csharp]
     public class Either<T1, T2>
