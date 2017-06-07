@@ -1,4 +1,4 @@
-Functional architecture and hexagonal architecture - "classic" OOP implementations
+Functional architecture and hexagonal architecture - "Classic" OOP implementations
 ==================================================================================
 
 - uniquekey: functional-architecture-part1
@@ -287,4 +287,4 @@ NB: for C# developers, perhaps, it reminds you the Task API, it is very close. T
 
 I haven't though to other OOP implementations (at least in C#), if you do, please suggest me your thoughts.
 
-The next step I propose is to implement the same logic with F#, with functional architecture is mind. Stay tuned ;) (hoping I will not take 3 months to write it...).
+The [next step](http://www.devcrafting.com/en/blog/2017/06-functional-architecture-part2/) I propose is to implement the same logic with F#, with functional architecture is mind. Stay tuned ;) (hoping I will not take 3 months to write it...).
