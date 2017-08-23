@@ -230,4 +230,4 @@ Some cool things to note:
 
 ## Next step
 
-From this first F# implementation, we will be able to evolve towards an even nicer implementation, removing the pattern we just spotted. It will explain by example what is a Monad. And I will also show you how to use Computation Expression in F# to have a final version I really like.
+From this first F# implementation, we [will be able to evolve towards an even nicer implementation](http://www.devcrafting.com/en/blog/2017/08-functional-architecture-part3/), removing the pattern we just spotted. It will explain by example what is a Monad. And I will also show you how to use Computation Expression in F# to have a final version I really like.
