@@ -1,13 +1,13 @@
-History of a monolith: the rise of keywords
-===========================================
+History of a monolith: a new try ?
+==================================
 
-- uniquekey: history-of-a-monolith-part2
+- uniquekey: history-of-a-monolith-part3
 - date: 2017-07-15
-- tags: legacy,architecture,DDD
+- tags: legacy,architecture,DDD,CQRS
 
 -------------------------------
 
-In the [first part of this series](), I focused on the genesis of the monolith we started at the end of 2005. I left the project in early 2007. It was then planned to grow quickly, then the team would have to adapt (in size and more...). I came back on the project in 2009, this post highlights new challenges we faced, evolution we made (lots of experiments) and consequences until 2012 when I left again.
+In the [previous parts of this series](), I focused on the genesis of the monolith we started at the end of 2005. I left the project in early 2007. It was then planned to grow quickly, then the team would have to adapt (in size and more...). I came back on the project in 2009, this post highlights new challenges we faced, evolution we made (lots of experiments) and consequences until 2012 when I left again.
 
 -------------------------------
 
