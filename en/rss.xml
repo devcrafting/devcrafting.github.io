@@ -4,6 +4,16 @@
     <link>http://www.devcrafting.com</link>
     <description>Articles about software craftsmanship, Agile, software architecture and design</description>
     <item>
+      <title>Functional architecture and hexagonal architecture - Introducing bind, Monad and Continuation Expressions</title>
+      <link>http://www.devcrafting.com/en/blog/2017/08-functional-architecture-part3/</link>
+      <guid>http://www.devcrafting.com/en/blog/2017/08-functional-architecture-part3/</guid>
+      <pubDate>Tue, 22 Aug 2017 22:00:00 GMT</pubDate>
+      <description>&lt;p&gt;In the &lt;a href="http://www.devcrafting.com/en/blog/2017/06-functional-architecture-part2/"&gt;previous post&lt;/a&gt;, I started a first F# implementation, showing "beauty" of F# code ;). Now it is time to improve a bit the controller function to be more fluent.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
       <title>Functional architecture and hexagonal architecture - Introducing Railway Oriented Programming</title>
       <link>http://www.devcrafting.com/en/blog/2017/06-functional-architecture-part2/</link>
       <guid>http://www.devcrafting.com/en/blog/2017/06-functional-architecture-part2/</guid>
