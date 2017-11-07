@@ -1,0 +1,231 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around software development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/en/blog/2017/11-history-of-a-monolith-part1/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>History of a monolith: genesis - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/en/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li><a href="/en/services/">Services</a></li>
+						  
+						<li><a href="/en/blog/">Blog</a></li>
+						  
+						<li><a href="/en/contact/">Contact</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+							<a class="fa fa-rss" title="RSS en" href="/en/rss.xml"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/en/blog/2017/11-history-of-a-monolith-part1/">EN</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">History of a monolith: genesis</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/en/tag/legacy/" class="label label-default">legacy</a>
+            
+                <a href="/en/tag/architecture/" class="label label-default">architecture</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/en/blog/2017/11-history-of-a-monolith-part1/#disqus_thread">Leave a comment</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2017-11-07T00:00:00.0000000">
+            Tuesday, November 7, 2017
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>I would like to share an experience I started at the end of 2005 and I followed in time up to now (in 2017). In 2005, the team I was working in (3 persons) started a from-scratch rebuild of a legacy Notes application. Today, it is a huge monolith application with lots of legacy code, having several issues these kind of application have. My goal is to retrospect its history, to hightlight impacts of some choices and then try to find solutions.</p>
+<h2>Context</h2>
+<img alt="Green field illustrating our context - everything to be done in a fertile world" src="/images/greenfield.jpg" class="img-float-right"/>
+<p>For this full-rebuild, a small team of 3 developers and 1 functional team leader was set up. I was in charge of technical choices (architecture, technologies, tools...), even if I had only 1 year experience (but a great year with lots of technical insights and learning! Many thanks to <a href="https://twitter.com/lamouetterieuse">Antoine</a>).</p>
+<p>On functional aspects, we were supposed to do an "iso-functional" application based on the existing Notes application. As you can expect, this does not mean anything: from Notes (silos) to Web app (hypertext), we had lots of new possibilities. At least, the existing application was a basis to foster discussions with business team. That was a first great topic: <strong>we were easily inline between business team and development team</strong>, finding consensus and solutions together. Note that this team was a user proxy, users were all around the world (3000 users in target, internal use only).</p>
+<p>On organisational aspects, we considered an iterative development process, without knowing anything about Agile movement ("officially" started in 2001 with the <a href="http://agilemanifesto.org/">manifesto</a>). We were doing <strong>incremental early delivery</strong> (live environment with continuous delivery) <strong>every two weeks, with a demonstration of what was new</strong>. We were more or less agile.</p>
+<p>On technical aspects, we had <strong>some technical constraints</strong> by the team leader's manager...but we were <strong>still quite free</strong> out of these constraints.</p>
+<h2>Technical constraints</h2>
+<img alt="Ball and chain representing constraints" src="/images/ball-and-chain.jpg" class="img-float-left"/>
+<p>.NET 2.0 was just out (with VS2005). The mainstream way of doing Web was ASP.NET WebForms
+.NET (2.0) and then WebForms. We were not enough mature to start with alternatives like first MVC implementation in open source library. By the way, managers would not had let us use it :/ (you know "we can't trust open source"...).</p>
+<p>But it was "nice" constraints compared to the in-house "sort of" ORM we were forced to use. First, we fought for weeks to avoid an even worst code generator. It was generating sort of 3-layers code, reading the dictionary of known keywords to search them in the input file! Layers were resumed to CRUD WebForm pages, with one Biz and one Db classes, completely coupled. In brief, a nightmare.</p>
+<p>Then, another project came with its in-house sort of ORM, the manager wanted to use this library. We thought we were safe...but not really. There was also a code generator producing one class per SQL table, with weird methods to navigate through relations. And don't ask why not NHibernate (open source...).</p>
+<h2>First architecture</h2>
+<img alt="Classic 3-tiers architecture: UI/Business/Data Access" src="/images/3-tier-arch.png" class="img-float-right"/>
+<p>I learned in my first year that we had to do <strong>3-tiers layered architecture</strong>: one layer for presentation, one for business logic and one for data access. I was reading dotnetguru.org (a french web site focused on architecture), this architecture seemed to be "state of the art" back in 2005.</p>
+<p>I especially focused abstractions between layers (with interfaces), especially on independance of Business Logic Layer (BLL) from the ORM with the Data Access Layer (DAL). I messed up a bit using interfaces on Business Objects also, everything had an interface, a bit too much. I did not know about DI/IoC at this time (don"t really know when was released first container for .NET), and the choice I made was terrible: an abstract factory with implementation defined as a singleton, defining an accessor for each interfaces. It was both highly decoupled (lots of interfaces) AND coupled (no dependency inversion, use of this singleton abstract factory for all interfaces). It was merely not testable.</p>
+<p>I knew that we should have done unit testing (not talking of TDD...), I tested NUnit, but I really struggled to find a way to use it "properly". With all the issue to solve to set up the architecture, I have to rue the day I gave up on this point...</p>
+<p>I did not mention an implementation detail of Data Access Layer, I was scared by stored procedures. First, I had very bad (one year) experience with them, everything was coded in stored procedures in applications I worked on (with hundreds of SQL code in one stored proc). Second, it was not compatible with my understanding of ORM. At this time, I thought we had to load objects in memory, and I systematically avoided premature optimization, the main argument people were choosing stored procedure. In the end, I was a bit too much extreme not using stored procedures at all.</p>
+<h2>Delivery process</h2>
+<img alt="Cruise control tray logo" src="/images/cruisecontrol.net.png" class="img-float-left"/>
+<p>I remember this week I set up continuous integration server (CruiseControl.NET). Yes, there was no tests to run, but we used it to compile and deliver on a demo site constantly available, sort of "continuous delivery". We could demonstrate new features to users.</p>
+<p>For production delivery, we choosed Big Bang strategy on a minimal subset of the project, with a 6 months delay to deliver a first version, used by few administrative users at start. Then, it took 6 months more to deliver a first milestone to deliver all around the world with huge data migration from Notes. This production delivery was a bit painful, with lots of manual steps and human errors prone, but we delivered on time.</p>
+<p>After this first release, the goal was to release more frequently, once a month. It was a revolution in the company. Sometimes we heard that our software was crappy to deliver on this pace. I just precise that there were new features in addition of (quicker) bug fixes. We needed to automate some steps to secure the delivery process, even if we were far from automated release.</p>
+<h2>Team organisation evolution</h2>
+<img alt="Growing team" src="/images/growing-team.png" class="img-float-right"/>
+<p>To start the project, we were 4 developpers including 1 internship (a very productive guy BTW!). We hired 2 other developers during the first year. I then faced the challenges of recruiting developers and keeping homogeneous practices and code.</p>
+<p>Our recruting process was quite simple based on interviews, mostly based on how people react in some situations, and few technical questions. Our biggest issue was to evaluate technical skills and how people were practicing.</p>
+<h2>First time I quit the project</h2>
+<p>The delivery was considered successful, business team was happy of their product, and we were happy of that, I think <strong>being Agile was a key</strong>.</p>
+<p>On technical side, there were some perfectible topics, but we were also quite satisfied. We mainly struggled with the in-house ORM constraint and with lack of knowledge on OOP practices (like SOLID).</p>
+<p>I quit the project 3 months after the first "release to the world", leaving the technical lead to one of the original team member. My next contract was with the same functional leader around quality and methodology, but at the whole IT scale.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/en/blog/2017/11-history-of-a-monolith-part1/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+</body>
+
+</html>

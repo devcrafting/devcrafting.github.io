@@ -4,6 +4,16 @@
     <link>http://www.devcrafting.com</link>
     <description>Articles about software craftsmanship, Agile, software architecture and design</description>
     <item>
+      <title>History of a monolith: genesis</title>
+      <link>http://www.devcrafting.com/en/blog/2017/11-history-of-a-monolith-part1/</link>
+      <guid>http://www.devcrafting.com/en/blog/2017/11-history-of-a-monolith-part1/</guid>
+      <pubDate>Mon, 06 Nov 2017 23:00:00 GMT</pubDate>
+      <description>&lt;p&gt;I would like to share an experience I started at the end of 2005 and I followed in time up to now (in 2017). In 2005, the team I was working in (3 persons) started a from-scratch rebuild of a legacy Notes application. Today, it is a huge monolith application with lots of legacy code, having several issues these kind of application have. My goal is to retrospect its history, to hightlight impacts of some choices and then try to find solutions.&lt;/p&gt;
+
+
+</description>
+    </item>
+    <item>
       <title>Functional architecture and hexagonal architecture - Introducing bind, Monad and Continuation Expressions</title>
       <link>http://www.devcrafting.com/en/blog/2017/08-functional-architecture-part3/</link>
       <guid>http://www.devcrafting.com/en/blog/2017/08-functional-architecture-part3/</guid>
