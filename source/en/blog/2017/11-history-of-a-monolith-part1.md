@@ -2,7 +2,7 @@ History of a monolith: genesis
 ==============================
 
 - uniquekey: history-of-a-monolith-part1
-- date: 2017-06-15
+- date: 2017-11-07
 - tags: legacy,architecture
 
 -------------------------------
@@ -13,7 +13,7 @@ I would like to share an experience I started at the end of 2005 and I followed 
 
 ## Context
 
-<img alt="Green field illustrating our context" src="" class="img-float-left"/>
+<img alt="Green field illustrating our context - everything to be done in a fertile world" src="/images/greenfield.jpg" class="img-float-right"/>
 
 For this full-rebuild, a small team of 3 developers and 1 functional team leader was set up. I was in charge of technical choices (architecture, technologies, tools...), even if I had only 1 year experience (but a great year with lots of technical insights and learning! Many thanks to [Antoine](https://twitter.com/lamouetterieuse)).
 
@@ -25,6 +25,8 @@ On technical aspects, we had **some technical constraints** by the team leader's
 
 ## Technical constraints
 
+<img alt="Ball and chain representing constraints" src="/images/ball-and-chain.jpg" class="img-float-left"/>
+
 .NET 2.0 was just out (with VS2005). The mainstream way of doing Web was ASP.NET WebForms
 .NET (2.0) and then WebForms. We were not enough mature to start with alternatives like first MVC implementation in open source library. By the way, managers would not had let us use it :/ (you know "we can't trust open source"...).
 
@@ -33,6 +35,8 @@ But it was "nice" constraints compared to the in-house "sort of" ORM we were for
 Then, another project came with its in-house sort of ORM, the manager wanted to use this library. We thought we were safe...but not really. There was also a code generator producing one class per SQL table, with weird methods to navigate through relations. And don't ask why not NHibernate (open source...).
 
 ## First architecture
+
+<img alt="Classic 3-tiers architecture: UI/Business/Data Access" src="/images/3-tier-arch.png" class="img-float-right"/>
 
 I learned in my first year that we had to do **3-tiers layered architecture**: one layer for presentation, one for business logic and one for data access. I was reading dotnetguru.org (a french web site focused on architecture), this architecture seemed to be "state of the art" back in 2005.
 
@@ -44,6 +48,8 @@ I did not mention an implementation detail of Data Access Layer, I was scared by
 
 ## Delivery process
 
+<img alt="Cruise control tray logo" src="/images/cruisecontrol.net.png" class="img-float-left"/>
+
 I remember this week I set up continuous integration server (CruiseControl.NET). Yes, there was no tests to run, but we used it to compile and deliver on a demo site constantly available, sort of "continuous delivery". We could demonstrate new features to users.
 
 For production delivery, we choosed Big Bang strategy on a minimal subset of the project, with a 6 months delay to deliver a first version, used by few administrative users at start. Then, it took 6 months more to deliver a first milestone to deliver all around the world with huge data migration from Notes. This production delivery was a bit painful, with lots of manual steps and human errors prone, but we delivered on time.
@@ -51,6 +57,8 @@ For production delivery, we choosed Big Bang strategy on a minimal subset of the
 After this first release, the goal was to release more frequently, once a month. It was a revolution in the company. Sometimes we heard that our software was crappy to deliver on this pace. I just precise that there were new features in addition of (quicker) bug fixes. We needed to automate some steps to secure the delivery process, even if we were far from automated release.
 
 ## Team organisation evolution
+
+<img alt="Growing team" src="/images/growing-team.png" class="img-float-right"/>
 
 To start the project, we were 4 developpers including 1 internship (a very productive guy BTW!). We hired 2 other developers during the first year. I then faced the challenges of recruiting developers and keeping homogeneous practices and code.
 
