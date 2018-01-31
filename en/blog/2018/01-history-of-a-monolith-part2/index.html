@@ -1,0 +1,219 @@
+---
+
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="description" content="DevCrafting web site & blog, about all sort of things around software development">
+	<meta name="author" content="Clément Bouillier">
+	<meta rel="canonical" href="/en/blog/2018/01-history-of-a-monolith-part2/" />
+	<link rel="icon" type="image/png" href="/images/devCraftingFavIcon.png">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/styles/custom.css" />
+	<link rel="stylesheet" href="/styles/FSharpFormatting/style.css" />
+	<title>History of a monolith: organisation evolution over the years - DevCrafting</title>
+
+	 
+</head>
+
+<body>
+	<div id="cookie-banner" style="display:none;">
+		<div id="cookie-banner-message">
+			Ce site utilise Google Analytics. En continuant à naviguer, vous nous autorisez à déposer un cookie à des fins de mesure
+			d'audience.
+			<a href="javascript:tagAnalyticsCNIL.CookieConsent.showInform()">En savoir plus ou s'opposer</a>.
+		</div>
+	</div>
+	<div id="inform-and-ask" style="display:none;">
+		<div id="inform-and-consent">
+			<div><b>Les cookies Google Analytics</b></div>
+			<div>
+                Ce site utilise des cookies de Google Analytics, ces cookies nous aident à identifier le contenu qui vous interesse le
+				plus ainsi qu'à repérer certains dysfonctionnements. Vos données de navigations sur ce site sont envoyées à Google Inc.
+            </div>
+			<div>
+                <button id="optout-button" name="optout" onclick="tagAnalyticsCNIL.CookieConsent.gaOptout();">S'opposer</button>
+				<button name="cancel" onclick="tagAnalyticsCNIL.CookieConsent.hideInform()">Accepter</button>
+            </div>
+        </div>
+        <div id="aknowledge-optout" style="display:none">
+            Nous avons bien pris en compte votre souhait de ne pas envoyer vos données de navigation à Google Inc.<br/>
+            <small>NB: ce message va s'effacer tout seul au bout de 5 secondes.</small>
+        </div>
+	</div>
+	<header>
+		<nav class="navbar navbar-devcrafting">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#dc-navbar-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="/en/">
+						<img class="devcrafting-small-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkSmall.png" />
+						<img class="devcrafting-big-logo" alt="DevCrafting" src="/images/devCraftingLogoDarkTiny.png" />
+					</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="dc-navbar-collapse">
+					<ul class="nav navbar-nav">
+						 
+						<li><a href="/en/services/">Services</a></li>
+						  
+						<li><a href="/en/blog/">Blog</a></li>
+						  
+						<li><a href="/en/contact/">Contact</a></li>
+						 
+					</ul>
+					<div class="navbar-right">
+						<p class="social-links">
+							<a class="fa fa-twitter" title="Twitter @clem_bouillier" href="https://twitter.com/clem_bouillier"></a>
+							<a class="fa fa-github" title="GitHub @devcrafting" href="https://github.com/devcrafting"></a>
+							<a class="fa fa-linkedin" title="Linked In" href="https://www.linkedin.com/in/clementbouillier"></a>
+							<a class="fa fa-rss" title="RSS en" href="/en/rss.xml"></a>
+						</p>
+						
+						<p class="lang-switcher">
+							<span class="lang-mobile-only">Lang:</span> 
+							<a href="/en/blog/2018/01-history-of-a-monolith-part2/">EN</a> 
+						</p>
+						
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-9">
+				
+<article itemscope itemtype="http://schema.org/Article">
+    <h1 itemprop="headline">History of a monolith: organisation evolution over the years</h1>
+    <div class="row">
+        <div class="col-sm-6 col-md-6" itemprop="keywords">
+            <span class="fa fa-tags"></span>
+            
+                <a href="/en/tag/legacy/" class="label label-default">legacy</a>
+            
+                <a href="/en/tag/agile/" class="label label-default">agile</a>
+            
+            <span class="fa fa-comments"></span>
+<a href="http://www.devcrafting.com/en/blog/2018/01-history-of-a-monolith-part2/#disqus_thread">Leave a comment</a>
+
+        </div>
+        <div class="devcrafting-mobile-text-right col-sm-6 col-md-6">
+            <!-- TODO: nb comments + link => Disqus -->
+            <span class="fa fa-clock-o"></span>
+            <time itemprop="datePublished" datetime="2018-01-31T00:00:00.0000000">
+            Wednesday, January 31, 2018
+            </time>
+        </div>
+    </div>
+    <div class="devcrafting-article-body" itemprop="articleBody">
+    <p>In the <a href="/en/blog/2017/11-history-of-a-monolith-part1/">first part of this series</a>, I focused on the genesis of the monolith we started at the end of 2005. I left the project in early 2007. It was planned to grow quickly, then the team would have to adapt (in size and more...). I came back on the project in 2009, this post highlights new challenges we faced from organisational point of view, evolution we made (lots of experiments) and consequences until 2012 when I left again.</p>
+<h2>Back on board</h2>
+<img alt="Noah's ark illustrating re-integration of the team" src="/images/noah-ark.png" class="img-float-left"/>
+<p>In 2009, I came back in a team of 12 developers, whereas 2 years before, I left a team of 6 developers. It doubled in 2 years!</p>
+<p>The recruiting had been quite hard, with some issues to find people with the "right enough" technical skills. The team added a new interview process: one hour prepared questions and then discussions with a team member on their answers. Questions were based on code taken from "bad examples" found in the application source code. It allowed to better qualify technical skills, but it was also harder to find people, we had to limit our expectations to be able to onboard new developers.</p>
+<p>We could wonder if we were not recruiting too many developers. Still there was lots of expectations on new features to add and to expand and integrate with other applications of the company.</p>
+<h2>Far less agile...</h2>
+<img alt="Illustrate an agile team working together" src="/images/together.jpg" class="img-float-left"/>
+<p>The team leader was doing the interface/proxy for every developers with the business team. Given the team size and heterogeneousness of people communication skills, he thought it was simpler to proxy, even if developers were still allowed/encouraged to contact the business team. By the way, it was not natural to developers, I remark people tend to prefer to hide behind someone and just keep developing what the manager ask for. I even already heard that from several developers! He was under high pressure. He could have hired business analysts, but it was not the model he has in mind. He was convinced that developers closer to business is better. By the way, it was time to release pressure and bottleneck.</p>
+<p>Since I started to read agile books in 2008 (and realized we were "sort of" agile back in 2005-2007), I proposed to experiment it. A key thing was developers had to face business people, to be much more involved in <strong>building the right product</strong>, and <strong>not just "building it right"</strong>. Then, the team leader had to take a position of coach to help developers in their new position. Practicing all of this was also new to me.</p>
+<p>We mainly struggled to find the right practices for a team of 12 persons. It was a bit too big to make planning pokers, daily meetings or retrospectives correctly. We adapted some practices, feeling it was agile to adapt to context. Managers were saying that maximum of 8 was written in the Scrum book, but we did not care. Even if we rejected the "by the book" approach, we should have considered issues we had as "weak signals".</p>
+<p>Retrospectively, I would say that we experienced some drawbacks of a monolith (more to come below). Also, we were "victim" of the <a href="http://melconway.com/Home/Conways_Law.html">Conway lay</a>: as a single big team, we tried to build one big application, i.e a monolith. We could have broken the team and the application in several pieces, it would have probably avoided the monolith and simplified agile practices. It does not mean that each sub-team would have been completely separated. We could have kept some synchronisation meetings to learn from each others.</p>
+<p>By the way, with our new organization and adaptative approach, we managed to deliver value to a very statisfied business team, so it was not so dark.</p>
+<h2>Slow and expensive delivery</h2>
+<img alt="Slow and expensive delivery" src="/images/slow-and-complex.png" class="img-float-left"/>
+<p>Delivery was more and more painful, because it needed lots of synchronisation between team members to gather what has to be delivered. We had no practices like Feature Flipping, but I am not sure it would have really simplified the delivery process (at this time).</p>
+<p>We were using TFS Version Control, and we avoided branches as much as possible. Branching was reserved for some "long-term"/isolated subjects. We tried to avoid such subjects also since it is really difficult to release them and it creates stocks of undelivered features. But even with few branches we had to do some merge and it was really painful.</p>
+<p>The monolith was hurting here. We worked a lot on automation of different tasks, it helped, but did not removed main issues due to monolith. Note we were not really aware of this potential root cause at this time.</p>
+<h2>Next: technical point of view...</h2>
+<p>I just described some issues we faced and tried to solve. I mostly linked it to the monolith we were growing years after years without knowing what was a monolith at this time. In the next post, I will expose some technical issues we had and solutions we found.</p>
+
+
+
+    </div>
+    <!-- DISQUS integration -->
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.url = 'http://www.devcrafting.com/en/blog/2018/01-history-of-a-monolith-part2/';
+    //this.page.identifier = PAGE_IDENTIFIER; 
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//devcrafting-1.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</article>
+<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+
+			</div>
+			<div class="col-sm-3">
+				<p>
+					<a class="twitter-timeline" data-theme="dark" data-link-color="#FAB81E" height="500" href="https://twitter.com/clem_bouillier">Tweets de Clément Bouillier</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<h4>Contact &amp; about</h4>
+					<p>This site is hosted on GitHub and is generated using <a href="https://github.com/tpetricek/FSharp.Formatting">F# Formatting</a> and <a href="http://dotliquidmarkup.org/">DotLiquid</a>. It was mostly inspired by <a href="http://tomasp.net">tomasp.net</a>,
+						created by <a href="https://github.com/tpetricek">Tomas Petricek</a>, with some F# code copied from <a href="https://github.com/tpetricek/tomasp.net">his site source code</a>.
+						For more info, see the <a href="https://github.com/devcrafting/devcrafting.github.io">website source on GitHub</a>.
+					</p>
+					<p>Please submit <a href="https://github.com/devcrafting/devcrafting.github.io/issues">issues &amp; corrections on GitHub</a>. Use <a href="https://github.com/devcrafting/devcrafting.github.io/pulls">pull requests</a> for minor corrections only.</p>
+					<ul>
+						<li><i class="fa fa-twitter"></i> Twitter: <a href="http://twitter.com/clem_bouillier">@clem_bouillier</a></li>
+						<li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/devcrafting">@devcrafting</a></li>
+						<li><i class="fa fa-envelope"></i> Email: <a href="mailto:clement.bouillier@devcrafting.com">clement.bouillier@devcrafting.com</a></li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<h4>License</h4>
+					<p>Unless explicitly mentioned, all articles on this site are licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution Share Alike</a>.
+						All source code samples are licensed under Apache 2.0.
+					</p>
+					<p style="text-align:center;margin-top:15px;"><img src="/images/cc-by-sa.png" alt="CC BY SA License logo" /></p>
+					<h4>Privacy</h4>
+					<a href="javascript:tagAnalyticsCNIL.CookieConsent.gaOptout()">Click here</a> to suppress audience measure tool from
+					Google.
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+	<script src="/scripts/main.js"></script>
+	<script src="/scripts/cookies.js"></script>
+	<script>
+        tagAnalyticsCNIL.CookieConsent = tagAnalyticsCNIL.CookieConsentBuilder('UA-52462933-1');
+        tagAnalyticsCNIL.CookieConsent.start();
+    </script>
+	<script id="dsq-count-scr" src="//devcrafting-1.disqus.com/count.js" async></script>
+
+</body>
+
+</html>
