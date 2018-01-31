@@ -2,8 +2,8 @@ History of a monolith: technical evolution with the rise of keywords
 ====================================================================
 
 - uniquekey: history-of-a-monolith-part2bis
-- date: 2017-07-15
-- tags: legacy,architecture,DDD
+- date: 2018-02-19
+- tags: legacy,architecture,DDD,CQRS,refactoring
 
 -------------------------------
 

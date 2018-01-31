@@ -1,5 +1,5 @@
-History of a monolith: organisation evolution through years
-===========================================================
+History of a monolith: organisation evolution over the years
+============================================================
 
 - uniquekey: history-of-a-monolith-part2
 - date: 2018-01-31
@@ -13,7 +13,7 @@ In the [first part of this series](/en/blog/2017/11-history-of-a-monolith-part1/
 
 ## Back on board
 
-<img alt="Arche de Noé???" src="" class="img-float-left"/>
+<img alt="Noah's ark illustrating re-integration of the team" src="/images/noah-ark.png" class="img-float-left"/>
 
 In 2009, I came back in a team of 12 developers, whereas 2 years before, I left a team of 6 developers. It doubled in 2 years!
 
@@ -23,7 +23,7 @@ We could wonder if we were not recruiting too many developers. Still there was l
 
 ## Far less agile...
 
-<img alt="" src="" class="img-float-left"/>
+<img alt="Illustrate an agile team working together" src="/images/together.jpg" class="img-float-left"/>
 
 The team leader was doing the interface/proxy for every developers with the business team. Given the team size and heterogeneousness of people communication skills, he thought it was simpler to proxy, even if developers were still allowed/encouraged to contact the business team. By the way, it was not natural to developers, I remark people tend to prefer to hide behind someone and just keep developing what the manager ask for. I even already heard that from several developers! He was under high pressure. He could have hired business analysts, but it was not the model he has in mind. He was convinced that developers closer to business is better. By the way, it was time to release pressure and bottleneck.
 
