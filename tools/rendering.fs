@@ -16,7 +16,7 @@ let rec listFiles root = seq {
     for d in Directory.GetDirectories(root) do
       yield! listFiles d }
 
-let processFile cfg (file:String) articleViewModel =
+let processFile cfg (file:String) (articleViewModel:ArticleViewModel) =
     printfn "Processing file: %s, layout %s" (file.Replace(cfg.SourceDir, "")) articleViewModel.Article.Layout
     let outFile = 
         let outFileTmp = cfg.OutputDir </> articleViewModel.Article.Url.Substring(1)
@@ -34,15 +34,24 @@ let copyFile cfg (file:String) =
 let generateTagPages cfg articles (navbar: IDictionary<string, NavbarItem list>) (translations: IDictionary<string, Dictionary<string, obj>>) = 
     articles
     |> Seq.collect (fun a -> a.Tags |> Seq.map (fun t -> { Title = t; Language = a.Language }, a))
-    |> Seq.groupBy fst
+    |> Seq.groupBy (fun t -> (fst t).Title.ToLower(), (fst t).Language)
+    |> Seq.sortBy fst
     |> Seq.map (fun tagWithArticles ->
-        let tag = fst tagWithArticles
+        let tag = snd tagWithArticles |> Seq.head |> fst
+        let otherTags = 
+            snd tagWithArticles
+            |> Seq.map fst
+            |> Seq.except [ tag ]
+            |> Seq.map (fun t -> sprintf "/%s/%s" t.Language t.Title)
+            |> Seq.distinct
+            |> Seq.toList
         let tagViewModel = { 
             Tag = tag
+            Article = { Article.Empty with RedirectFrom = otherTags }
             BlogPosts = snd tagWithArticles |> Seq.map snd |> Seq.sortByDescending (fun a -> a.Date) |> List.ofSeq
             Navbar = navbar.[tag.Language]
             Translations = translations.[tag.Language] }
-        printfn "Generate tag page for: %s" tagViewModel.Tag.Title
+        printfn "Generate tag page for: /%s/%s (+ %A)" tagViewModel.Tag.Language tagViewModel.Tag.Title tagViewModel.Article.RedirectFrom
         let outFile = cfg.OutputDir </> tagViewModel.Tag.Language </> "tag" </> tagViewModel.Tag.Title </> "index.html"
         ensureDirectory (Path.GetDirectoryName outFile)
         DotLiquid.transform outFile (cfg.LayoutsDir </> "tag.html") tagViewModel

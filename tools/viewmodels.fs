@@ -14,6 +14,7 @@ type ArticleViewModel = {
 
 type TagViewModel = {
     Tag: Tag
+    Article: Article<string>
     BlogPosts: Article<string> list
     Navbar: NavbarItem list
     Translations: IDictionary

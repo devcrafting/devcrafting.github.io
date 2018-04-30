@@ -52,6 +52,11 @@ type Article<'T> =
           Title = x.Title; ShortTitle = x.ShortTitle; Comments = x.Comments
           Abstract = abs; Date = x.Date; Body = body; Tags = x.Tags; Language = x.Language
           Type = x.Type; Layout = x.Layout; Hidden = x.Hidden; RedirectFrom = x.RedirectFrom }
+    static member Empty =
+        { UniqueKey = ""; Url = ""; CompleteUrl = ""; 
+          Title = ""; ShortTitle = ""; Comments = { CountWidget = ""; DisplayWidget = ""; ScriptWidget = "" }
+          Abstract = ""; Date = DateTime.Now; Body = ""; Tags = []; Language = ""
+          Type = None; Layout = ""; Hidden = false; RedirectFrom = [] }
 
 type File =
 | Content of string
