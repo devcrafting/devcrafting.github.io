@@ -3,7 +3,7 @@ History of a monolith: genesis
 
 - uniquekey: history-of-a-monolith-part1
 - date: 2017-11-07
-- tags: legacy,architecture
+- tags: legacy,architecture,history-of-a-monolith
 
 -------------------------------
 

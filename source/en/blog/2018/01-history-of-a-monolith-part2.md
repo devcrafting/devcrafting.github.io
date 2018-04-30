@@ -3,7 +3,7 @@ History of a monolith: organisation evolution over the years
 
 - uniquekey: history-of-a-monolith-part2
 - date: 2018-01-31
-- tags: legacy,agile
+- tags: legacy,agile,history-of-a-monolith
 
 -------------------------------
 

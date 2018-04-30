@@ -3,7 +3,7 @@ History of a monolith: technical evolution with the rise of keywords
 
 - uniquekey: history-of-a-monolith-part2bis
 - date: 2018-02-26
-- tags: legacy,architecture,DDD,CQRS,refactoring
+- tags: legacy,architecture,DDD,CQRS,refactoring,history-of-a-monolith
 
 -------------------------------
 
@@ -59,4 +59,4 @@ Cache is a typical solution we find in lots of monolithic applications. Again, i
 
 ## Then I quit again...
 
-Leaving Paris to Lyon, I quit the project in March 2012. The team was around 15 developers at this time, and it was promised to grow quickly again with new features to add...still, it was not my last comeback. Did the monolith keep growing? Story to be continued in another post...
+Leaving Paris to Lyon, I quit the project in March 2012. The team was around 15 developers at this time, and it was promised to grow quickly again with new features to add...still, it was not my last comeback. Did the monolith keep growing? Story to be continued in [another post](history-of-a-monolith-part3)...
