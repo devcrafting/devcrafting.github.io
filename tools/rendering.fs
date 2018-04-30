@@ -42,7 +42,7 @@ let generateTagPages cfg articles (navbar: IDictionary<string, NavbarItem list>)
             snd tagWithArticles
             |> Seq.map fst
             |> Seq.except [ tag ]
-            |> Seq.map (fun t -> sprintf "/%s/tag/%s" t.Language t.Title)
+            |> Seq.map (fun t -> sprintf "/%s/tag/%s/" t.Language t.Title)
             |> Seq.distinct
             |> Seq.toList
         let tagViewModel = { 
